@@ -37,28 +37,60 @@ function App() {
           gap: "var(--s-03)",
         }}
       >
-        <Typography as="h1" kind="h1">
+        <Typography
+          as="h1"
+          kind="h1"
+          props={{ contentEditable: true }}
+        >
           Header 1
         </Typography>
-        <Typography as="h2" kind="h2">
+        <Typography
+          as="h2"
+          kind="h2"
+          props={{ contentEditable: true }}
+        >
           Header 2
         </Typography>
-        <Typography as="h3" kind="h3">
+        <Typography
+          as="h3"
+          kind="h3"
+          props={{ contentEditable: true }}
+        >
           Header 3
         </Typography>
-        <Typography as="strong" kind="sub">
+        <Typography
+          as="strong"
+          kind="sub"
+          props={{ contentEditable: true }}
+        >
           Subtitle
         </Typography>
-        <Typography as="p" kind="p">
+        <Typography
+          as="p"
+          kind="p"
+          props={{ contentEditable: true }}
+        >
           Paragraph
         </Typography>
-        <Typography as="p" kind="label">
+        <Typography
+          as="p"
+          kind="label"
+          props={{ contentEditable: true }}
+        >
           Label
         </Typography>
-        <Typography as="p" kind="code">
+        <Typography
+          as="p"
+          kind="code"
+          props={{ contentEditable: true }}
+        >
           Code {"{ }"}
         </Typography>
-        <Typography as="p" kind="button">
+        <Typography
+          as="p"
+          kind="button"
+          props={{ contentEditable: true }}
+        >
           Button
         </Typography>
       </div>
