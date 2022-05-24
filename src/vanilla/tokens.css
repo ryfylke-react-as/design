@@ -1,0 +1,33 @@
+:root {
+  /** Spacing */
+  --s-01: 0.125rem;
+  --s-02: 0.25rem;
+  --s-03: 0.5rem;
+  --s-04: 0.75rem;
+  --s-05: 1rem;
+  --s-06: 1.5rem;
+  --s-07: 2rem;
+  --s-08: 2.5rem;
+  --s-09: 3rem;
+  --s-10: 4rem;
+  --spacing-01: var(--s-01);
+  --spacing-02: var(--s-02);
+  --spacing-03: var(--s-03);
+  --spacing-04: var(--s-04);
+  --spacing-05: var(--s-05);
+  --spacing-06: var(--s-06);
+  --spacing-07: var(--s-07);
+  --spacing-08: var(--s-08);
+  --spacing-09: var(--s-09);
+  --spacing-10: var(--s-10);
+
+  /** Border radius **/
+  --roundness: 3px;
+
+  /** Colors **/
+  --c-focus: #6a38ff;
+  --c-ui-01: #f8f8f8;
+  --c-ui-02: #e4e4e4;
+  --c-ui-03: #707574;
+  --c-ui-04: #3a403f;
+}
