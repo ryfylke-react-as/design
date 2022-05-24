@@ -42,8 +42,12 @@ const StyledInput = styled.input<StyledProps>`
   outline-offset: -1px;
   transition: outline 0.1s ease-in;
   height: 36px;
+  width: 200px;
   &:hover {
     outline: 1px solid var(--c-ui-02);
+  }
+  &::placeholder {
+    color: var(--c-ui-03);
   }
   ${applyFocusStyles}
   ${applyFontKind("p")}
