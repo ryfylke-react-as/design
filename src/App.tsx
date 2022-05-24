@@ -10,9 +10,7 @@ function App() {
   const [emailVal, setEmailVal] = useState("");
   const emailIsValid =
     emailVal === "" ||
-    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-      emailVal
-    );
+    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailVal);
   return (
     <div
       style={
