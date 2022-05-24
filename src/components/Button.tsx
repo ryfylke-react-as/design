@@ -35,9 +35,9 @@ type StyledProps = {
 
 const KIND_TO_BG: Record<ButtonKind, string> = {
   regular: "var(--c-ui-03)",
-  danger: "#A81B3D",
+  danger: "var(--c-danger)",
   ghost: "transparent",
-  primary: "#1BA886",
+  primary: "var(--c-primary)",
 };
 
 const KIND_TO_CONTRAST: Record<ButtonKind, string> = {

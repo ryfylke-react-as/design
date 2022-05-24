@@ -12,17 +12,33 @@ interface TextInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
   kind?: TextInputKind;
   label?: string;
+  invalid?: string;
+  type?: "password" | "email" | "search" | "url" | "text";
 }
 
 export function TextInput({
   kind = "regular",
+  type = "text",
   children,
   label,
+  invalid,
+  style,
+  className,
   ...rest
 }: TextInputProps) {
   return (
-    <FormGroup label={label}>
-      <StyledInput kind={kind} type="text" {...rest}>
+    <FormGroup
+      label={label}
+      invalid={invalid}
+      style={style}
+      className={className}
+    >
+      <StyledInput
+        kind={kind}
+        invalid={invalid ? true : false}
+        type={type}
+        {...rest}
+      >
         {children}
       </StyledInput>
     </FormGroup>
@@ -31,6 +47,7 @@ export function TextInput({
 
 type StyledProps = {
   kind: TextInputKind;
+  invalid: boolean;
 };
 
 const StyledInput = styled.input<StyledProps>`
@@ -46,6 +63,14 @@ const StyledInput = styled.input<StyledProps>`
   &:hover {
     outline: 1px solid var(--c-ui-02);
   }
+  ${(props) =>
+    props.invalid &&
+    `
+      outline: 1px solid var(--c-danger);
+    &:hover {
+        outline: 1px solid var(--c-danger);
+    }
+  `}
   &::placeholder {
     color: var(--c-ui-03);
   }

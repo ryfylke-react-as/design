@@ -5,36 +5,55 @@ import { applyFontKind } from "../styled-utils";
 type FormGroupProps = {
   label: ReactNode;
   children: ReactNode;
-  labelProps?: LabelHTMLAttributes<HTMLLabelElement>;
-};
+  invalid?: string;
+} & LabelHTMLAttributes<HTMLLabelElement>;
 
 export function FormGroup({
   label,
   children,
-  labelProps = {},
+  invalid,
+  ...labelProps
 }: FormGroupProps) {
-  return (
-    <StyledFormGroup>
-      {label ? (
-        <StyledLabel {...labelProps}>
-          {label}
-          <div>{children}</div>
-        </StyledLabel>
-      ) : (
-        children
-      )}
-    </StyledFormGroup>
+  return label ? (
+    <StyledLabel
+      invalid={invalid ? true : false}
+      {...labelProps}
+    >
+      {label}
+      <div>{children}</div>
+      {invalid ? <InvalidText>{invalid}</InvalidText> : ""}
+    </StyledLabel>
+  ) : (
+    <>{children}</>
   );
 }
 
-const StyledFormGroup = styled.div`
-  display: flex;
+const InvalidText = styled.span`
+  ${applyFontKind("label")}
+  color:var(--c-danger)
 `;
 
-const StyledLabel = styled.label`
+type LabelProps = {
+  invalid?: boolean;
+};
+
+const StyledLabel = styled.label<LabelProps>`
   ${applyFontKind("label")}
-  color:var(--c-ui-03);
+  color:${(props) =>
+    props.invalid ? "var(--c-danger)" : "var(--c-ui-03)"};
   display: flex;
   flex-direction: column;
   gap: var(--s-02);
+  width: min-content;
+  &:focus-within {
+    color: var(--c-focus);
+  }
+  > div {
+    width: min-content;
+  }
+  ${(props) =>
+    props.invalid &&
+    `
+      --c-focus: var(--c-danger);
+  `}
 `;
