@@ -6,6 +6,7 @@ import { Typography } from "./components/Typography";
 
 function App() {
   const [roundness, setRoundness] = useState(3);
+  const [rotation, setRotation] = useState(0);
   return (
     <div
       style={
@@ -15,6 +16,8 @@ function App() {
           justifyContent: "center",
           margin: "var(--s-10)",
           gap: "var(--s-01)",
+          transition: "transform 2s ease-in-out",
+          transform: `rotate(${rotation}deg)`,
           "--roundness": `${roundness}px`,
         } as CSSProperties
       }
@@ -99,13 +102,31 @@ function App() {
         style={{
           display: "flex",
           alignItems: "flex-end",
-          gap: "var(--s-01)",
+          gap: "var(--s-03)",
         }}
       >
-        <TextInput placeholder="Your email" label="Your email" />
+        <TextInput
+          placeholder="john-smith@gmail.com"
+          label="Your email"
+        />
         <Button kind="primary" size="field">
-          Subscribe
-        </Button>{" "}
+          Primary
+        </Button>
+        <Button
+          kind="danger"
+          size="field"
+          onClick={() => setRotation((p) => p + 6)}
+        >
+          Danger
+        </Button>
+        <Button size="field">Regular</Button>{" "}
+      </div>
+      <hr />
+      <div style={{ display: "flex", gap: "var(--s-03)" }}>
+        <Button size="sm">Small button</Button>{" "}
+        <Button size="field">Field button</Button>{" "}
+        <Button size="md">Medium button</Button>{" "}
+        <Button size="lg">Large button</Button>{" "}
       </div>
     </div>
   );
