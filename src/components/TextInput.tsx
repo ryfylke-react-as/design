@@ -4,23 +4,28 @@ import {
   applyFocusStyles,
   applyFontKind,
 } from "../styled-utils";
+import { FormGroup } from "./FormGroup";
 
 type TextInputKind = "regular" | "ghost";
 
 interface TextInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
   kind?: TextInputKind;
+  label?: string;
 }
 
 export function TextInput({
   kind = "regular",
   children,
+  label,
   ...rest
 }: TextInputProps) {
   return (
-    <StyledInput kind={kind} type="text" {...rest}>
-      {children}
-    </StyledInput>
+    <FormGroup label={label}>
+      <StyledInput kind={kind} type="text" {...rest}>
+        {children}
+      </StyledInput>
+    </FormGroup>
   );
 }
 
@@ -41,5 +46,5 @@ const StyledInput = styled.input<StyledProps>`
     outline: 1px solid var(--c-ui-02);
   }
   ${applyFocusStyles}
-  ${applyFontKind("label")}
+  ${applyFontKind("p")}
 `;
