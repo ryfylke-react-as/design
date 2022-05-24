@@ -34,24 +34,24 @@ type StyledProps = {
 };
 
 const KIND_TO_BG: Record<ButtonKind, string> = {
-  regular: "#f4f4f4",
+  regular: "var(--c-ui-03)",
   danger: "#A81B3D",
   ghost: "transparent",
   primary: "#1BA886",
 };
 
 const KIND_TO_CONTRAST: Record<ButtonKind, string> = {
-  regular: "#000",
+  regular: "#fff",
   danger: "#fff",
   ghost: "#000",
   primary: "#fff",
 };
 
 const SIZE_TO_HEIGHT: Record<ButtonSize, string> = {
-  md: "auto",
-  lg: "2rem",
+  md: "42px",
+  lg: "var(--s-09)",
   field: "36px",
-  sm: "1rem",
+  sm: "2rem",
 };
 
 const StyledButton = styled.button<StyledProps>`
