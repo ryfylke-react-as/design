@@ -9,7 +9,7 @@ function App() {
         alignItems: "center",
         justifyContent: "center",
         padding: "var(--s-10)",
-        gap: "0",
+        gap: "var(--s-01)",
       }}
     >
       <TextInput placeholder="Your email" />

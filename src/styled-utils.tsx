@@ -9,11 +9,6 @@ export const applyFocusStyles = css`
     outline: 2px solid var(--c-focus);
     outline-offset: 1px;
     position: relative;
-    & + button,
-    & + input,
-    & + select {
-      margin-left: 3px;
-    }
   }
 `;
 
