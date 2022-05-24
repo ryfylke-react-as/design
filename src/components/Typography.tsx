@@ -1,10 +1,4 @@
-import {
-  ElementType,
-  HTMLAttributes,
-  ReactNode,
-  useCallback,
-  useMemo,
-} from "react";
+import { ElementType, ReactNode } from "react";
 import styled from "styled-components";
 import { applyFontKind } from "../styled-utils";
 import { FontKind } from "../types";
