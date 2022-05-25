@@ -1,38 +1,85 @@
-import { CSSProperties, useState } from "react";
+import { ElementType, useState } from "react";
+import styled from "styled-components";
 import { Button } from "./components/Button";
 import { FormGroup } from "./components/FormGroup";
 import { TextInput } from "./components/TextInput";
 import { Typography } from "./components/Typography";
+import { ButtonKind, ButtonSize, FontKind } from "./types";
 
 function App() {
   const [roundness, setRoundness] = useState(3);
-  const [rotation, setRotation] = useState(0);
   const [emailVal, setEmailVal] = useState("");
   const emailIsValid =
     emailVal === "" ||
     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailVal);
+
+  const typography: Array<{
+    as: ElementType;
+    kind: FontKind;
+    text: string;
+  }> = [
+    { as: "h1", kind: "h1", text: "Header 1" },
+    { as: "h2", kind: "h2", text: "Header 2" },
+    { as: "h3", kind: "h3", text: "Header 3" },
+    { as: "strong", kind: "sub", text: "Subtitle" },
+    { as: "p", kind: "p", text: "Paragraph" },
+    { as: "p", kind: "label", text: "Label" },
+    { as: "p", kind: "code", text: "CODE { }" },
+    { as: "p", kind: "button", text: "Button" },
+  ];
+
+  const buttonKinds: Array<{
+    kind: ButtonKind;
+    text: string;
+  }> = [
+    {
+      kind: "primary",
+      text: "Primary",
+    },
+    {
+      kind: "danger",
+      text: "Danger",
+    },
+    {
+      kind: "regular",
+      text: "Regular",
+    },
+    {
+      kind: "ghost",
+      text: "Ghost",
+    },
+  ];
+
+  const buttonSizes: Array<{
+    size: ButtonSize;
+    text: string;
+  }> = [
+    {
+      size: "sm",
+      text: "Small",
+    },
+    {
+      size: "field",
+      text: "Field",
+    },
+    {
+      size: "md",
+      text: "Medium",
+    },
+    {
+      size: "lg",
+      text: "Large",
+    },
+  ];
+
   return (
-    <div
-      style={
-        {
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          margin: "var(--s-10) auto",
-          gap: "var(--s-01)",
-          transition: "transform 2s ease-in-out",
-          transform: `rotate(${rotation}deg)`,
-          "--roundness": `${roundness}px`,
-          maxWidth: 1000,
-        } as CSSProperties
-      }
-    >
+    <Container>
       <FormGroup
         label="Roundness"
         style={{
           position: "fixed",
-          top: 0,
-          right: 0,
+          top: "var(--s-05)",
+          right: "var(--s-05)",
         }}
       >
         <input
@@ -55,125 +102,44 @@ function App() {
       <Typography
         as="h2"
         kind="h2"
-        props={{ style: { margin: "var(--s-05) 0" } }}
+        props={{
+          id: "typography",
+        }}
       >
         Typography
       </Typography>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "var(--s-03)",
-          padding: "var(--s-05)",
-          background: "var(--c-ui-01)",
-        }}
-      >
-        <Typography
-          as="h1"
-          kind="h1"
-          props={{ contentEditable: true }}
-        >
-          Header 1
-        </Typography>
-        <Typography
-          as="h2"
-          kind="h2"
-          props={{ contentEditable: true }}
-        >
-          Header 2
-        </Typography>
-        <Typography
-          as="h3"
-          kind="h3"
-          props={{ contentEditable: true }}
-        >
-          Header 3
-        </Typography>
-        <Typography
-          as="strong"
-          kind="sub"
-          props={{ contentEditable: true }}
-        >
-          Subtitle
-        </Typography>
-        <Typography
-          as="p"
-          kind="p"
-          props={{ contentEditable: true }}
-        >
-          Paragraph
-        </Typography>
-        <Typography
-          as="p"
-          kind="label"
-          props={{ contentEditable: true }}
-        >
-          Label
-        </Typography>
-        <Typography
-          as="p"
-          kind="code"
-          props={{ contentEditable: true }}
-        >
-          Code {"{ }"}
-        </Typography>
-        <Typography
-          as="p"
-          kind="button"
-          props={{ contentEditable: true }}
-        >
-          Button
-        </Typography>
-      </div>
-      <Typography
-        as="h2"
-        kind="h2"
-        props={{ style: { margin: "var(--s-05) 0" } }}
-      >
+      <VerticalDivide style={{ background: "var(--c-ui-01)" }}>
+        {typography.map((item) => (
+          <Typography
+            as={item.as}
+            kind={item.kind}
+            props={{ contentEditable: true }}
+          >
+            {item.text}
+          </Typography>
+        ))}
+      </VerticalDivide>
+      <hr />
+      <Typography as="h2" kind="h2">
         Button
       </Typography>
+      <Typography as="h3" kind="sub">
+        Kinds:
+      </Typography>
+      <HorizontalDivide style={{ background: "var(--c-ui-01)" }}>
+        {buttonKinds.map((item) => (
+          <Button kind={item.kind}>{item.text}</Button>
+        ))}
+      </HorizontalDivide>
+      <Typography as="h3" kind="sub">
+        Sizes:
+      </Typography>
+      <HorizontalDivide style={{ background: "var(--c-ui-01)" }}>
+        {buttonSizes.map((item) => (
+          <Button size={item.size}>{item.text}</Button>
+        ))}
+      </HorizontalDivide>
       <hr />
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-end",
-          gap: "var(--s-03)",
-          padding: "var(--s-05)",
-          background: "var(--c-ui-01)",
-        }}
-      >
-        <Button kind="primary" size="field">
-          Primary
-        </Button>
-        <Button
-          kind="danger"
-          size="field"
-          onClick={() => setRotation((p) => p + 6)}
-        >
-          Danger
-        </Button>
-        <Button size="field">Regular</Button>{" "}
-      </div>
-      <hr />
-      <div
-        style={{
-          display: "flex",
-          gap: "var(--s-03)",
-          padding: "var(--s-05)",
-          background: "var(--c-ui-01)",
-        }}
-      >
-        <Button size="sm">Small button</Button>{" "}
-        <Button size="field">Field button</Button>{" "}
-        <Button size="md">Medium button</Button>{" "}
-        <Button
-          size="lg"
-          kind="primary"
-          onClick={() => setRotation(0)}
-        >
-          Large (primary) button
-        </Button>{" "}
-      </div>
       <Typography
         as="h2"
         kind="h2"
@@ -181,14 +147,7 @@ function App() {
       >
         TextInput
       </Typography>
-      <div
-        style={{
-          display: "flex",
-          gap: "var(--s-04)",
-          flexDirection: "column",
-          padding: "var(--s-05)",
-        }}
-      >
+      <VerticalDivide>
         <TextInput placeholder="John Smith" label="Text input" />
         <TextInput
           placeholder="john-smith@gmail.com"
@@ -204,9 +163,44 @@ function App() {
           label="Password"
           type="password"
         />
-      </div>
-    </div>
+      </VerticalDivide>
+    </Container>
   );
 }
+
+const HorizontalDivide = styled.div`
+  display: flex;
+  gap: var(--s-03);
+  padding: var(--s-05);
+`;
+
+const VerticalDivide = styled(HorizontalDivide)`
+  flex-direction: column;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: var(--s-10) auto;
+  padding: 0 var(--s-05);
+  gap: var(--s-01);
+  max-width: 1000px;
+  > h2 {
+    margin: 1rem 0;
+  }
+  > h3 {
+    margin: 1rem 0;
+  }
+  > h2 + h3 {
+    margin-top: 0;
+  }
+  hr {
+    height: var(--s-05);
+    border: none;
+    background: transparent;
+    width: 100%;
+  }
+`;
 
 export default App;

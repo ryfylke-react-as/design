@@ -4,10 +4,7 @@ import {
   applyFocusStyles,
   applyFontKind,
 } from "../styled-utils";
-
-type ButtonKind = "regular" | "primary" | "danger" | "ghost";
-
-type ButtonSize = "sm" | "md" | "lg" | "field";
+import { ButtonKind, ButtonSize } from "../types";
 
 interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -68,6 +65,9 @@ const StyledButton = styled.button<StyledProps>`
     transition: background 0.1s ease-in-out;
     background: var(--c-ui-04);
     color: var(--c-ui-01);
+  }
+  &:active {
+    background: #000;
   }
   cursor: pointer;
   ${applyFocusStyles}
