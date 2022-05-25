@@ -1,4 +1,4 @@
-import { ElementType, useState } from "react";
+import { CSSProperties, ElementType, useState } from "react";
 import styled from "styled-components";
 import { Button } from "./components/Button";
 import { FormGroup } from "./components/FormGroup";
@@ -73,7 +73,11 @@ function App() {
   ];
 
   return (
-    <Container>
+    <Container
+      style={
+        { "--roundness": `${roundness}px` } as CSSProperties
+      }
+    >
       <FormGroup
         label="Roundness"
         style={{
@@ -108,7 +112,22 @@ function App() {
       >
         Typography
       </Typography>
-      <VerticalDivide style={{ background: "var(--c-ui-01)" }}>
+      <Typography as="div" kind="p">
+        <p>
+          We use the following font families: "Ubuntu", "Ubuntu
+          Mono" (code). Base font size is 16px.
+        </p>
+        <p>
+          Click any of the texts in the following box to edit
+          them:
+        </p>
+      </Typography>
+      <VerticalDivide
+        style={{
+          background: "var(--c-ui-01)",
+          marginTop: "var(--s-05)",
+        }}
+      >
         {typography.map((item) => (
           <Typography
             as={item.as}
@@ -123,6 +142,10 @@ function App() {
       <Typography as="h2" kind="h2">
         Button
       </Typography>
+      <Typography as="p" kind="p">
+        You can set the roundness of buttons and other components
+        using the slider at the top right corner of the page.
+      </Typography>
       <Typography as="h3" kind="sub">
         Kinds:
       </Typography>
@@ -131,6 +154,14 @@ function App() {
           <Button kind={item.kind}>{item.text}</Button>
         ))}
       </HorizontalDivide>
+      <Typography
+        as="p"
+        kind="label"
+        props={{ style: { color: "var(--c-danger)" } }}
+      >
+        (TODO: Create "Icon button" variant, fix up Ghost variant
+        hover/active states styles)
+      </Typography>
       <Typography as="h3" kind="sub">
         Sizes:
       </Typography>
@@ -147,7 +178,7 @@ function App() {
       >
         TextInput
       </Typography>
-      <VerticalDivide>
+      <VerticalDivide style={{ gap: "var(--s-06)" }}>
         <TextInput placeholder="John Smith" label="Text input" />
         <TextInput
           placeholder="john-smith@gmail.com"
