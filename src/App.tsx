@@ -8,6 +8,8 @@ import {
 import styled from "styled-components";
 import { Button } from "./components/Button";
 import { FormGroup } from "./components/FormGroup";
+import { Header } from "./components/Header";
+import { Text } from "./components/Text";
 import { TextInput } from "./components/TextInput";
 import { Typography } from "./components/Typography";
 import { ButtonKind, ButtonSize, FontKind } from "./types";
@@ -113,23 +115,13 @@ function App() {
           }
         />
       </FormGroup>
-      <Typography
-        as="h1"
-        kind="h1"
-        props={{ style: { margin: "var(--s-05) 0" } }}
-      >
-        Ryfre components
-      </Typography>
-      <Typography
-        as="h2"
-        kind="h2"
-        props={{
-          id: "typography",
-        }}
-      >
-        Typography
-      </Typography>
-      <Typography as="div" kind="p">
+      <Header order={1} id="top">
+        Ryfyre components
+      </Header>
+      <Header order={2} id="typography">
+        Button
+      </Header>
+      <Text as="div" kind="p">
         <p>
           We use the following font families: "Ubuntu", "Ubuntu
           Mono" (code). Base font size is 16px.
@@ -138,7 +130,7 @@ function App() {
           Click any of the texts in the following box to edit
           them:
         </p>
-      </Typography>
+      </Text>
       <VerticalDivide
         style={{
           background: "var(--c-ui-01)",
@@ -156,16 +148,13 @@ function App() {
         ))}
       </VerticalDivide>
       <hr />
-      <Typography as="h2" kind="h2">
-        Button
-      </Typography>
-      <Typography as="p" kind="p">
+      <Header order={2}>Button</Header>
+      <Text as="p" kind="p">
         You can set the roundness of buttons and other components
         using the slider at the top right corner of the page.
-      </Typography>
-      <Typography as="h3" kind="sub">
-        Kinds:
-      </Typography>
+      </Text>
+      {/* // @ts-ignore */}
+      <Header order={4}>Kinds:</Header>
       <HorizontalDivide style={{ background: "var(--c-ui-01)" }}>
         {buttonKinds.map((item) => (
           <Button kind={item.kind} icon={item?.icon}>
@@ -173,27 +162,21 @@ function App() {
           </Button>
         ))}
       </HorizontalDivide>
-      <Typography as="h3" kind="sub">
-        Sizes:
-      </Typography>
+      <Header order={4}>Sizes:</Header>
       <HorizontalDivide style={{ background: "var(--c-ui-01)" }}>
         {buttonSizes.map((item) => (
           <Button size={item.size}>{item.text}</Button>
         ))}
       </HorizontalDivide>
-      <Typography as="p" kind="label">
+      <Text as="p" kind="label">
         <strong>NOTE</strong>: Padding is equal on all sizes, but
         height is different and inner content is always
         vertically centered.
-      </Typography>
+      </Text>
       <hr />
-      <Typography
-        as="h2"
-        kind="h2"
-        props={{ style: { margin: "var(--s-05) 0" } }}
-      >
+      <Header order={2} style={{ margin: "var(--s-05) 0" }}>
         TextInput
-      </Typography>
+      </Header>
       <VerticalDivide style={{ gap: "var(--s-06)" }}>
         <TextInput placeholder="John Smith" label="Text input" />
         <TextInput
@@ -237,10 +220,12 @@ const Container = styled.div`
   > h2 {
     margin: 1rem 0;
   }
-  > h3 {
+  > h3,
+  h4 {
     margin: 1rem 0;
   }
-  > h2 + h3 {
+  > h2 + h3,
+  h2 + h4 {
     margin-top: 0;
   }
   hr {
