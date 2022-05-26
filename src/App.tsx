@@ -1,4 +1,4 @@
-import { Save, SaveAlt } from "@material-ui/icons";
+import { Check, Save, SaveAlt } from "@material-ui/icons";
 import {
   CSSProperties,
   ElementType,
@@ -11,6 +11,10 @@ import { FormGroup } from "./components/FormGroup";
 import { Header } from "./components/Header";
 import { Text } from "./components/Text";
 import { TextInput } from "./components/TextInput";
+import {
+  toast,
+  ToastProvider,
+} from "./components/ToastProvider";
 import { Typography } from "./components/Typography";
 import { ButtonKind, ButtonSize, FontKind } from "./types";
 
@@ -21,7 +25,7 @@ function App() {
     emailVal === "" ||
     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailVal);
 
-  const typography: Array<{
+  const typographyKinds: Array<{
     as: ElementType;
     kind: FontKind;
     text: string;
@@ -40,18 +44,30 @@ function App() {
     kind: ButtonKind;
     text: string;
     icon?: ReactNode;
+    onClick?: () => void;
   }> = [
     {
       kind: "primary",
       text: "Primary",
+      onClick: () =>
+        toast({
+          text: "Clicked primary button",
+          kind: "success",
+        }),
     },
     {
       kind: "danger",
       text: "Danger",
+      onClick: () =>
+        toast({
+          text: "Clicked danger button",
+          kind: "error",
+        }),
     },
     {
       kind: "regular",
       text: "Regular",
+      onClick: () => toast("Clicked regular button"),
     },
     {
       kind: "ghost",
@@ -66,6 +82,12 @@ function App() {
       kind: "primary",
       text: "",
       icon: <SaveAlt />,
+      onClick: () =>
+        toast({
+          text: "Saved!",
+          kind: "success",
+          icon: <Check />,
+        }),
     },
   ];
 
@@ -97,6 +119,7 @@ function App() {
         { "--roundness": `${roundness}px` } as CSSProperties
       }
     >
+      <ToastProvider location="topright" zIndex={500} />
       <FormGroup
         label="Roundness"
         style={{
@@ -116,10 +139,15 @@ function App() {
         />
       </FormGroup>
       <Header order={1} id="top">
-        Ryfyre components
+        Ryfyre-Components
       </Header>
+      <Text>
+        A collection of design-tokens (spacing, colors,
+        typography) and React components.
+      </Text>
+      <hr />
       <Header order={2} id="typography">
-        Button
+        Typography
       </Header>
       <Text as="div" kind="p">
         <p>
@@ -137,7 +165,7 @@ function App() {
           marginTop: "var(--s-05)",
         }}
       >
-        {typography.map((item) => (
+        {typographyKinds.map((item) => (
           <Typography
             as={item.as}
             kind={item.kind}
@@ -157,7 +185,11 @@ function App() {
       <Header order={4}>Kinds:</Header>
       <HorizontalDivide style={{ background: "var(--c-ui-01)" }}>
         {buttonKinds.map((item) => (
-          <Button kind={item.kind} icon={item?.icon}>
+          <Button
+            kind={item.kind}
+            icon={item?.icon}
+            onClick={item.onClick}
+          >
             {item.text}
           </Button>
         ))}
