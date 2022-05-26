@@ -1,4 +1,10 @@
-import { CSSProperties, ElementType, useState } from "react";
+import { Save, SaveAlt } from "@material-ui/icons";
+import {
+  CSSProperties,
+  ElementType,
+  ReactNode,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { Button } from "./components/Button";
 import { FormGroup } from "./components/FormGroup";
@@ -31,6 +37,7 @@ function App() {
   const buttonKinds: Array<{
     kind: ButtonKind;
     text: string;
+    icon?: ReactNode;
   }> = [
     {
       kind: "primary",
@@ -47,6 +54,16 @@ function App() {
     {
       kind: "ghost",
       text: "Ghost",
+    },
+    {
+      kind: "ghost",
+      text: "Ghost (with icon)",
+      icon: <Save />,
+    },
+    {
+      kind: "primary",
+      text: "",
+      icon: <SaveAlt />,
     },
   ];
 
@@ -151,17 +168,11 @@ function App() {
       </Typography>
       <HorizontalDivide style={{ background: "var(--c-ui-01)" }}>
         {buttonKinds.map((item) => (
-          <Button kind={item.kind}>{item.text}</Button>
+          <Button kind={item.kind} icon={item?.icon}>
+            {item.text}
+          </Button>
         ))}
       </HorizontalDivide>
-      <Typography
-        as="p"
-        kind="label"
-        props={{ style: { color: "var(--c-danger)" } }}
-      >
-        (TODO: Create "Icon button" variant, fix up Ghost variant
-        hover/active states styles)
-      </Typography>
       <Typography as="h3" kind="sub">
         Sizes:
       </Typography>
@@ -170,6 +181,11 @@ function App() {
           <Button size={item.size}>{item.text}</Button>
         ))}
       </HorizontalDivide>
+      <Typography as="p" kind="label">
+        <strong>NOTE</strong>: Padding is equal on all sizes, but
+        height is different and inner content is always
+        vertically centered.
+      </Typography>
       <hr />
       <Typography
         as="h2"
@@ -203,6 +219,7 @@ const HorizontalDivide = styled.div`
   display: flex;
   gap: var(--s-03);
   padding: var(--s-05);
+  flex-wrap: wrap;
 `;
 
 const VerticalDivide = styled(HorizontalDivide)`
@@ -231,6 +248,9 @@ const Container = styled.div`
     border: none;
     background: transparent;
     width: 100%;
+  }
+  p {
+    color: #444;
   }
 `;
 

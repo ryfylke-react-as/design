@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
 import {
   applyFocusStyles,
@@ -10,16 +10,25 @@ interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   kind?: ButtonKind;
   size?: ButtonSize;
+  /** Made for MUI-icons */
+  icon?: ReactNode;
 }
 
 export function Button({
   kind = "regular",
   size = "md",
   children,
+  icon,
   ...rest
 }: ButtonProps) {
   return (
-    <StyledButton kind={kind} size={size} {...rest}>
+    <StyledButton
+      kind={kind}
+      size={size}
+      type={rest?.type ?? "button"}
+      {...rest}
+    >
+      {icon ?? ""}
       {children}
     </StyledButton>
   );
@@ -51,6 +60,20 @@ const SIZE_TO_HEIGHT: Record<ButtonSize, string> = {
   sm: "2rem",
 };
 
+const SIZE_TO_GAP: Record<ButtonSize, string> = {
+  md: "var(--s-03)",
+  lg: "var(--s-03)",
+  field: "var(--s-03)",
+  sm: "var(--s-02)",
+};
+
+const SIZE_TO_ICON_SIZE: Record<ButtonSize, string> = {
+  md: "0.75em",
+  lg: "0.75em",
+  field: "0.75em",
+  sm: "0.55em",
+};
+
 const StyledButton = styled.button<StyledProps>`
   border: none;
   margin: 0;
@@ -61,6 +84,7 @@ const StyledButton = styled.button<StyledProps>`
   display: flex;
   align-items: center;
   height: ${(props) => SIZE_TO_HEIGHT[props.size]};
+  gap: ${(props) => SIZE_TO_GAP[props.size]};
   &:hover {
     transition: background 0.1s ease-in-out;
     background: var(--c-ui-04);
@@ -68,6 +92,12 @@ const StyledButton = styled.button<StyledProps>`
   }
   &:active {
     background: #000;
+    color: var(--c-ui-01);
+  }
+  > svg {
+    --size: ${(props) => SIZE_TO_ICON_SIZE[props.size]};
+    width: var(--size);
+    height: var(--size);
   }
   cursor: pointer;
   ${applyFocusStyles}
