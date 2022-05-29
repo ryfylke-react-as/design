@@ -1,59 +1,33 @@
-import { ReactNode, LabelHTMLAttributes } from "react";
+import { ReactNode } from "react";
 import styled from "styled-components";
-import { applyFontKind } from "../styled-utils";
+import { StyledButton } from "./Button";
+import { StyledLabel } from "./LabelGroup";
 
 type FormGroupProps = {
-  label: ReactNode;
-  children: ReactNode;
-  invalid?: string;
-} & LabelHTMLAttributes<HTMLLabelElement>;
+  invalid?: boolean | string;
+  children: ReactNode | ReactNode[];
+};
 
 export function FormGroup({
-  label,
-  children,
   invalid,
-  ...labelProps
+  children,
 }: FormGroupProps) {
-  return label ? (
-    <StyledLabel
-      invalid={invalid ? true : false}
-      {...labelProps}
-    >
-      {label}
-      <div>{children}</div>
-      {invalid ? <InvalidText>{invalid}</InvalidText> : ""}
-    </StyledLabel>
-  ) : (
-    <>{children}</>
+  return (
+    <StyledFormGroup invalid={invalid}>
+      {children}
+    </StyledFormGroup>
   );
 }
 
-const InvalidText = styled.span`
-  ${applyFontKind("label")}
-  color:var(--c-danger)
-`;
-
-type LabelProps = {
-  invalid?: boolean;
-};
-
-const StyledLabel = styled.label<LabelProps>`
-  ${applyFontKind("label")}
-  color:${(props) =>
-    props.invalid ? "var(--c-danger)" : "var(--c-ui-03)"};
+const StyledFormGroup = styled.div<FormGroupProps>`
   display: flex;
-  flex-direction: column;
-  gap: var(--s-02);
-  width: min-content;
-  &:focus-within {
-    color: var(--c-focus);
+  gap: var(--s-03);
+  align-items: flex-start;
+  ${StyledLabel} {
+    align-self: flex-start;
   }
-  > div {
-    width: min-content;
+  ${StyledButton} {
+    align-self: ${(props) =>
+      props.invalid ? "center" : "flex-end"};
   }
-  ${(props) =>
-    props.invalid &&
-    `
-      --c-focus: var(--c-danger);
-  `}
 `;

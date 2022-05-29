@@ -7,8 +7,9 @@ import {
 } from "react";
 import styled from "styled-components";
 import { Button } from "./components/Button";
-import { FormGroup } from "./components/FormGroup";
+import { LabelGroup } from "./components/LabelGroup";
 import { Header } from "./components/Header";
+import { Select } from "./components/Select";
 import { Text } from "./components/Text";
 import { TextInput } from "./components/TextInput";
 import {
@@ -17,10 +18,12 @@ import {
 } from "./components/ToastProvider";
 import { Typography } from "./components/Typography";
 import { ButtonKind, ButtonSize, FontKind } from "./types";
+import { FormGroup } from "./components/FormGroup";
 
 function App() {
   const [roundness, setRoundness] = useState(3);
   const [emailVal, setEmailVal] = useState("");
+  const [selectVal, setSelectVal] = useState("");
   const emailIsValid =
     emailVal === "" ||
     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailVal);
@@ -120,7 +123,7 @@ function App() {
       }
     >
       <ToastProvider location="topright" zIndex={500} />
-      <FormGroup
+      <LabelGroup
         label="Roundness"
         style={{
           position: "fixed",
@@ -137,7 +140,7 @@ function App() {
             setRoundness(parseFloat(e.target.value))
           }
         />
-      </FormGroup>
+      </LabelGroup>
       <Header order={1} id="top">
         Ryfyre-Components
       </Header>
@@ -206,9 +209,7 @@ function App() {
         vertically centered.
       </Text>
       <hr />
-      <Header order={2} style={{ margin: "var(--s-05) 0" }}>
-        TextInput
-      </Header>
+      <Header order={2}>TextInput</Header>
       <VerticalDivide style={{ gap: "var(--s-06)" }}>
         <TextInput placeholder="John Smith" label="Text input" />
         <TextInput
@@ -217,7 +218,9 @@ function App() {
           value={emailVal}
           onChange={(e) => setEmailVal(e.target.value)}
           invalid={
-            emailIsValid ? "" : "Please enter valid email"
+            emailIsValid
+              ? ""
+              : "Please enter valid email email email email email"
           }
         />
         <TextInput
@@ -226,6 +229,80 @@ function App() {
           type="password"
         />
       </VerticalDivide>
+      <hr />
+      <Header order={2}>Select</Header>
+      <HorizontalDivide>
+        <FormGroup
+          invalid={
+            ["", "no"].includes(selectVal)
+              ? ""
+              : "Latency too high! (180ms+)"
+          }
+        >
+          <Select
+            value={selectVal}
+            onChange={setSelectVal}
+            label="Closest server"
+            placeholder="No server selected"
+            invalid={
+              ["", "no"].includes(selectVal)
+                ? ""
+                : "Latency too high! (180ms+)"
+            }
+            options={[
+              {
+                id: "no",
+                text: "Norway",
+              },
+              {
+                id: "en",
+                text: "England",
+              },
+              {
+                id: "ir",
+                text: "Ireland",
+              },
+              {
+                id: "sw",
+                text: "Sweden",
+              },
+              {
+                id: "de",
+                text: "Denmark",
+              },
+              {
+                id: "fi",
+                text: "Finland",
+              },
+              {
+                id: "ge",
+                text: "Germany",
+              },
+              {
+                id: "ne",
+                text: "Netherlands",
+              },
+            ]}
+          />
+          <Button
+            onClick={() => {
+              setSelectVal("");
+              toast({
+                kind: "success",
+                text: "Connected",
+                icon: <Check />,
+              });
+            }}
+            size="field"
+            kind="primary"
+          >
+            Connect
+          </Button>
+        </FormGroup>
+      </HorizontalDivide>
+      <hr />
+      <hr />
+      <hr />
     </Container>
   );
 }
