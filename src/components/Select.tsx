@@ -41,8 +41,6 @@ interface SelectProps
   invalid?: string;
 }
 
-let timer;
-
 export function Select({
   options,
   onChange,
@@ -205,6 +203,7 @@ export function Select({
         optEl?.focus();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   const selectedOpt = options.find((opt) => opt.id === value);
