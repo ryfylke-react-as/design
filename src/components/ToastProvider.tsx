@@ -126,9 +126,9 @@ const KIND_TO_BG: Record<ToastKind, string> = {
   success: "var(--c-primary)",
 };
 const KIND_TO_COLOR: Record<ToastKind, string> = {
-  error: "#ffffff",
-  info: "#333333",
-  success: "#ffffff",
+  error: "var(--c-text-04)",
+  info: "var(--c-text-01)",
+  success: "var(--c-text-04)",
 };
 
 const itemAnim = keyframes`
@@ -141,7 +141,6 @@ const itemAnim = keyframes`
 const ToastItemContainer = styled.button<ToastItemContainerProps>`
   padding: var(--s-05) var(--s-05);
   background: ${({ kind }) => KIND_TO_BG[kind]};
-  color: ${({ kind }) => KIND_TO_COLOR[kind]};
   border-radius: var(--roundness);
   display: flex;
   gap: var(--s-04);
@@ -160,6 +159,7 @@ const ToastItemContainer = styled.button<ToastItemContainerProps>`
     opacity: 0.9;
   }
   ${applyFontKind("label")}
+  color: ${({ kind }) => KIND_TO_COLOR[kind]};
 `;
 
 const ToastContainer = styled.div<{

@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import "./vanilla/fonts.css";
-import "./vanilla/tokens.css";
 import "./vanilla/reset.css";
+// import "./vanilla/tokens.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

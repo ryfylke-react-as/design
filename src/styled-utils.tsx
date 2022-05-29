@@ -1,8 +1,45 @@
 import {
+  createGlobalStyle,
   css,
   FlattenSimpleInterpolation,
 } from "styled-components";
-import { FontKind } from "./types";
+import { ColorToken, FontKind } from "./types";
+import tokens from "./tokens";
+
+export const GlobalStyles = createGlobalStyle`
+  :root {
+    ${Object.keys(tokens.spacing).map(
+      (level) => css`
+      --s-${String(level).padStart(2, "0")}: ${
+        tokens.spacing[Number(level)]
+      };
+    `
+    )}
+    ${Object.keys(tokens.roundness).map(
+      (level) => css`
+      --roundness-${String(level).padStart(2, "0")}: ${
+        tokens.roundness[Number(level)]
+      };
+    `
+    )}
+    ${Object.keys(tokens.colors.lm).map(
+      (colorName) => css`
+      --c-${colorName}: ${
+        tokens.colors.lm[colorName as ColorToken]
+      };
+    `
+    )}
+  }
+  body.dm {
+    ${Object.keys(tokens.colors.dm).map(
+      (colorName) => css`
+      --c-${colorName}: ${
+        tokens.colors.dm[colorName as ColorToken]
+      };
+    `
+    )}
+  }
+`;
 
 export const applyFocusStyles = css`
   &:focus {

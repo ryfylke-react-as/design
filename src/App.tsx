@@ -18,8 +18,16 @@ import {
   ToastProvider,
 } from "./components/ToastProvider";
 import { Typography } from "./components/Typography";
-import { ButtonKind, ButtonSize, FontKind } from "./types";
+import {
+  ButtonKind,
+  ButtonSize,
+  ColorToken,
+  FontKind,
+} from "./types";
 import { FormGroup } from "./components/FormGroup";
+import { applyFontKind, GlobalStyles } from "./styled-utils";
+import tokens from "./tokens";
+import { pickTextColor } from "./utils";
 
 function App() {
   const [roundness, setRoundness] = useState(3);
@@ -132,6 +140,7 @@ function App() {
         { "--roundness": `${roundness}px` } as CSSProperties
       }
     >
+      <GlobalStyles />
       <ToastProvider location="topright" zIndex={500} />
       <div
         style={{
@@ -197,6 +206,36 @@ function App() {
           </Typography>
         ))}
       </VerticalDivide>
+      <hr />
+      <Header order={2}>Colors</Header>
+      <ColorGrid>
+        {Object.keys(tokens.colors[isDm ? "dm" : "lm"]).map(
+          (name: string) => (
+            <div
+              style={{
+                background:
+                  tokens.colors[isDm ? "dm" : "lm"][
+                    name as ColorToken
+                  ],
+                color: pickTextColor(
+                  tokens.colors[isDm ? "dm" : "lm"][
+                    name as ColorToken
+                  ]
+                ),
+              }}
+            >
+              <span>{name}</span>
+              <span>
+                {
+                  tokens.colors[isDm ? "dm" : "lm"][
+                    name as ColorToken
+                  ]
+                }
+              </span>
+            </div>
+          )
+        )}
+      </ColorGrid>
       <hr />
       <Header order={2}>Button</Header>
       <Text as="p" kind="p">
@@ -358,6 +397,17 @@ const HorizontalDivide = styled.div`
 
 const VerticalDivide = styled(HorizontalDivide)`
   flex-direction: column;
+`;
+
+const ColorGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  > div {
+    min-height: 50px;
+    display: grid;
+    place-content: center;
+    ${applyFontKind("code")}
+  }
 `;
 
 const Container = styled.div`

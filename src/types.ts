@@ -34,3 +34,18 @@ export type ActionToast = BaseToast & {
 };
 
 export type Toast = BaseToast | ActionToast | string;
+
+export type ColorToken =
+  | "focus"
+  | "ui-01"
+  | "ui-02"
+  | "ui-03"
+  | "ui-04"
+  | "ui-bg"
+  | "text-01"
+  | "text-02"
+  | "text-03"
+  | "text-04"
+  | "text-05"
+  | "primary"
+  | "danger";
