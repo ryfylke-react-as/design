@@ -4,7 +4,7 @@ import {
   applyFocusStyles,
   applyFontKind,
 } from "../styled-utils";
-import { FormGroup } from "./FormGroup";
+import { LabelGroup } from "./LabelGroup";
 
 type TextInputKind = "regular" | "ghost";
 
@@ -27,7 +27,7 @@ export function TextInput({
   ...rest
 }: TextInputProps) {
   return (
-    <FormGroup
+    <LabelGroup
       label={label}
       invalid={invalid}
       style={style}
@@ -41,7 +41,7 @@ export function TextInput({
       >
         {children}
       </StyledInput>
-    </FormGroup>
+    </LabelGroup>
   );
 }
 

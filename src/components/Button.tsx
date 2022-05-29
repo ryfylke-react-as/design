@@ -74,7 +74,7 @@ const SIZE_TO_ICON_SIZE: Record<ButtonSize, string> = {
   sm: "0.55em",
 };
 
-const StyledButton = styled.button<StyledProps>`
+export const StyledButton = styled.button<StyledProps>`
   border: none;
   margin: 0;
   padding: var(--s-03) var(--s-05);
