@@ -3,6 +3,7 @@ import {
   CSSProperties,
   ElementType,
   ReactNode,
+  useEffect,
   useState,
 } from "react";
 import styled from "styled-components";
@@ -24,6 +25,7 @@ function App() {
   const [roundness, setRoundness] = useState(3);
   const [emailVal, setEmailVal] = useState("");
   const [selectVal, setSelectVal] = useState("");
+  const [isDm, setDM] = useState(false);
   const emailIsValid =
     emailVal === "" ||
     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailVal);
@@ -116,6 +118,14 @@ function App() {
     },
   ];
 
+  useEffect(() => {
+    if (isDm) {
+      document.body.classList.add("dm");
+    } else {
+      document.body.classList.remove("dm");
+    }
+  }, [isDm]);
+
   return (
     <Container
       style={
@@ -123,24 +133,33 @@ function App() {
       }
     >
       <ToastProvider location="topright" zIndex={500} />
-      <LabelGroup
-        label="Roundness"
+      <div
         style={{
           position: "fixed",
           top: "var(--s-05)",
           right: "var(--s-05)",
         }}
       >
-        <input
-          type="range"
-          value={roundness}
-          min={0}
-          max={20}
-          onChange={(e) =>
-            setRoundness(parseFloat(e.target.value))
-          }
-        />
-      </LabelGroup>
+        <LabelGroup label="Roundness">
+          <input
+            type="range"
+            value={roundness}
+            min={0}
+            max={20}
+            onChange={(e) =>
+              setRoundness(parseFloat(e.target.value))
+            }
+          />
+        </LabelGroup>
+
+        <LabelGroup label="Darkmode">
+          <input
+            type="checkbox"
+            checked={isDm}
+            onChange={(e) => setDM(!isDm)}
+          />
+        </LabelGroup>
+      </div>
       <Header order={1} id="top">
         Ryfyre-Components
       </Header>
@@ -210,9 +229,21 @@ function App() {
       </Text>
       <hr />
       <Header order={2}>TextInput</Header>
-      <VerticalDivide style={{ gap: "var(--s-06)" }}>
-        <TextInput placeholder="John Smith" label="Text input" />
+      <Text
+        as="p"
+        kind="p"
+        style={{ marginBottom: "var(--s-03)" }}
+      >
+        Use "inverted" version when on top of {"`ui-01`"}
+      </Text>
+      <VerticalDivide
+        style={{
+          gap: "var(--s-06)",
+          background: "var(--c-ui-01)",
+        }}
+      >
         <TextInput
+          inverted
           placeholder="john-smith@gmail.com"
           label="Email (with validation)"
           value={emailVal}
@@ -220,18 +251,28 @@ function App() {
           invalid={
             emailIsValid
               ? ""
-              : "Please enter valid email email email email email"
+              : "Please enter a valid email address"
           }
         />
         <TextInput
+          inverted
           placeholder="*************"
           label="Password"
           type="password"
         />
       </VerticalDivide>
       <hr />
+      <TextInput
+        placeholder="John Smith"
+        label="Text input (not inverted)"
+      />
+      <hr />
       <Header order={2}>Select</Header>
-      <HorizontalDivide>
+      <HorizontalDivide
+        style={{
+          background: "var(--c-ui-01)",
+        }}
+      >
         <FormGroup
           invalid={
             ["", "no"].includes(selectVal)
@@ -243,6 +284,7 @@ function App() {
             value={selectVal}
             onChange={setSelectVal}
             label="Closest server"
+            inverted
             placeholder="No server selected"
             invalid={
               ["", "no"].includes(selectVal)
@@ -344,7 +386,7 @@ const Container = styled.div`
     width: 100%;
   }
   p {
-    color: #444;
+    color: var(--c-text-02);
   }
 `;
 

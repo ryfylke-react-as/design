@@ -39,6 +39,7 @@ interface SelectProps
   placeholder?: ReactNode;
   onOpenChange?: (isOpen: boolean) => void;
   invalid?: string;
+  inverted?: boolean;
 }
 
 export function Select({
@@ -49,6 +50,7 @@ export function Select({
   onOpenChange,
   placeholder,
   invalid,
+  inverted,
   ...props
 }: SelectProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -213,6 +215,7 @@ export function Select({
       <LabelGroup label={label} invalid={invalid}>
         <SelectButton
           {...props}
+          inverted={inverted}
           invalid={invalid ? true : false}
           open={isOpen}
           onClick={() => setOpen((c) => !c)}
@@ -288,6 +291,7 @@ export function Select({
 type SelectButtonProps = {
   open: boolean;
   invalid?: boolean;
+  inverted?: boolean;
 };
 
 const SelectButton = styled.button<SelectButtonProps>`
@@ -297,7 +301,8 @@ const SelectButton = styled.button<SelectButtonProps>`
   align-items: center;
   justify-content: space-between;
   border: none;
-  background: var(--c-ui-01);
+  background: ${(props) =>
+    props.inverted ? "var(--c-ui-bg)" : "var(--c-ui-01)"};
   padding: var(--s-03) var(--s-05);
   height: 36px;
   cursor: pointer;
@@ -321,7 +326,7 @@ const SelectButton = styled.button<SelectButtonProps>`
 `;
 
 const Placeholder = styled.span`
-  color: var(--c-ui-03);
+  color: var(--c-text-02);
 `;
 
 const optionsContainerAnim = keyframes`

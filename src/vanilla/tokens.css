@@ -34,6 +34,29 @@ body {
   --c-ui-02: #e4e4e4;
   --c-ui-03: #707574;
   --c-ui-04: #3a403f;
+  --c-ui-bg: #ffffff;
+  --c-text-01: #000;
+  --c-text-02: #707574;
+  --c-text-03: #fff;
+  --c-text-04: #fff;
+  --c-text-05: #000;
+  --c-primary: #1ba886;
+  --c-danger: #a81b3d;
+}
+
+body.dm {
+  /** Colors **/
+  --c-focus: #6a38ff;
+  --c-ui-01: #181b1a;
+  --c-ui-02: #3a403f;
+  --c-ui-03: #535757;
+  --c-ui-04: #3a403f;
+  --c-ui-bg: #000000;
+  --c-text-01: #fff;
+  --c-text-02: #cacad3;
+  --c-text-03: #000;
+  --c-text-04: #fff;
+  --c-text-05: #000;
   --c-primary: #1ba886;
   --c-danger: #a81b3d;
 }

@@ -48,7 +48,7 @@ type LabelProps = {
 export const StyledLabel = styled.label<LabelProps>`
   ${applyFontKind("label")}
   color:${(props) =>
-    props.invalid ? "var(--c-danger)" : "var(--c-ui-03)"};
+    props.invalid ? "var(--c-danger)" : "var(--c-text-02)"};
   display: flex;
   flex-direction: column;
   gap: var(--s-02);

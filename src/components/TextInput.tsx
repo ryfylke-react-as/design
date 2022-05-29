@@ -14,6 +14,7 @@ interface TextInputProps
   label?: string;
   invalid?: string;
   type?: "password" | "email" | "search" | "url" | "text";
+  inverted?: boolean;
 }
 
 export function TextInput({
@@ -24,6 +25,7 @@ export function TextInput({
   invalid,
   style,
   className,
+  inverted,
   ...rest
 }: TextInputProps) {
   return (
@@ -37,6 +39,7 @@ export function TextInput({
         kind={kind}
         invalid={invalid ? true : false}
         type={type}
+        inverted={inverted}
         {...rest}
       >
         {children}
@@ -48,12 +51,14 @@ export function TextInput({
 type StyledProps = {
   kind: TextInputKind;
   invalid: boolean;
+  inverted?: boolean;
 };
 
 const StyledInput = styled.input<StyledProps>`
   border: none;
   padding: var(--s-03);
-  background: var(--c-ui-01);
+  background: ${(props) =>
+    props.inverted ? "var(--c-ui-bg)" : "var(--c-ui-01)"};
   border-radius: var(--roundness);
   outline: 1px solid transparent;
   outline-offset: -1px;
@@ -72,7 +77,7 @@ const StyledInput = styled.input<StyledProps>`
     }
   `}
   &::placeholder {
-    color: var(--c-ui-03);
+    color: var(--c-text-02);
   }
   ${applyFocusStyles}
   ${applyFontKind("p")}

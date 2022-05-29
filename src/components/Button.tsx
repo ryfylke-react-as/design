@@ -47,10 +47,10 @@ const KIND_TO_BG: Record<ButtonKind, string> = {
 };
 
 const KIND_TO_CONTRAST: Record<ButtonKind, string> = {
-  regular: "#fff",
-  danger: "#fff",
-  ghost: "#000",
-  primary: "#fff",
+  regular: "var(--c-text-04)",
+  danger: "var(--c-text-04)",
+  ghost: "var(--c-text-01)",
+  primary: "var(--c-text-03)",
 };
 
 const SIZE_TO_HEIGHT: Record<ButtonSize, string> = {
@@ -75,6 +75,7 @@ const SIZE_TO_ICON_SIZE: Record<ButtonSize, string> = {
 };
 
 export const StyledButton = styled.button<StyledProps>`
+  ${applyFontKind("button")}
   border: none;
   margin: 0;
   padding: var(--s-03) var(--s-05);
@@ -85,14 +86,15 @@ export const StyledButton = styled.button<StyledProps>`
   align-items: center;
   height: ${(props) => SIZE_TO_HEIGHT[props.size]};
   gap: ${(props) => SIZE_TO_GAP[props.size]};
+  ${applyFocusStyles}
   &:hover {
     transition: background 0.1s ease-in-out;
     background: var(--c-ui-04);
-    color: var(--c-ui-01);
+    color: var(--c-text-04);
   }
   &:active {
     background: #000;
-    color: var(--c-ui-01);
+    color: var(--c-text-04);
   }
   > svg {
     --size: ${(props) => SIZE_TO_ICON_SIZE[props.size]};
@@ -100,6 +102,4 @@ export const StyledButton = styled.button<StyledProps>`
     height: var(--size);
   }
   cursor: pointer;
-  ${applyFocusStyles}
-  ${applyFontKind("button")}
 `;

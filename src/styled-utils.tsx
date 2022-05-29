@@ -23,6 +23,7 @@ export function applyFontKind(
         letter-spacing: -0.01em;
         font-weight: bold;
         line-height: auto;
+        color: var(--c-text-01);
       `;
     case "h2":
       return css`
@@ -30,6 +31,7 @@ export function applyFontKind(
         letter-spacing: -0.01em;
         font-weight: medium;
         line-height: auto;
+        color: var(--c-text-01);
       `;
     case "h3":
       return css`
@@ -37,6 +39,7 @@ export function applyFontKind(
         font-weight: normal;
         letter-spacing: 0px;
         line-height: auto;
+        color: var(--c-text-01);
       `;
     case "sub":
       return css`
@@ -44,6 +47,7 @@ export function applyFontKind(
         font-weight: bold;
         letter-spacing: -0.01em;
         line-height: auto;
+        color: var(--c-text-01);
       `;
     case "p":
       return css`
@@ -52,6 +56,7 @@ export function applyFontKind(
         letter-spacing: 0.025em;
         font-weight: normal;
         line-height: auto;
+        color: var(--c-text-01);
       `;
     case "label":
       return css`
@@ -59,6 +64,7 @@ export function applyFontKind(
         line-height: 1.25em;
         letter-spacing: -0.28px;
         font-weight: normal;
+        color: var(--c-text-01);
       `;
     case "code":
       return css`
@@ -66,6 +72,7 @@ export function applyFontKind(
         font-size: 16px;
         letter-spacing: 0.05em;
         font-weight: normal;
+        color: var(--c-text-01);
       `;
     case "button":
       return css`
@@ -73,6 +80,7 @@ export function applyFontKind(
         font-weight: bold;
         letter-spacing: 0.555px;
         text-transform: uppercase;
+        color: var(--c-text-01);
       `;
   }
 }
