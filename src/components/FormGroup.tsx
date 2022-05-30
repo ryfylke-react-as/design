@@ -23,10 +23,10 @@ const StyledFormGroup = styled.div<FormGroupProps>`
   display: flex;
   gap: var(--s-03);
   align-items: flex-start;
-  ${StyledLabel} {
+  ${StyledLabel}, .ryfre--label {
     align-self: flex-start;
   }
-  ${StyledButton} {
+  ${StyledButton}, .ryfre--button {
     align-self: ${(props) =>
       props.invalid ? "center" : "flex-end"};
   }

@@ -18,6 +18,7 @@ export function LabelGroup({
     <StyledLabel
       invalid={invalid ? true : false}
       {...labelProps}
+      className={`ryfre--label ${labelProps?.className ?? ""}`}
     >
       {label}
       <div>{children}</div>

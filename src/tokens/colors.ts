@@ -26,7 +26,7 @@ export const colors: {
     "ui-04": "#3a403f",
     "ui-bg": "#ffffff",
     "text-01": "#000000",
-    "text-02": "#707574",
+    "text-02": "#2c3735",
     "text-03": "#ffffff",
     "text-04": "#ffffff",
     "text-05": "#000000",

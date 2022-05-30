@@ -30,7 +30,7 @@ import tokens from "./tokens";
 import { pickTextColor } from "./utils";
 
 function App() {
-  const [roundness, setRoundness] = useState(3);
+  const [roundness, setRoundness] = useState(0);
   const [emailVal, setEmailVal] = useState("");
   const [selectVal, setSelectVal] = useState("");
   const [isDm, setDM] = useState(false);
@@ -237,6 +237,36 @@ function App() {
         )}
       </ColorGrid>
       <hr />
+      <Header order={2}>Spacing</Header>
+      <VerticalDivide
+        style={{
+          background: "var(--c-ui-01)",
+          marginTop: "var(--s-05)",
+        }}
+      >
+        {Object.keys(tokens.spacing).map((level) => (
+          <div style={{ display: "flex" }}>
+            <div
+              style={{
+                width: "100%",
+                maxWidth: 150,
+              }}
+            >
+              <strong>{String(level).padStart(2, "0")}</strong> (
+              {tokens.spacing[Number(level)]}):
+            </div>
+            <div
+              style={{
+                height: tokens.spacing[+level],
+                background: "var(--c-ui-03)",
+                width: "100%",
+              }}
+            ></div>
+          </div>
+        ))}
+      </VerticalDivide>
+      <hr />
+      <Header order={1}>Components</Header>
       <Header order={2}>Button</Header>
       <Text as="p" kind="p">
         You can set the roundness of buttons and other components
@@ -487,6 +517,7 @@ const Container = styled.div`
   padding: 0 var(--s-05);
   gap: var(--s-01);
   max-width: 1000px;
+  color: var(--c-text-02);
   > h2 {
     margin: 1rem 0;
   }

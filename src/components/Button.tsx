@@ -27,6 +27,7 @@ export function Button({
       size={size}
       type={rest?.type ?? "button"}
       {...rest}
+      className={`ryfre--button ${rest?.className ?? ""}`}
     >
       {icon ?? ""}
       {children}
