@@ -43,8 +43,17 @@ function App() {
           />
         </LabelGroup>
       </div>
-      <Header order={1} id="top">
-        Ryfyre-Components
+      <Header
+        order={1}
+        id="top"
+        style={{
+          fontFamily: `"Ubuntu Mono"`,
+          width: "min-content",
+          background: "var(--c-ui-01)",
+        }}
+      >
+        <span style={{ color: "var(--c-focus)" }}>Ryfrea</span>
+        Components
       </Header>
       <Text>
         A collection of design-tokens (spacing, colors,
@@ -94,8 +103,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin: var(--s-10) auto;
-  padding: 0 var(--s-05);
+  margin: 0 auto;
+  padding: var(--s-08) var(--s-05);
   gap: var(--s-01);
   max-width: 1200px;
   color: var(--c-text-02);
