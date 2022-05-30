@@ -382,6 +382,75 @@ function App() {
         </FormGroup>
       </HorizontalDivide>
       <hr />
+      <FormGroup
+        invalid={
+          ["", "no"].includes(selectVal)
+            ? ""
+            : "Latency too high! (180ms+)"
+        }
+      >
+        <Select
+          value={selectVal}
+          onChange={setSelectVal}
+          label="Closest server"
+          inverted
+          placeholder="No server selected"
+          invalid={
+            ["", "no"].includes(selectVal)
+              ? ""
+              : "Latency too high! (180ms+)"
+          }
+          options={[
+            {
+              id: "no",
+              text: "Norway",
+            },
+            {
+              id: "en",
+              text: "England",
+            },
+            {
+              id: "ir",
+              text: "Ireland",
+            },
+            {
+              id: "sw",
+              text: "Sweden",
+            },
+            {
+              id: "de",
+              text: "Denmark",
+            },
+            {
+              id: "fi",
+              text: "Finland",
+            },
+            {
+              id: "ge",
+              text: "Germany",
+            },
+            {
+              id: "ne",
+              text: "Netherlands",
+            },
+          ]}
+        />
+        <Button
+          onClick={() => {
+            setSelectVal("");
+            toast({
+              kind: "success",
+              text: "Connected",
+              icon: <Check />,
+            });
+          }}
+          size="field"
+          kind="primary"
+        >
+          Connect
+        </Button>
+      </FormGroup>
+      <hr />
       <hr />
       <hr />
     </Container>
@@ -403,7 +472,7 @@ const ColorGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   > div {
-    min-height: 50px;
+    padding: var(--s-04);
     display: grid;
     place-content: center;
     ${applyFontKind("code")}
