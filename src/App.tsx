@@ -43,15 +43,7 @@ function App() {
           />
         </LabelGroup>
       </div>
-      <Header
-        order={1}
-        id="top"
-        style={{
-          fontFamily: `"Ubuntu Mono"`,
-          width: "min-content",
-          background: "var(--c-ui-01)",
-        }}
-      >
+      <Header order={1} id="top">
         <span style={{ color: "var(--c-focus)" }}>Ryfrea</span>
         Components
       </Header>
