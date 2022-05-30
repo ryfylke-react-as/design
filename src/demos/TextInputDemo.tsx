@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DemoContainer, VerticalDivide } from "../demo.styles";
+import { ComponentBox, DemoContainer } from "../demo.styles";
 import { Text } from "../components/Text";
 import { Header } from "../components/Header";
 import { TextInput } from "../components/TextInput";
@@ -19,10 +19,10 @@ export function TextInputDemo() {
       >
         Use "inverted" version when on top of {"`ui-01`"}
       </Text>
-      <VerticalDivide
+      <ComponentBox
         style={{
+          flexDirection: "column",
           gap: "var(--s-06)",
-          background: "var(--c-ui-01)",
         }}
       >
         <TextInput
@@ -43,12 +43,20 @@ export function TextInputDemo() {
           label="Password"
           type="password"
         />
-      </VerticalDivide>
-      <hr />
-      <TextInput
-        placeholder="John Smith"
-        label="Text input (not inverted)"
-      />
+      </ComponentBox>
+      <ComponentBox
+        style={{
+          flexDirection: "column",
+          gap: "var(--s-06)",
+          background: "var(--c-ui-bg)",
+          border: "1px solid var(--c-ui-01)",
+        }}
+      >
+        <TextInput
+          placeholder="John Smith"
+          label="Text input (not inverted)"
+        />
+      </ComponentBox>
     </DemoContainer>
   );
 }

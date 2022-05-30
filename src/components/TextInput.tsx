@@ -59,7 +59,7 @@ const StyledInput = styled.input<StyledProps>`
   padding: var(--s-03);
   background: ${(props) =>
     props.inverted ? "var(--c-ui-bg)" : "var(--c-ui-01)"};
-  border-radius: var(--roundness);
+  border-radius: var(--roundness-01);
   outline: 1px solid transparent;
   outline-offset: -1px;
   transition: outline 0.1s ease-in;

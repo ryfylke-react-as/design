@@ -6,10 +6,11 @@ import { Button } from "../components/Button";
 import { Select } from "../components/Select";
 import { toast } from "../components/ToastProvider";
 import { selectOpts } from "../demo.constants";
-import { DemoContainer, HorizontalDivide } from "../demo.styles";
+import { DemoContainer, ComponentBox } from "../demo.styles";
 
 export function SelectDemo() {
   const [selectVal, setSelectVal] = useState("");
+  const [select2Val, setSelect2Val] = useState("");
 
   const selectInvalid = ["", "no"].includes(selectVal)
     ? ""
@@ -17,16 +18,12 @@ export function SelectDemo() {
   return (
     <DemoContainer>
       <Header order={2}>Select</Header>
-      <HorizontalDivide
-        style={{
-          background: "var(--c-ui-01)",
-        }}
-      >
+      <ComponentBox>
         <FormGroup invalid={selectInvalid}>
           <Select
             value={selectVal}
             onChange={setSelectVal}
-            label="Closest server"
+            label="Server"
             inverted
             placeholder="No server selected"
             invalid={selectInvalid}
@@ -47,42 +44,32 @@ export function SelectDemo() {
             Connect
           </Button>
         </FormGroup>
-      </HorizontalDivide>
+      </ComponentBox>
       <hr />
-      <FormGroup
-        invalid={
-          ["", "no"].includes(selectVal)
-            ? ""
-            : "Latency too high! (180ms+)"
-        }
+      <ComponentBox
+        style={{
+          background: "var(--c-ui-bg)",
+          border: "1px solid var(--c-ui-01)",
+        }}
       >
-        <Select
-          value={selectVal}
-          onChange={setSelectVal}
-          label="Closest server"
-          placeholder="No server selected"
-          invalid={
-            ["", "no"].includes(selectVal)
-              ? ""
-              : "Latency too high! (180ms+)"
-          }
-          options={selectOpts}
-        />
-        <Button
-          onClick={() => {
-            setSelectVal("");
-            toast({
-              kind: "success",
-              text: "Connected",
-              icon: <Check />,
-            });
-          }}
-          size="field"
-          kind="primary"
-        >
-          Connect
-        </Button>
-      </FormGroup>
+        <FormGroup>
+          <Select
+            value={select2Val}
+            onChange={setSelect2Val}
+            label="Pick favourite"
+            placeholder="No favourite selected"
+            options={selectOpts}
+          />
+          <Button
+            onClick={() => {
+              setSelect2Val("");
+            }}
+            size="field"
+          >
+            Reset
+          </Button>
+        </FormGroup>
+      </ComponentBox>
     </DemoContainer>
   );
 }

@@ -80,7 +80,7 @@ export const StyledButton = styled.button<StyledProps>`
   border: none;
   margin: 0;
   padding: var(--s-03) var(--s-05);
-  border-radius: var(--roundness);
+  border-radius: var(--roundness-01);
   background: ${(props) => KIND_TO_BG[props.kind]};
   color: ${(props) => KIND_TO_CONTRAST[props.kind]};
   display: flex;

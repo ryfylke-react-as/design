@@ -141,7 +141,7 @@ const itemAnim = keyframes`
 const ToastItemContainer = styled.button<ToastItemContainerProps>`
   padding: var(--s-05) var(--s-05);
   background: ${({ kind }) => KIND_TO_BG[kind]};
-  border-radius: var(--roundness);
+  border-radius: var(--roundness-01);
   display: flex;
   gap: var(--s-04);
   border: none;

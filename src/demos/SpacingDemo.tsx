@@ -1,15 +1,12 @@
-import { Header } from "../components/Header";
-import { DemoContainer, VerticalDivide } from "../demo.styles";
+import { ComponentBox, DemoContainer } from "../demo.styles";
 import tokens from "../tokens";
 
 export function SpacingDemo(): JSX.Element {
   return (
     <DemoContainer>
-      <Header order={2}>Spacing</Header>
-      <VerticalDivide
+      <ComponentBox
         style={{
-          background: "var(--c-ui-01)",
-          marginTop: "var(--s-05)",
+          flexDirection: "column",
         }}
       >
         {Object.keys(tokens.spacing).map((level) => (
@@ -32,7 +29,7 @@ export function SpacingDemo(): JSX.Element {
             ></div>
           </div>
         ))}
-      </VerticalDivide>
+      </ComponentBox>
     </DemoContainer>
   );
 }

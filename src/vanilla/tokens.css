@@ -30,7 +30,7 @@ body {
   --spacing-10: var(--s-10);
 
   /** Border radius **/
-  --roundness: 3px;
+  --roundness-01: 2px;
 
   /** Colors **/
   --c-focus: #6a38ff;

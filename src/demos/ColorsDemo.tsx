@@ -1,4 +1,3 @@
-import { Header } from "../components/Header";
 import { ColorGrid, DemoContainer } from "../demo.styles";
 import tokens from "../tokens";
 import { ColorToken } from "../types";
@@ -13,7 +12,6 @@ export function ColorsDemo({
 }: ColorsDemoProps): JSX.Element {
   return (
     <DemoContainer>
-      <Header order={2}>Colors</Header>
       <ColorGrid>
         {Object.keys(tokens.colors[isDm ? "dm" : "lm"]).map(
           (name: string) => (

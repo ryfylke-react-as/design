@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { LabelGroup } from "./components/LabelGroup";
 import { Header } from "./components/Header";
@@ -14,7 +14,6 @@ import { SelectDemo } from "./demos/SelectDemo";
 import { DemoContainer } from "./demo.styles";
 
 function App() {
-  const [roundness, setRoundness] = useState(0);
   const [isDm, setDM] = useState(false);
 
   useEffect(() => {
@@ -26,11 +25,7 @@ function App() {
   }, [isDm]);
 
   return (
-    <Container
-      style={
-        { "--roundness": `${roundness}px` } as CSSProperties
-      }
-    >
+    <Container>
       <GlobalStyles />
       <ToastProvider location="topright" zIndex={500} />
       <div
@@ -40,18 +35,6 @@ function App() {
           right: "var(--s-05)",
         }}
       >
-        <LabelGroup label="Roundness">
-          <input
-            type="range"
-            value={roundness}
-            min={0}
-            max={20}
-            onChange={(e) =>
-              setRoundness(parseFloat(e.target.value))
-            }
-          />
-        </LabelGroup>
-
         <LabelGroup label="Darkmode">
           <input
             type="checkbox"
@@ -68,14 +51,37 @@ function App() {
         typography) and React components.
       </Text>
       <hr />
+      <hr />
       <List>
+        <Header order={1} as="h2">
+          Guidelines
+        </Header>
         <EquallySpaced>
           <TypographyDemo />
           <ColorsDemo isDm={isDm} />
         </EquallySpaced>
-        <SpacingDemo />
+        <EquallySpaced>
+          <SpacingDemo />
+          <div>
+            <Text kind="p">
+              We use the "Ubuntu" and "Ubuntu Mono" font
+              families.{" "}
+              <Text kind="code" as="span">
+                text-01
+              </Text>{" "}
+              should be reserved for headers and callouts,{" "}
+              <Text kind="code" as="span">
+                text-02
+              </Text>{" "}
+              should be used mostly on body text. This is to
+              prevent eye straining, and direct focus.
+            </Text>
+          </div>
+        </EquallySpaced>
         <hr />
-        <Header order={1}>Components</Header>
+        <Header order={1} as="h2">
+          Components
+        </Header>
         <ButtonDemo />
         <TextInputDemo />
         <SelectDemo />
@@ -91,7 +97,7 @@ const Container = styled.div`
   margin: var(--s-10) auto;
   padding: 0 var(--s-05);
   gap: var(--s-01);
-  max-width: 1000px;
+  max-width: 1200px;
   color: var(--c-text-02);
   p {
     color: var(--c-text-02);

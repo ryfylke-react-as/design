@@ -1,20 +1,12 @@
-import { Header } from "../components/Header";
+import styled from "styled-components";
 import { Typography } from "../components/Typography";
 import { typographyKinds } from "../demo.constants";
-import { DemoContainer, VerticalDivide } from "../demo.styles";
+import { ComponentBox, DemoContainer } from "../demo.styles";
 
 export function TypographyDemo() {
   return (
     <DemoContainer>
-      <Header order={2} id="typography">
-        Typography
-      </Header>
-      <VerticalDivide
-        style={{
-          background: "var(--c-ui-01)",
-          marginTop: "var(--s-05)",
-        }}
-      >
+      <StyledComponentBox>
         {typographyKinds.map((item) => (
           <Typography
             as={item.as}
@@ -24,7 +16,17 @@ export function TypographyDemo() {
             {item.text}
           </Typography>
         ))}
-      </VerticalDivide>
+      </StyledComponentBox>
     </DemoContainer>
   );
 }
+
+const StyledComponentBox = styled(ComponentBox)`
+  flex-direction: column;
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0 !important;
+  }
+`;

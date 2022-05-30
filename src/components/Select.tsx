@@ -308,7 +308,7 @@ const SelectButton = styled.button<SelectButtonProps>`
   cursor: pointer;
   ${applyFontKind("label")}
   ${applyFocusStyles}
-  border-radius:var(--roundness);
+  border-radius:var(--roundness-01);
   user-select: text;
   ${(props) =>
     props.invalid &&
