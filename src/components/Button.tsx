@@ -51,7 +51,7 @@ const KIND_TO_CONTRAST: Record<ButtonKind, string> = {
   regular: "var(--c-text-04)",
   danger: "var(--c-text-04)",
   ghost: "var(--c-text-01)",
-  primary: "var(--c-text-03)",
+  primary: "var(--c-text-04)",
 };
 
 const SIZE_TO_HEIGHT: Record<ButtonSize, string> = {
