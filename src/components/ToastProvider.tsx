@@ -146,7 +146,7 @@ const ToastItemContainer = styled.button<ToastItemContainerProps>`
   gap: var(--s-04);
   border: none;
   cursor: pointer;
-  animation: ${itemAnim} 0.25s ease-in-out;
+  animation: ${itemAnim} 0.25s var(--ease-01);
   perspective: 20px;
   width: 250px;
   align-items: center;

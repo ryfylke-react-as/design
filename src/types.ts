@@ -41,6 +41,7 @@ export type ColorToken =
   | "ui-02"
   | "ui-03"
   | "ui-04"
+  | "ui-05"
   | "ui-bg"
   | "text-01"
   | "text-02"

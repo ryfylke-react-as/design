@@ -62,7 +62,7 @@ const StyledInput = styled.input<StyledProps>`
   border-radius: var(--roundness-01);
   outline: 1px solid transparent;
   outline-offset: -1px;
-  transition: outline 0.1s ease-in;
+  transition: outline 0.1s var(--ease-01);
   height: 36px;
   width: 200px;
   &:hover {

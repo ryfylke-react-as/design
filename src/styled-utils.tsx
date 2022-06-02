@@ -22,6 +22,13 @@ export const GlobalStyles = createGlobalStyle`
       };
     `
     )}
+    ${Object.keys(tokens.easing).map(
+      (level) => css`
+      --ease-${String(level).padStart(2, "0")}: ${
+        tokens.easing[Number(level)]
+      };
+    `
+    )}
     ${Object.keys(tokens.colors.lm).map(
       (colorName) => css`
       --c-${colorName}: ${
@@ -43,7 +50,7 @@ export const GlobalStyles = createGlobalStyle`
 
 export const applyFocusStyles = css`
   &:focus {
-    transition: outline 0.1s ease-in-out;
+    transition: outline 0.1s var(--ease-01);
     outline: 2px solid var(--c-focus);
     outline-offset: 1px;
     position: relative;

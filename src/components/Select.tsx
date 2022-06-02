@@ -347,7 +347,7 @@ const OptionsContainer = styled.div<OptionsContainerProps>`
   background: var(--c-ui-01);
   max-height: 150px;
   overflow-y: auto;
-  animation: ${optionsContainerAnim} 0.15s ease-in-out;
+  animation: ${optionsContainerAnim} 0.15s var(--ease-01);
   transform-origin: top;
 
   &::-webkit-scrollbar {
