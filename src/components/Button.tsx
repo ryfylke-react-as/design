@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import {
   applyFocusStyles,
   applyFontKind,
@@ -29,8 +29,10 @@ export function Button({
       {...rest}
       className={`ryfre--button ${rest?.className ?? ""}`}
     >
-      {icon ?? ""}
-      {children}
+      <span>
+        {icon ?? ""}
+        {children}
+      </span>
     </StyledButton>
   );
 }
@@ -75,6 +77,13 @@ const SIZE_TO_ICON_SIZE: Record<ButtonSize, string> = {
   sm: "0.55em",
 };
 
+const iconAnim = keyframes`
+  from {
+    transform:scale(0.5) rotate(20deg);
+    opacity:0;
+  }
+`;
+
 export const StyledButton = styled.button<StyledProps>`
   ${applyFontKind("button")}
   border: none;
@@ -86,7 +95,6 @@ export const StyledButton = styled.button<StyledProps>`
   display: flex;
   align-items: center;
   height: ${(props) => SIZE_TO_HEIGHT[props.size]};
-  gap: ${(props) => SIZE_TO_GAP[props.size]};
   box-shadow: 0px 1px 0px 0px var(--c-ui-04);
   ${(props) =>
     props.kind === "ghost" &&
@@ -108,14 +116,25 @@ export const StyledButton = styled.button<StyledProps>`
     box-shadow:none;
   `}
   }
+  > span {
+    transition: transform 0.1s var(--ease-01);
+    display: flex;
+    align-items: center;
+    gap: ${(props) => SIZE_TO_GAP[props.size]};
+    > svg {
+      --size: ${(props) => SIZE_TO_ICON_SIZE[props.size]};
+      width: var(--size);
+      height: var(--size);
+      animation: ${iconAnim} 0.3s var(--ease-01);
+    }
+  }
   &:active {
     background: #000;
     color: var(--c-text-04);
-  }
-  > svg {
-    --size: ${(props) => SIZE_TO_ICON_SIZE[props.size]};
-    width: var(--size);
-    height: var(--size);
+    transition: background 0.2s var(--ease-01);
+    > span {
+      transform: translateY(1px);
+    }
   }
   cursor: pointer;
 `;

@@ -133,8 +133,8 @@ const KIND_TO_COLOR: Record<ToastKind, string> = {
 
 const itemAnim = keyframes`
     from {
-        transform:translateX(50px);
-        opacity:0.4;
+        transform:scale(0.5) rotate(10deg) translateX(20%);
+        opacity:0;
     }
 `;
 
@@ -146,7 +146,7 @@ const ToastItemContainer = styled.button<ToastItemContainerProps>`
   gap: var(--s-04);
   border: none;
   cursor: pointer;
-  animation: ${itemAnim} 0.25s var(--ease-01);
+  animation: ${itemAnim} 0.2s var(--ease-01);
   perspective: 20px;
   width: 250px;
   align-items: center;

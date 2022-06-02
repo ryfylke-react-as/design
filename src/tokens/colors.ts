@@ -21,7 +21,7 @@ export const colors: {
     focus: "#8056ff",
   },
   lm: {
-    "ui-01": "#f0f3f4",
+    "ui-01": "#f4f6f6",
     "ui-02": "#e4e4e4",
     "ui-03": "#707574",
     "ui-04": "#3a403f",
