@@ -12,6 +12,8 @@ import { ButtonDemo } from "./demos/ButtonDemo";
 import { TextInputDemo } from "./demos/TextInputDemo";
 import { SelectDemo } from "./demos/SelectDemo";
 import { DemoContainer } from "./demo.styles";
+import { Button } from "./components/Button";
+import { Check } from "@material-ui/icons";
 
 function App() {
   const [isDm, setDM] = useState(false);
@@ -35,13 +37,13 @@ function App() {
           right: "var(--s-05)",
         }}
       >
-        <LabelGroup label="Darkmode">
-          <input
-            type="checkbox"
-            checked={isDm}
-            onChange={(e) => setDM(!isDm)}
-          />
-        </LabelGroup>
+        <Button
+          size="sm"
+          onClick={() => setDM(!isDm)}
+          icon={isDm ? <Check /> : undefined}
+        >
+          Darkmode
+        </Button>
       </div>
       <Header order={1} id="top">
         <span style={{ color: "var(--c-focus)" }}>Ryfrea</span>
