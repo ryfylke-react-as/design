@@ -1,15 +1,24 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import {
+  ButtonHTMLAttributes,
+  CSSProperties,
+  MouseEvent,
+  ReactNode,
+  useRef,
+  useState,
+} from "react";
 import styled, { keyframes } from "styled-components";
 import {
   applyFocusStyles,
   applyFontKind,
 } from "../styled-utils";
 import { ButtonKind, ButtonSize } from "../types";
+import { getTotalOffset } from "../utils";
 
 interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   kind?: ButtonKind;
   size?: ButtonSize;
+  isFixedPosition?: boolean;
   /** Made for MUI-icons */
   icon?: ReactNode;
 }
@@ -19,14 +28,49 @@ export function Button({
   size = "md",
   children,
   icon,
+  isFixedPosition,
   ...rest
 }: ButtonProps) {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [mousePos, setMousePos] = useState({
+    x: 0,
+    y: 0,
+  });
+  const onMouseMove = (event: MouseEvent<HTMLButtonElement>) => {
+    if (buttonRef?.current) {
+      const { pageX, pageY } = event;
+      const { offsetLeft, offsetTop } = getTotalOffset(
+        buttonRef?.current
+      );
+
+      let x = pageX - offsetLeft;
+      let y = pageY - offsetTop;
+      if (isFixedPosition) {
+        x -= window.scrollX;
+        y -= window.scrollY;
+      }
+
+      setMousePos({
+        x,
+        y,
+      });
+    }
+  };
   return (
     <StyledButton
       kind={kind}
       size={size}
       type={rest?.type ?? "button"}
+      ref={buttonRef}
+      onMouseMove={onMouseMove}
       {...rest}
+      style={
+        {
+          "--x": mousePos.x,
+          "--y": mousePos.y,
+          ...(rest?.style ?? {}),
+        } as CSSProperties
+      }
       className={`ryfre--button ${rest?.className ?? ""}`}
     >
       <span>
@@ -44,9 +88,26 @@ type StyledProps = {
 
 const KIND_TO_BG: Record<ButtonKind, string> = {
   regular: "var(--c-ui-03)",
-  danger: "var(--c-danger)",
+  danger: "var(--c-danger-01)",
   ghost: "transparent",
-  primary: "var(--c-primary)",
+  primary: "var(--c-primary-01)",
+  success: "var(--c-success-01)",
+};
+
+const KIND_TO_HOVER_BG: Record<ButtonKind, string> = {
+  regular: "var(--c-ui-04)",
+  danger: "var(--c-danger-02)",
+  ghost: "var(--c-ui-04)",
+  primary: "var(--c-ui-04)",
+  success: "var(--c-success-02)",
+};
+
+const KIND_TO_ACTIVE_BG: Record<ButtonKind, string> = {
+  regular: "#000",
+  danger: "var(--c-danger-03)",
+  ghost: "#000",
+  primary: "#000",
+  success: "var(--c-success-03)",
 };
 
 const KIND_TO_CONTRAST: Record<ButtonKind, string> = {
@@ -54,6 +115,7 @@ const KIND_TO_CONTRAST: Record<ButtonKind, string> = {
   danger: "var(--c-text-04)",
   ghost: "var(--c-text-01)",
   primary: "var(--c-text-04)",
+  success: "var(--c-text-04)",
 };
 
 const SIZE_TO_HEIGHT: Record<ButtonSize, string> = {
@@ -96,6 +158,7 @@ export const StyledButton = styled.button<StyledProps>`
   align-items: center;
   height: ${(props) => SIZE_TO_HEIGHT[props.size]};
   box-shadow: 0px 1px 0px 0px var(--c-ui-04);
+  transition: background 0.1s var(--ease-01);
   ${(props) =>
     props.kind === "ghost" &&
     `
@@ -106,8 +169,8 @@ export const StyledButton = styled.button<StyledProps>`
     box-shadow: none !important;
   }
   &:hover {
-    transition: background 0.1s var(--ease-01);
-    background: var(--c-ui-04);
+    transition: background 0.2s var(--ease-01);
+    background: ${(props) => KIND_TO_HOVER_BG[props.kind]};
     color: var(--c-text-04);
     box-shadow: 0px 1px 0px 0px var(--c-ui-05);
     ${(props) =>
@@ -115,6 +178,33 @@ export const StyledButton = styled.button<StyledProps>`
       `
     box-shadow:none;
   `}
+  }
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    transform: translate(-50%, -50%) scale(0.1);
+    --size: 120%;
+    height: var(--size);
+    aspect-ratio: 1/1;
+    background: #fff;
+    pointer-events: none;
+    opacity: 0;
+    top: calc(var(--y) * 1px);
+    left: calc(var(--x) * 1px);
+    transition: transform 0.2s var(--ease-01),
+      opacity 0.2s var(--ease-01);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  &:hover::after {
+    opacity: 0.1;
+    transform: translate(-50%, -50%) scale(2);
+  }
+  &:active::after {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3) scaleX(6);
   }
   > span {
     transition: transform 0.1s var(--ease-01);
@@ -129,11 +219,11 @@ export const StyledButton = styled.button<StyledProps>`
     }
   }
   &:active {
-    background: #000;
+    background: ${(props) => KIND_TO_ACTIVE_BG[props.kind]};
     color: var(--c-text-04);
     transition: background 0.2s var(--ease-01);
     > span {
-      transform: translateY(1px);
+      transform: translateY(1px) rotate(-0.5deg);
     }
   }
   cursor: pointer;

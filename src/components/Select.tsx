@@ -314,7 +314,7 @@ const SelectButton = styled.button<SelectButtonProps>`
   ${(props) =>
     props.invalid &&
     `
-      outline: 1px solid var(--c-danger);
+      outline: 1px solid var(--c-danger-01);
   `}
   svg {
     fill: var(--c-focus);

@@ -13,6 +13,7 @@ export type FontKind =
 export type ButtonKind =
   | "regular"
   | "primary"
+  | "success"
   | "danger"
   | "ghost";
 
@@ -48,5 +49,10 @@ export type ColorToken =
   | "text-03"
   | "text-04"
   | "text-05"
-  | "primary"
-  | "danger";
+  | "primary-01"
+  | "success-01"
+  | "success-02"
+  | "success-03"
+  | "danger-01"
+  | "danger-02"
+  | "danger-03";

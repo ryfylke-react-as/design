@@ -35,7 +35,7 @@ export function LabelGroup({
 
 const InvalidText = styled.span`
   ${applyFontKind("label")}
-  color:var(--c-danger);
+  color:var(--c-danger-01);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -49,7 +49,7 @@ type LabelProps = {
 export const StyledLabel = styled.label<LabelProps>`
   ${applyFontKind("label")}
   color:${(props) =>
-    props.invalid ? "var(--c-danger)" : "var(--c-text-02)"};
+    props.invalid ? "var(--c-danger-01)" : "var(--c-text-02)"};
   display: flex;
   flex-direction: column;
   gap: var(--s-02);
@@ -63,6 +63,6 @@ export const StyledLabel = styled.label<LabelProps>`
   ${(props) =>
     props.invalid &&
     `
-      --c-focus: var(--c-danger);
+      --c-focus: var(--c-danger-01);
   `}
 `;

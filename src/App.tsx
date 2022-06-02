@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { LabelGroup } from "./components/LabelGroup";
 import { Header } from "./components/Header";
 import { Text } from "./components/Text";
 import { ToastProvider } from "./components/ToastProvider";
@@ -41,6 +40,7 @@ function App() {
           size="sm"
           onClick={() => setDM(!isDm)}
           icon={isDm ? <Check /> : undefined}
+          isFixedPosition
         >
           Darkmode
         </Button>

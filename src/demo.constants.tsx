@@ -25,11 +25,25 @@ export const buttonKinds: Array<{
   onClick?: () => void;
 }> = [
   {
+    kind: "regular",
+    text: "Regular",
+    onClick: () => toast("Clicked regular button"),
+  },
+  {
     kind: "primary",
     text: "Primary",
     onClick: () =>
       toast({
         text: "Clicked primary button",
+        kind: "success",
+      }),
+  },
+  {
+    kind: "success",
+    text: "Success",
+    onClick: () =>
+      toast({
+        text: "Clicked success button",
         kind: "success",
       }),
   },
@@ -43,11 +57,6 @@ export const buttonKinds: Array<{
       }),
   },
   {
-    kind: "regular",
-    text: "Regular",
-    onClick: () => toast("Clicked regular button"),
-  },
-  {
     kind: "ghost",
     text: "Ghost",
   },
@@ -57,7 +66,7 @@ export const buttonKinds: Array<{
     icon: <Save />,
   },
   {
-    kind: "primary",
+    kind: "ghost",
     text: "",
     icon: <SaveAlt />,
     onClick: () =>

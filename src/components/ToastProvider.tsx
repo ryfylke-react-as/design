@@ -121,9 +121,9 @@ type ToastItemContainerProps = {
 };
 
 const KIND_TO_BG: Record<ToastKind, string> = {
-  error: "var(--c-danger)",
+  error: "var(--c-danger-01)",
   info: "var(--c-ui-02)",
-  success: "var(--c-primary)",
+  success: "var(--c-success-01)",
 };
 const KIND_TO_COLOR: Record<ToastKind, string> = {
   error: "var(--c-text-04)",

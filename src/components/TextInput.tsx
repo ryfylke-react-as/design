@@ -74,9 +74,9 @@ const StyledInput = styled.input<StyledProps>`
   ${(props) =>
     props.invalid &&
     `
-      outline: 1px solid var(--c-danger);
+      outline: 1px solid var(--c-danger-01);
     &:hover {
-        outline: 1px solid var(--c-danger);
+        outline: 1px solid var(--c-danger-01);
     }
   `}
   &::placeholder {

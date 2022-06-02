@@ -17,3 +17,16 @@ export function pickTextColor(
     ? darkColor
     : lightColor;
 }
+
+export const getTotalOffset = (el: HTMLElement) => {
+  let a = el,
+    offsetLeft = 0,
+    offsetTop = 0;
+  while (a) {
+    // while "a" (element or parent element) exists
+    offsetLeft += a.offsetLeft;
+    offsetTop += a.offsetTop;
+    a = a.offsetParent as HTMLElement; // reassign "a" to parent element
+  }
+  return { offsetLeft, offsetTop };
+};
