@@ -34,11 +34,13 @@ function App() {
           position: "fixed",
           top: "var(--s-05)",
           right: "var(--s-05)",
+          zIndex: 5,
         }}
       >
         <Button
           size="sm"
           onClick={() => setDM(!isDm)}
+          kind="ghost"
           icon={isDm ? <Check /> : undefined}
           isFixedPosition
         >

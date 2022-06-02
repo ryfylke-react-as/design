@@ -184,13 +184,16 @@ export const StyledButton = styled.button<StyledProps>`
   &::after {
     content: "";
     position: absolute;
-    transform: translate(-50%, -50%) scale(0.1);
-    --size: 120%;
-    height: var(--size);
+    transform: translate(-50%, -50%) scale(0);
+    height: 120%;
     aspect-ratio: 1/1;
+    @supports not (aspect-ratio: 1/1) {
+      width: 3rem;
+      height: 3rem;
+    }
     background: #fff;
     pointer-events: none;
-    opacity: 0;
+    opacity: 0.1;
     top: calc(var(--y) * 1px);
     left: calc(var(--x) * 1px);
     transition: transform 0.2s var(--ease-01),
@@ -199,12 +202,16 @@ export const StyledButton = styled.button<StyledProps>`
     z-index: 0;
   }
   &:hover::after {
-    opacity: 0.1;
-    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+    transition: transform 0.4s var(--ease-01),
+      opacity 0.6s var(--ease-01);
+    transform: translate(-50%, -50%) scale(3);
   }
   &:active::after {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(3) scaleX(6);
+    transition: transform 0.6s var(--ease-01),
+      opacity 0.7s var(--ease-01);
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(1);
   }
   > span {
     transition: transform 0.1s var(--ease-01);
@@ -223,7 +230,7 @@ export const StyledButton = styled.button<StyledProps>`
     color: var(--c-text-04);
     transition: background 0.2s var(--ease-01);
     > span {
-      transform: translateY(1px) rotate(-0.5deg);
+      transform: translateY(1px);
     }
   }
   cursor: pointer;
