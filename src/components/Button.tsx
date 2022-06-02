@@ -87,22 +87,25 @@ export const StyledButton = styled.button<StyledProps>`
   align-items: center;
   height: ${(props) => SIZE_TO_HEIGHT[props.size]};
   gap: ${(props) => SIZE_TO_GAP[props.size]};
-  border-bottom: 1px solid var(--c-ui-04);
+  box-shadow: 0px 1px 0px 0px var(--c-ui-04);
   ${(props) =>
     props.kind === "ghost" &&
     `
-    border-bottom-color:transparent;
+    box-shadow:none;
   `}
   ${applyFocusStyles}
+  &:focus {
+    box-shadow: none !important;
+  }
   &:hover {
     transition: background 0.1s var(--ease-01);
     background: var(--c-ui-04);
     color: var(--c-text-04);
-    border-bottom: 1px solid var(--c-ui-05);
+    box-shadow: 0px 1px 0px 0px var(--c-ui-05);
     ${(props) =>
       props.kind === "ghost" &&
       `
-    border-bottom-color:transparent;
+    box-shadow:none;
   `}
   }
   &:active {

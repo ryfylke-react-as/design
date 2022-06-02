@@ -8,6 +8,7 @@ export const ComponentBox = styled.div`
   flex-wrap: wrap;
   background: var(--c-ui-01);
   margin-bottom: var(--s-05);
+  border: 1px solid var(--c-ui-02);
 `;
 
 export const ColorGrid = styled.div`

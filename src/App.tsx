@@ -75,7 +75,11 @@ function App() {
                 text-02
               </Text>{" "}
               should be used mostly on body text. This is to
-              prevent eye straining, and direct focus.
+              prevent eye straining, and direct focus. Base font
+              size is{" "}
+              <Text kind="code" as="span">
+                16px
+              </Text>
             </Text>
           </div>
         </EquallySpaced>

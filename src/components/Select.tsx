@@ -301,6 +301,7 @@ const SelectButton = styled.button<SelectButtonProps>`
   align-items: center;
   justify-content: space-between;
   border: none;
+  box-shadow: 0px 0px 0px 1px var(--c-ui-02);
   background: ${(props) =>
     props.inverted ? "var(--c-ui-bg)" : "var(--c-ui-01)"};
   padding: var(--s-03) var(--s-05);
