@@ -50,7 +50,7 @@ export const GlobalStyles = createGlobalStyle`
 
 const focusStyles = css`
   transition: outline 0.1s var(--ease-01);
-  outline: 2px solid var(--c-focus);
+  outline: 2px solid var(--c-focus-01);
   outline-offset: 1px;
   position: relative;
 `;

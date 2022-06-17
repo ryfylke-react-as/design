@@ -55,7 +55,7 @@ export const StyledLabel = styled.label<LabelProps>`
   gap: var(--s-02);
   width: min-content;
   &:focus-within {
-    color: var(--c-focus);
+    color: var(--c-focus-01);
   }
   > div {
     width: min-content;

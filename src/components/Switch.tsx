@@ -95,7 +95,7 @@ const StyledSwitch = styled.label<{
         : "translate(0, -50%)"};
     border-radius: 50%;
     background: ${(props) =>
-      props.checked ? "var(--c-focus)" : "var(--c-ui-03)"};
+      props.checked ? "var(--c-focus-01)" : "var(--c-ui-03)"};
   }
   ${applyFocusStyles(true)}
   &:focus {

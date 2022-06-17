@@ -98,16 +98,16 @@ const StyledCheckbox = styled.label<{
   width: var(--size);
   height: var(--size);
   background: ${(props) =>
-    props.checked ? "var(--c-focus)" : "var(--c-ui-01)"};
+    props.checked ? "var(--c-focus-01)" : "var(--c-ui-01)"};
   border: 1px solid
     ${(props) =>
-      props.checked ? "var(--c-focus)" : "var(--c-ui-02)"};
+      props.checked ? "var(--c-focus-01)" : "var(--c-ui-02)"};
   border-radius: var(--roundness-01);
   display: inline-block;
   cursor: pointer;
   &:hover {
     background: ${(props) =>
-      props.checked ? "var(--c-focus)" : "var(--c-ui-02)"};
+      props.checked ? "var(--c-focus-01)" : "var(--c-ui-02)"};
   }
   svg {
     fill: var(--c-text-04);
@@ -161,7 +161,7 @@ const CheckboxContainer = styled.div<{
   &:hover {
     ${StyledCheckbox} {
       background: ${(props) =>
-        props.checked ? "var(--c-focus)" : "var(--c-ui-02)"};
+        props.checked ? "var(--c-focus-01)" : "var(--c-ui-02)"};
     }
   }
   ${applyFocusWithinStyles}

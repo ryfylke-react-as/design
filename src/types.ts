@@ -37,7 +37,7 @@ export type ActionToast = BaseToast & {
 export type Toast = BaseToast | ActionToast | string;
 
 export type ColorToken =
-  | "focus"
+  | "focus-01"
   | "ui-01"
   | "ui-02"
   | "ui-03"

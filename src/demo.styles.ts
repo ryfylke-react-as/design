@@ -20,6 +20,7 @@ export const ColorGrid = styled.div`
     place-content: center;
     ${applyFontKind("code")}
   }
+  margin-bottom: var(--s-02);
 `;
 
 export const DemoContainer = styled.div`

@@ -322,7 +322,7 @@ const SelectButton = styled.button<SelectButtonProps>`
       outline: 1px solid var(--c-danger-01);
   `}
   svg {
-    fill: var(--c-focus);
+    fill: var(--c-focus-01);
     --size: 0.75em;
     width: var(--size);
     height: var(--size);
