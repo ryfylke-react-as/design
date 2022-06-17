@@ -45,6 +45,7 @@ function App() {
           kind="ghost"
           icon={isDm ? <Check /> : undefined}
           isFixedPosition
+          ripple
         >
           Darkmode
         </Button>

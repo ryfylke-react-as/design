@@ -19,7 +19,7 @@ interface ButtonProps
   kind?: ButtonKind;
   size?: ButtonSize;
   isFixedPosition?: boolean;
-  disableMouseTrack?: boolean;
+  ripple?: boolean;
   /** Made for MUI-icons */
   icon?: ReactNode;
 }
@@ -30,7 +30,7 @@ export function Button({
   children,
   icon,
   isFixedPosition,
-  disableMouseTrack,
+  ripple,
   ...rest
 }: ButtonProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -38,6 +38,7 @@ export function Button({
     x: 0,
     y: 0,
   });
+  const disableMouseTrack = !ripple;
   const onMouseMove = (event: MouseEvent<HTMLButtonElement>) => {
     if (buttonRef?.current && !disableMouseTrack) {
       const { pageX, pageY } = event;
@@ -170,7 +171,7 @@ export const StyledButton = styled.button<StyledProps>`
     `
     box-shadow:none;
   `}
-  ${applyFocusStyles}
+  ${applyFocusStyles(false)}
   &:focus {
     box-shadow: none !important;
     &:hover {

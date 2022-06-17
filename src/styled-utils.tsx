@@ -48,12 +48,42 @@ export const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export const applyFocusStyles = css`
-  &:focus {
-    transition: outline 0.1s var(--ease-01);
-    outline: 2px solid var(--c-focus);
-    outline-offset: 1px;
-    position: relative;
+const focusStyles = css`
+  transition: outline 0.1s var(--ease-01);
+  outline: 2px solid var(--c-focus);
+  outline-offset: 1px;
+  position: relative;
+`;
+
+const resetFocusStyles = css`
+  transition: none;
+  outline: none;
+  outline-offset: 0;
+  position: unset;
+`;
+
+export const applyFocusStyles = (focusVisible?: boolean) =>
+  focusVisible
+    ? css`
+        &:focus {
+          ${focusStyles}
+        }
+        &:focus:not(:focus-visible) {
+          ${resetFocusStyles}
+        }
+        &:focus-visible {
+          ${focusStyles}
+        }
+      `
+    : css`
+        &:focus {
+          ${focusStyles}
+        }
+      `;
+
+export const applyFocusWithinStyles = css`
+  &:focus-within:focus-visible {
+    ${focusStyles}
   }
 `;
 

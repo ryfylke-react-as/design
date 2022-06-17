@@ -1,7 +1,11 @@
-import { BaseHTMLAttributes, useState } from "react";
+import { BaseHTMLAttributes, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useID } from "../hooks/useID";
-import { applyFontKind } from "../styled-utils";
+import {
+  applyFocusStyles,
+  applyFocusWithinStyles,
+  applyFontKind,
+} from "../styled-utils";
 import Check from "../svgr/Check";
 import { spread } from "../utils";
 
@@ -25,20 +29,43 @@ export function Checkbox({
   containerProps,
   ...props
 }: CheckboxProps) {
+  const id = useID();
+  const labelRef = useRef<HTMLLabelElement>(null);
   const [stateChecked, setStateChecked] = useState(false);
   const checked = propChecked ?? stateChecked;
   const onChange = propOnChange ?? setStateChecked;
-  const id = useID();
+
+  const check = () => {
+    onChange(!checked);
+    if (labelRef?.current) {
+      labelRef.current.focus();
+    }
+  };
+
   return (
-    <CheckboxContainer {...spread(containerProps)}>
+    <CheckboxContainer
+      checked={checked}
+      {...spread(containerProps)}
+    >
       <StyledInput
         checked={checked}
-        onChange={() => onChange(!checked)}
+        onChange={check}
         type="checkbox"
         id={id}
+        tabIndex={-1}
         {...spread(props)}
       />
-      <StyledCheckbox htmlFor={id} checked={checked}>
+      <StyledCheckbox
+        htmlFor={id}
+        checked={checked}
+        tabIndex={0}
+        ref={labelRef}
+        onKeyDown={(e) => {
+          if ([" ", "Enter"].includes(e.key)) {
+            check();
+          }
+        }}
+      >
         <Check />
       </StyledCheckbox>
       {label ? (
@@ -78,6 +105,10 @@ const StyledCheckbox = styled.label<{
   border-radius: var(--roundness-01);
   display: inline-block;
   cursor: pointer;
+  &:hover {
+    background: ${(props) =>
+      props.checked ? "var(--c-focus)" : "var(--c-ui-02)"};
+  }
   svg {
     fill: var(--c-text-04);
     path {
@@ -97,6 +128,7 @@ const StyledCheckbox = styled.label<{
         `}
     }
   }
+  ${applyFocusStyles(true)}
 `;
 
 const StyledInput = styled.input`
@@ -114,7 +146,9 @@ const StyledInput = styled.input`
   left: 0.7rem;
 `;
 
-const CheckboxContainer = styled.div`
+const CheckboxContainer = styled.div<{
+  checked?: boolean;
+}>`
   position: relative;
   display: flex;
   gap: var(--s-03);
@@ -124,4 +158,11 @@ const CheckboxContainer = styled.div`
     ${applyFontKind("label")}
     color:var(--c-text-02);
   }
+  &:hover {
+    ${StyledCheckbox} {
+      background: ${(props) =>
+        props.checked ? "var(--c-focus)" : "var(--c-ui-02)"};
+    }
+  }
+  ${applyFocusWithinStyles}
 `;

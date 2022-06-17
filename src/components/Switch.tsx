@@ -1,7 +1,10 @@
-import { BaseHTMLAttributes, useState } from "react";
+import { BaseHTMLAttributes, useRef, useState } from "react";
 import styled from "styled-components";
 import { useID } from "../hooks/useID";
-import { applyFontKind } from "../styled-utils";
+import {
+  applyFocusStyles,
+  applyFontKind,
+} from "../styled-utils";
 import { spread } from "../utils";
 
 interface SwitchProps
@@ -24,23 +27,38 @@ export function Switch({
   containerProps,
   ...props
 }: SwitchProps) {
+  const id = useID();
+  const labelRef = useRef<HTMLLabelElement>(null);
   const [stateChecked, setStateChecked] = useState(false);
   const checked = propChecked ?? stateChecked;
   const onChange = propOnChange ?? setStateChecked;
-  const id = useID();
+
+  const check = () => {
+    onChange(!checked);
+    labelRef.current?.focus?.();
+  };
+
   return (
     <SwitchContainer {...spread(containerProps)}>
       <StyledInput
         checked={checked}
-        onChange={() => onChange(!checked)}
+        onChange={check}
         type="checkbox"
         id={id}
+        tabIndex={-1}
         {...spread(props)}
       />
       <StyledSwitch
         htmlFor={id}
         checked={checked}
-      ></StyledSwitch>
+        tabIndex={0}
+        ref={labelRef}
+        onKeyDown={(e) => {
+          if ([" ", "Enter"].includes(e.key)) {
+            check();
+          }
+        }}
+      />
       {label ? (
         <label htmlFor={id} {...spread(labelProps)}>
           {label}
@@ -78,6 +96,10 @@ const StyledSwitch = styled.label<{
     border-radius: 50%;
     background: ${(props) =>
       props.checked ? "var(--c-focus)" : "var(--c-ui-03)"};
+  }
+  ${applyFocusStyles(true)}
+  &:focus {
+    outline-offset: 2px;
   }
 `;
 

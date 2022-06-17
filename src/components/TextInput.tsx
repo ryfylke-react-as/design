@@ -86,6 +86,6 @@ const StyledInput = styled.input<StyledProps>`
   &::placeholder {
     color: var(--c-text-03);
   }
-  ${applyFocusStyles}
+  ${applyFocusStyles(false)}
   ${applyFontKind("p")}
 `;

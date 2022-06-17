@@ -22,7 +22,7 @@ export const buttonKinds: Array<{
   kind: ButtonKind;
   text: string;
   icon?: ReactNode;
-  disableMouseTrack?: boolean;
+  ripple?: boolean;
   onClick?: () => void;
 }> = [
   {
@@ -67,6 +67,11 @@ export const buttonKinds: Array<{
     icon: <Save />,
   },
   {
+    ripple: true,
+    kind: "ghost",
+    text: "Ghost (With ripple)",
+  },
+  {
     kind: "ghost",
     text: "",
     icon: <SaveAlt />,
@@ -76,11 +81,6 @@ export const buttonKinds: Array<{
         kind: "success",
         icon: <Check />,
       }),
-  },
-  {
-    disableMouseTrack: true,
-    kind: "regular",
-    text: "Mouse tracking disabled",
   },
 ];
 

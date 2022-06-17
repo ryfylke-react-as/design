@@ -14,7 +14,7 @@ export function ButtonDemo() {
             kind={item.kind}
             icon={item?.icon}
             onClick={item.onClick}
-            disableMouseTrack={item?.disableMouseTrack}
+            ripple={item?.ripple}
           >
             {item.text}
           </Button>

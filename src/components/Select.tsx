@@ -313,7 +313,7 @@ const SelectButton = styled.button<SelectButtonProps>`
   height: 36px;
   cursor: pointer;
   ${applyFontKind("label")}
-  ${applyFocusStyles}
+  ${applyFocusStyles(false)}
   border-radius:var(--roundness-01);
   user-select: text;
   ${(props) =>
@@ -379,7 +379,7 @@ const OptionsContainer = styled.div<OptionsContainerProps>`
       text-align: left;
       padding: var(--s-03) var(--s-05);
       ${applyFontKind("label")}
-      ${applyFocusStyles}
+      ${applyFocusStyles(false)}
       &:focus {
         outline-offset: -3px;
       }
