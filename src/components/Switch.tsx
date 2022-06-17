@@ -29,7 +29,7 @@ export function Switch({
   const onChange = propOnChange ?? setStateChecked;
   const id = useID();
   return (
-    <CheckboxContainer {...spread(containerProps)}>
+    <SwitchContainer {...spread(containerProps)}>
       <StyledInput
         checked={checked}
         onChange={() => onChange(!checked)}
@@ -48,7 +48,7 @@ export function Switch({
       ) : (
         ""
       )}
-    </CheckboxContainer>
+    </SwitchContainer>
   );
 }
 
@@ -96,7 +96,7 @@ const StyledInput = styled.input`
   left: 0.7rem;
 `;
 
-const CheckboxContainer = styled.div`
+const SwitchContainer = styled.div`
   position: relative;
   display: flex;
   gap: var(--s-03);
