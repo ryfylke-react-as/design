@@ -1,11 +1,10 @@
 import { BaseHTMLAttributes, useState } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled from "styled-components";
 import { useID } from "../hooks/useID";
 import { applyFontKind } from "../styled-utils";
-import Check from "../svgr/Check";
 import { spread } from "../utils";
 
-interface CheckboxProps
+interface SwitchProps
   extends Omit<
     BaseHTMLAttributes<HTMLInputElement>,
     "checked" | "onChange"
@@ -17,14 +16,14 @@ interface CheckboxProps
   containerProps?: BaseHTMLAttributes<HTMLDivElement>;
 }
 
-export function Checkbox({
+export function Switch({
   checked: propChecked,
   onChange: propOnChange,
   label,
   labelProps,
   containerProps,
   ...props
-}: CheckboxProps) {
+}: SwitchProps) {
   const [stateChecked, setStateChecked] = useState(false);
   const checked = propChecked ?? stateChecked;
   const onChange = propOnChange ?? setStateChecked;
@@ -38,9 +37,10 @@ export function Checkbox({
         id={id}
         {...spread(props)}
       />
-      <StyledCheckbox htmlFor={id} checked={checked}>
-        <Check />
-      </StyledCheckbox>
+      <StyledSwitch
+        htmlFor={id}
+        checked={checked}
+      ></StyledSwitch>
       {label ? (
         <label htmlFor={id} {...spread(labelProps)}>
           {label}
@@ -52,50 +52,32 @@ export function Checkbox({
   );
 }
 
-const checkAnim = keyframes`
-  0% {
-    clip-path: polygon(0 0, 0 0, 0 0, 0% 100%);
-  }
-  50% {
-    clip-path: polygon(0 0, 0 0, 50% 100%, 0% 100%);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-  }
-`;
-
-const StyledCheckbox = styled.label<{
+const StyledSwitch = styled.label<{
   checked?: boolean;
 }>`
-  --size: 18px;
-  width: var(--size);
-  height: var(--size);
-  background: ${(props) =>
-    props.checked ? "var(--c-focus)" : "var(--c-ui-01)"};
-  border: 1px solid
-    ${(props) =>
-      props.checked ? "var(--c-focus)" : "var(--c-ui-02)"};
-  border-radius: var(--roundness-01);
-  display: inline-block;
-  cursor: pointer;
-  svg {
-    fill: var(--c-text-04);
-    path {
-      stroke-dasharray: 57;
-      stroke-dashoffset: 57;
-      transition: opacity 0.1s var(--ease-01);
-      ${(props) =>
-        !props.checked &&
-        `
-        opacity:0;
-      `}
-      ${(props) =>
-        props.checked &&
-        css`
-          animation: ${checkAnim} 0.2s var(--ease-01);
-          animation-fill-mode: both;
-        `}
-    }
+  --width: 35px;
+  width: var(--width);
+  height: 18px;
+  border-radius: 50px;
+  background: var(--c-ui-02);
+  position: relative;
+  &::after {
+    transition: transform 0.2s var(--ease-01);
+    --toggleSize: 20px;
+    content: "";
+    display: block;
+    width: var(--toggleSize);
+    height: var(--toggleSize);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: ${(props) =>
+      props.checked
+        ? "translate(calc(var(--width) - 100%), -50%)"
+        : "translate(0, -50%)"};
+    border-radius: 50%;
+    background: ${(props) =>
+      props.checked ? "var(--c-focus)" : "var(--c-ui-03)"};
   }
 `;
 

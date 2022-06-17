@@ -14,6 +14,7 @@ import { DemoContainer } from "./demo.styles";
 import { Button } from "./components/Button";
 import { Check } from "@material-ui/icons";
 import { CheckboxDemo } from "./demos/CheckboxDemo";
+import { SwitchDemo } from "./demos/SwitchDemo";
 
 function App() {
   const [isDm, setDM] = useState(false);
@@ -96,6 +97,7 @@ function App() {
         <TextInputDemo />
         <SelectDemo />
         <CheckboxDemo />
+        <SwitchDemo />
       </List>
     </Container>
   );
