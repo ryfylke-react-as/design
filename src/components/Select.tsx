@@ -218,11 +218,15 @@ export function Select({
           inverted={inverted}
           invalid={invalid ? true : false}
           open={isOpen}
-          onClick={() => setOpen((c) => !c)}
+          onClick={() => {
+            setOpen((c) => !c);
+            buttonRef?.current?.focus?.();
+          }}
           ref={buttonRef}
           onFocus={() => setCurrentFocus(0)}
           type="button"
           role="listbox"
+          tabIndex={0}
           aria-label={`Open select menu "${
             typeof label === "string" ? label : ""
           }"`}
@@ -301,6 +305,7 @@ const SelectButton = styled.button<SelectButtonProps>`
   align-items: center;
   justify-content: space-between;
   border: none;
+  transform: translate3d(0, 0, 0);
   box-shadow: 0px 0px 0px 1px var(--c-ui-02);
   background: ${(props) =>
     props.inverted ? "var(--c-ui-bg)" : "var(--c-ui-01)"};

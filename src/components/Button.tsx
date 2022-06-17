@@ -164,6 +164,7 @@ export const StyledButton = styled.button<StyledProps>`
   height: ${(props) => SIZE_TO_HEIGHT[props.size]};
   box-shadow: 0px 1px 0px 0px var(--c-ui-04);
   transition: background 0.1s var(--ease-01);
+  transform: translate3d(0, 0, 0);
   ${(props) =>
     props.kind === "ghost" &&
     `
@@ -172,6 +173,9 @@ export const StyledButton = styled.button<StyledProps>`
   ${applyFocusStyles}
   &:focus {
     box-shadow: none !important;
+    &:hover {
+      box-shadow: none;
+    }
   }
   &:hover {
     transition: background 0.2s var(--ease-01);

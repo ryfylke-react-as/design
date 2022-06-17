@@ -12,8 +12,7 @@ export const Check = (props: SVGProps<SVGSVGElement>) => (
   >
     <path
       d="M6.297 12.398 1.6 7.091 0 8.886l3.148 3.557L6.811 16S15.479 3.733 17.337 2.133C19.194.533 16.56 0 16.56 0L6.297 12.398Z"
-      fill="var(--cds-ui-bg)"
-      stroke-dasharray="57"
+      fill="var(--c-text-04)"
     />
   </svg>
 );

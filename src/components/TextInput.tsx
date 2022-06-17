@@ -70,14 +70,18 @@ const StyledInput = styled.input<StyledProps>`
   &:hover {
     outline: 1px solid var(--c-ui-02);
     box-shadow: none;
+    &:focus {
+      box-shadow: none;
+    }
   }
   ${(props) =>
     props.invalid &&
     `
       outline: 1px solid var(--c-danger-01);
-    &:hover {
-        outline: 1px solid var(--c-danger-01);
-    }
+      &:hover {
+          outline: 1px solid var(--c-danger-01);
+          box-shadow:none;
+      }
   `}
   &::placeholder {
     color: var(--c-text-03);
