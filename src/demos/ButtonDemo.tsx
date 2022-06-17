@@ -14,6 +14,7 @@ export function ButtonDemo() {
             kind={item.kind}
             icon={item?.icon}
             onClick={item.onClick}
+            disableMouseTrack={item?.disableMouseTrack}
           >
             {item.text}
           </Button>

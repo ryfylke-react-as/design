@@ -19,6 +19,7 @@ interface ButtonProps
   kind?: ButtonKind;
   size?: ButtonSize;
   isFixedPosition?: boolean;
+  disableMouseTrack?: boolean;
   /** Made for MUI-icons */
   icon?: ReactNode;
 }
@@ -29,6 +30,7 @@ export function Button({
   children,
   icon,
   isFixedPosition,
+  disableMouseTrack,
   ...rest
 }: ButtonProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -37,7 +39,7 @@ export function Button({
     y: 0,
   });
   const onMouseMove = (event: MouseEvent<HTMLButtonElement>) => {
-    if (buttonRef?.current) {
+    if (buttonRef?.current && !disableMouseTrack) {
       const { pageX, pageY } = event;
       const { offsetLeft, offsetTop } = getTotalOffset(
         buttonRef?.current
@@ -55,6 +57,7 @@ export function Button({
         y,
       });
     }
+    rest?.onMouseMove?.(event);
   };
   return (
     <StyledButton
@@ -63,6 +66,7 @@ export function Button({
       type={rest?.type ?? "button"}
       ref={buttonRef}
       onMouseMove={onMouseMove}
+      disableMouseTrack={disableMouseTrack}
       {...rest}
       style={
         {
@@ -84,6 +88,7 @@ export function Button({
 type StyledProps = {
   kind: ButtonKind;
   size: ButtonSize;
+  disableMouseTrack?: boolean;
 };
 
 const KIND_TO_BG: Record<ButtonKind, string> = {
@@ -233,5 +238,12 @@ export const StyledButton = styled.button<StyledProps>`
       transform: translateY(1px);
     }
   }
+  ${(props) =>
+    props.disableMouseTrack &&
+    `
+    &::after {
+      display:none !important;
+    }
+  `}
   cursor: pointer;
 `;

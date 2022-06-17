@@ -22,6 +22,7 @@ export const buttonKinds: Array<{
   kind: ButtonKind;
   text: string;
   icon?: ReactNode;
+  disableMouseTrack?: boolean;
   onClick?: () => void;
 }> = [
   {
@@ -75,6 +76,11 @@ export const buttonKinds: Array<{
         kind: "success",
         icon: <Check />,
       }),
+  },
+  {
+    disableMouseTrack: true,
+    kind: "regular",
+    text: "Mouse tracking disabled",
   },
 ];
 

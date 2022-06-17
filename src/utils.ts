@@ -30,3 +30,14 @@ export const getTotalOffset = (el: HTMLElement) => {
   }
   return { offsetLeft, offsetTop };
 };
+
+let counter = 0;
+
+export const gid = () => {
+  counter += 1;
+  return `ryfrea--gid-${counter}`;
+};
+
+export const spread = (obj?: any) => {
+  return obj ?? {};
+};
