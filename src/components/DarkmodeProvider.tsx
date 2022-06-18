@@ -16,7 +16,8 @@ const parsedLSDM = lsDM ? JSON.parse(lsDM) : null;
 const defaultDarkmodeValue =
   parsedLSDM && typeof parsedLSDM === "boolean"
     ? parsedLSDM
-    : false;
+    : window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 export const DarkmodeContext = createContext({
   isDM: defaultDarkmodeValue,
