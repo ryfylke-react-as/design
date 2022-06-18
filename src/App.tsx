@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Header } from "./components/Header";
 import { Text } from "./components/Text";
-import { ToastProvider } from "./components/ToastProvider";
 import { GlobalStyles } from "./styled-utils";
 import { TypographyDemo } from "./demos/TypographyDemo";
 import { ColorsDemo } from "./demos/ColorsDemo";
@@ -16,17 +14,10 @@ import { SwitchDemo } from "./demos/SwitchDemo";
 import { LayoutDemo } from "./demos/LayoutDemo";
 import { Shell } from "./components/Shell";
 import { Switch } from "./components/Switch";
+import { useDM } from "./hooks/useDM";
 
 function App() {
-  const [isDm, setDM] = useState(false);
-
-  useEffect(() => {
-    if (isDm) {
-      document.body.classList.add("dm");
-    } else {
-      document.body.classList.remove("dm");
-    }
-  }, [isDm]);
+  const { isDM, setDM } = useDM();
 
   return (
     <Shell
@@ -35,7 +26,7 @@ function App() {
         title: "Ryfrea Components",
         actions: [
           <Switch
-            checked={isDm}
+            checked={isDM}
             onChange={setDM}
             label="Darkmode"
           />,
@@ -44,7 +35,6 @@ function App() {
     >
       <Container>
         <GlobalStyles />
-        <ToastProvider location="topright" zIndex={500} />
         <Header order={1} id="top">
           <span style={{ color: "var(--c-focus-01)" }}>
             Ryfrea
@@ -99,7 +89,7 @@ function App() {
           <div>
             <Text kind="p">Work in progress.</Text>
           </div>
-          <ColorsDemo isDm={isDm} />
+          <ColorsDemo isDm={isDM} />
           <hr />
           <Header order={1} as="h2">
             Layout
