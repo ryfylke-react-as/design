@@ -14,7 +14,7 @@ import {
 import { ButtonKind, ButtonSize } from "../types";
 import { getTotalOffset } from "../utils";
 
-interface ButtonProps
+export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   kind?: ButtonKind;
   size?: ButtonSize;
@@ -22,6 +22,7 @@ interface ButtonProps
   ripple?: boolean;
   /** Made for MUI-icons */
   icon?: ReactNode;
+  hideFocus?: boolean;
 }
 
 export function Button({
@@ -31,6 +32,7 @@ export function Button({
   icon,
   isFixedPosition,
   ripple,
+  hideFocus,
   ...rest
 }: ButtonProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -68,6 +70,7 @@ export function Button({
       ref={buttonRef}
       onMouseMove={onMouseMove}
       disableMouseTrack={disableMouseTrack}
+      hideFocus={hideFocus}
       {...rest}
       style={
         {
@@ -76,7 +79,9 @@ export function Button({
           ...(rest?.style ?? {}),
         } as CSSProperties
       }
-      className={`ryfre--button ${rest?.className ?? ""}`}
+      className={`ryfre--button ryfre--button-${kind} ${
+        rest?.className ?? ""
+      }`}
     >
       <span>
         {icon ?? ""}
@@ -90,6 +95,7 @@ type StyledProps = {
   kind: ButtonKind;
   size: ButtonSize;
   disableMouseTrack?: boolean;
+  hideFocus?: boolean;
 };
 
 const KIND_TO_BG: Record<ButtonKind, string> = {
@@ -142,7 +148,7 @@ const SIZE_TO_ICON_SIZE: Record<ButtonSize, string> = {
   md: "0.75em",
   lg: "0.75em",
   field: "0.75em",
-  sm: "0.55em",
+  sm: "0.75em",
 };
 
 const iconAnim = keyframes`
@@ -171,7 +177,7 @@ export const StyledButton = styled.button<StyledProps>`
     `
     box-shadow:none;
   `}
-  ${applyFocusStyles(false)}
+  ${(props) => applyFocusStyles(props.hideFocus ?? false)}
   &:focus {
     box-shadow: none !important;
     &:hover {
