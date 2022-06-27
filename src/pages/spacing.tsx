@@ -1,3 +1,4 @@
+import { NavigateButton } from "../components/demo/NavigateButton";
 import { Header } from "../components/Header";
 import { Text } from "../components/Text";
 import { SpacingDemo } from "../demos/SpacingDemo";
@@ -16,6 +17,7 @@ export function SpacingPage() {
         </Text>
       </div>
       <SpacingDemo />
+      <NavigateButton to="/color">Color</NavigateButton>
     </>
   );
 }

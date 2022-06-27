@@ -1,3 +1,4 @@
+import { NavigateButton } from "../components/demo/NavigateButton";
 import { Header } from "../components/Header";
 import { Text } from "../components/Text";
 import { ColorsDemo } from "../demos/ColorsDemo";
@@ -14,6 +15,7 @@ export function ColorPage() {
         <Text kind="p">Work in progress.</Text>
       </div>
       <ColorsDemo isDm={isDM} />
+      <NavigateButton to="/layout">Layout</NavigateButton>
     </>
   );
 }

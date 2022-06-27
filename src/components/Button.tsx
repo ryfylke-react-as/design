@@ -169,7 +169,8 @@ export const StyledButton = styled.button<StyledProps>`
   display: flex;
   align-items: center;
   height: ${(props) => SIZE_TO_HEIGHT[props.size]};
-  box-shadow: 0px 1px 0px 0px var(--c-ui-04);
+  box-shadow: 0px 1px 0px 0px
+    ${(props) => KIND_TO_HOVER_BG[props.kind]};
   transition: background 0.1s var(--ease-01);
   transform: translate3d(0, 0, 0);
   ${(props) =>
@@ -188,7 +189,8 @@ export const StyledButton = styled.button<StyledProps>`
     transition: background 0.2s var(--ease-01);
     background: ${(props) => KIND_TO_HOVER_BG[props.kind]};
     color: var(--c-text-04);
-    box-shadow: 0px 1px 0px 0px var(--c-ui-05);
+    box-shadow: 0px 1px 0px 0px
+      ${(props) => KIND_TO_BG[props.kind]};
     ${(props) =>
       props.kind === "ghost" &&
       `
@@ -245,6 +247,7 @@ export const StyledButton = styled.button<StyledProps>`
     background: ${(props) => KIND_TO_ACTIVE_BG[props.kind]};
     color: var(--c-text-04);
     transition: background 0.2s var(--ease-01);
+    box-shadow: none;
     > span {
       transform: translateY(1px);
     }

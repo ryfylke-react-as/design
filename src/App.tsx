@@ -9,20 +9,36 @@ import { SwitchDemo } from "./demos/SwitchDemo";
 import { Shell } from "./components/Shell";
 import { Switch } from "./components/Switch";
 import { useDM } from "./hooks/useDM";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { IndexPage } from "./pages";
 import { TypographyPage } from "./pages/typography";
 import { SpacingPage } from "./pages/spacing";
 import { ColorPage } from "./pages/color";
 import { LayoutPage } from "./pages/layout";
+import { WbSunny, NightsStay } from "@material-ui/icons";
+import { useEffect, useState } from "react";
 
 function App() {
   const { isDM, setDM } = useDM();
+  const [expandedMenuItems, setExpandedMenuItems] = useState<
+    string[]
+  >([]);
+  const location = useLocation();
 
+  useEffect(() => {
+    if (
+      location.pathname.includes("components") &&
+      !expandedMenuItems.includes("components")
+    ) {
+      setExpandedMenuItems([...expandedMenuItems, "components"]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
   return (
     <Shell
       defaultOpen
-      disableToggleSideMenu
+      onExpandedMenuItemsChange={setExpandedMenuItems}
+      expandedMenuItems={expandedMenuItems}
       sideMenu={{
         navigation: [
           {
@@ -85,18 +101,6 @@ function App() {
                 to: "/components/switch",
                 id: "switch",
               },
-              {
-                text: "Test",
-                to: "#",
-                children: [
-                  {
-                    text: "Hest",
-                    to: "#",
-                    id: "hest",
-                  },
-                ],
-                id: "test",
-              },
             ],
             to: "#",
             id: "components",
@@ -110,6 +114,8 @@ function App() {
             checked={isDM}
             onChange={setDM}
             label="Darkmode"
+            checkedIcon={<NightsStay />}
+            uncheckedIcon={<WbSunny />}
           />,
         ],
       }}

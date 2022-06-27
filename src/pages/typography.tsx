@@ -1,3 +1,4 @@
+import { NavigateButton } from "../components/demo/NavigateButton";
 import { Header } from "../components/Header";
 import { Text } from "../components/Text";
 import { TypographyDemo } from "../demos/TypographyDemo";
@@ -26,6 +27,7 @@ export function TypographyPage() {
         </Text>
       </div>
       <TypographyDemo />
+      <NavigateButton to="/spacing">Spacing</NavigateButton>
     </>
   );
 }

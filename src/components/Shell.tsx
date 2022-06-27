@@ -2,7 +2,11 @@ import { ArrowDropDown, List } from "@material-ui/icons";
 import { ReactElement, ReactNode, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { applyFontKind } from "../styled-utils";
+import { useControlledState } from "../hooks/useControlledState";
+import {
+  applyFocusStyles,
+  applyFontKind,
+} from "../styled-utils";
 import { Button } from "./Button";
 import { Header } from "./Header";
 
@@ -31,6 +35,8 @@ type ShellProps = {
   defaultOpen?: boolean;
   disableToggleSideMenu?: boolean;
   onSideMenuOpen?: (state: boolean) => void;
+  expandedMenuItems?: string[];
+  onExpandedMenuItemsChange?: (value: string[]) => void;
 };
 
 export function Shell({
@@ -41,11 +47,16 @@ export function Shell({
   defaultOpen,
   onSideMenuOpen,
   disableToggleSideMenu,
+  expandedMenuItems: propExpandedMenuItems,
+  onExpandedMenuItemsChange,
 }: ShellProps) {
   const location = useLocation();
-  const [expandedMenuItems, setExpandedMenuItems] = useState<
-    string[]
-  >([]);
+  const [expandedMenuItems, setExpandedMenuItems] =
+    useControlledState<string[]>(
+      [],
+      propExpandedMenuItems,
+      onExpandedMenuItemsChange
+    );
   const navigate = useNavigate();
   const [sideMenuOpen, setSideMenuOpen] = useState(
     defaultOpen ?? false
@@ -149,7 +160,7 @@ const NavMenuItem = styled.button<{
   border: none;
   text-align: left;
   ${applyFontKind("label")}
-  color:var(--c-text-01);
+  color: var(--c-text-02);
   background: ${(props) =>
     props.active ? "var(--c-ui-02)" : "transparent"};
   padding: var(--s-03);
@@ -163,8 +174,15 @@ const NavMenuItem = styled.button<{
   cursor: pointer;
   position: relative;
   border-bottom: 1px solid transparent;
+  ${applyFocusStyles(true)}
+  &:focus {
+    outline-offset: -3px;
+  }
+  &:focus:not(:focus-visible) {
+    position: relative;
+  }
   color: ${(props) =>
-    props.active ? "var(--c-focus-01)" : "var(--c-text-01)"};
+    props.active ? "var(--c-focus-01)" : "var(--c-text-02)"};
   ${(props) =>
     (props?.indent ?? 0) > 0 &&
     `
@@ -175,10 +193,9 @@ const NavMenuItem = styled.button<{
       background:${
         props.active ? "var(--c-focus-01)" : "var(--c-ui-02)"
       };
-      height:100%;
       position:absolute;
       left:calc(var(--s-06));
-      top:0;
+      top:1px;
       bottom:0;
     }
   `}

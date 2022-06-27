@@ -1,5 +1,10 @@
-import { BaseHTMLAttributes, useRef, useState } from "react";
-import styled from "styled-components";
+import {
+  BaseHTMLAttributes,
+  ReactNode,
+  useRef,
+  useState,
+} from "react";
+import styled, { keyframes } from "styled-components";
 import { useID } from "../hooks/useID";
 import {
   applyFocusStyles,
@@ -17,6 +22,8 @@ interface SwitchProps
   label?: string;
   labelProps?: BaseHTMLAttributes<HTMLLabelElement>;
   containerProps?: BaseHTMLAttributes<HTMLDivElement>;
+  checkedIcon?: ReactNode;
+  uncheckedIcon?: ReactNode;
 }
 
 export function Switch({
@@ -25,6 +32,8 @@ export function Switch({
   label,
   labelProps,
   containerProps,
+  checkedIcon,
+  uncheckedIcon,
   ...props
 }: SwitchProps) {
   const id = useID();
@@ -58,7 +67,10 @@ export function Switch({
             check();
           }
         }}
-      />
+      >
+        {(checked && checkedIcon) ?? ""}
+        {(!checked && uncheckedIcon) ?? ""}
+      </StyledSwitch>
       {label ? (
         <label htmlFor={id} {...spread(labelProps)}>
           {label}
@@ -70,18 +82,43 @@ export function Switch({
   );
 }
 
+const iconAnim = keyframes`
+  from {
+    opacity:0;
+    transform:rotate(180deg);
+  }
+`;
+
 const StyledSwitch = styled.label<{
   checked?: boolean;
 }>`
   --width: 35px;
+  --toggleSize: 20px;
   width: var(--width);
   height: 18px;
   border-radius: 50px;
   background: var(--c-ui-02);
   position: relative;
+  svg {
+    position: absolute;
+    animation: ${iconAnim} 0.2s var(--ease-01);
+    transition: transform 0.2s var(--ease-01);
+    --iconSize: calc(var(--toggleSize) * 0.6);
+    color: var(--c-text-04);
+    width: var(--iconSize);
+    height: var(--iconSize);
+    left: 0;
+    z-index: 2;
+    top: 50%;
+    transform: ${(props) =>
+      props.checked
+        ? "translate(calc(calc(var(--width) - 100%) - calc(var(--toggleSize) / 5)), -50%)"
+        : "translate(calc(var(--toggleSize) / 5), -50%)"};
+    opacity: 0.8;
+  }
   &::after {
     transition: transform 0.2s var(--ease-01);
-    --toggleSize: 20px;
+
     content: "";
     display: block;
     width: var(--toggleSize);

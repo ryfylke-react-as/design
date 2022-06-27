@@ -1,3 +1,4 @@
+import { NavigateButton } from "../components/demo/NavigateButton";
 import { Header } from "../components/Header";
 import { Text } from "../components/Text";
 
@@ -14,6 +15,9 @@ export function IndexPage() {
         A collection of design-tokens (spacing, colors,
         typography) and React components.
       </Text>
+      <NavigateButton to="/typography">
+        Typography
+      </NavigateButton>
     </>
   );
 }

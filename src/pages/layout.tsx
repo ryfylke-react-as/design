@@ -1,3 +1,4 @@
+import { NavigateButton } from "../components/demo/NavigateButton";
 import { Header } from "../components/Header";
 import { Text } from "../components/Text";
 import { LayoutDemo } from "../demos/LayoutDemo";
@@ -15,6 +16,9 @@ export function LayoutPage() {
         </Text>
       </div>
       <LayoutDemo />
+      <NavigateButton to="/components/button">
+        Components
+      </NavigateButton>
     </>
   );
 }
