@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const { isDM, setDM } = useDM();
+  const [sideMenuOpen, setSideMenuOpen] = useState(true);
   const [expandedMenuItems, setExpandedMenuItems] = useState<
     string[]
   >([]);
@@ -31,12 +32,17 @@ function App() {
       !expandedMenuItems.includes("components")
     ) {
       setExpandedMenuItems([...expandedMenuItems, "components"]);
+      if (!sideMenuOpen) {
+        setSideMenuOpen(true);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
   return (
     <Shell
       defaultOpen
+      sideMenuOpen={sideMenuOpen}
+      onSideMenuOpenChange={setSideMenuOpen}
       onExpandedMenuItemsChange={setExpandedMenuItems}
       expandedMenuItems={expandedMenuItems}
       sideMenu={{
@@ -165,8 +171,9 @@ const Container = styled.div`
   justify-content: flex-start;
   padding: var(--s-05);
   gap: var(--s-01);
-  max-width: 900px;
+  max-width: 1100px;
   color: var(--c-text-02);
+  margin: 0 auto;
   p {
     color: var(--c-text-02);
   }

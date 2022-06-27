@@ -18,6 +18,31 @@ export function SelectDemo() {
   return (
     <DemoContainer>
       <Header order={1}>Select</Header>
+      <ComponentBox
+        style={{
+          background: "var(--c-ui-bg)",
+          border: "1px solid var(--c-ui-01)",
+        }}
+      >
+        <FormGroup>
+          <Select
+            value={select2Val}
+            onChange={setSelect2Val}
+            label="Pick favourite"
+            placeholder="No favourite selected"
+            options={selectOpts}
+          />
+          <Button
+            onClick={() => {
+              setSelect2Val("");
+            }}
+            size="field"
+          >
+            Reset
+          </Button>
+        </FormGroup>
+      </ComponentBox>
+      <hr />
       <ComponentBox>
         <FormGroup invalid={selectInvalid}>
           <Select
@@ -41,31 +66,6 @@ export function SelectDemo() {
             size="field"
           >
             Connect
-          </Button>
-        </FormGroup>
-      </ComponentBox>
-      <hr />
-      <ComponentBox
-        style={{
-          background: "var(--c-ui-bg)",
-          border: "1px solid var(--c-ui-01)",
-        }}
-      >
-        <FormGroup>
-          <Select
-            value={select2Val}
-            onChange={setSelect2Val}
-            label="Pick favourite"
-            placeholder="No favourite selected"
-            options={selectOpts}
-          />
-          <Button
-            onClick={() => {
-              setSelect2Val("");
-            }}
-            size="field"
-          >
-            Reset
           </Button>
         </FormGroup>
       </ComponentBox>

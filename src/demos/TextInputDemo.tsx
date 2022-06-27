@@ -23,6 +23,19 @@ export function TextInputDemo() {
         style={{
           flexDirection: "column",
           gap: "var(--s-06)",
+          background: "var(--c-ui-bg)",
+          border: "1px solid var(--c-ui-01)",
+        }}
+      >
+        <TextInput
+          placeholder="John Smith"
+          label="Text input (not inverted)"
+        />
+      </ComponentBox>
+      <ComponentBox
+        style={{
+          flexDirection: "column",
+          gap: "var(--s-06)",
         }}
       >
         <TextInput
@@ -42,19 +55,6 @@ export function TextInputDemo() {
           placeholder="*************"
           label="Password"
           type="password"
-        />
-      </ComponentBox>
-      <ComponentBox
-        style={{
-          flexDirection: "column",
-          gap: "var(--s-06)",
-          background: "var(--c-ui-bg)",
-          border: "1px solid var(--c-ui-01)",
-        }}
-      >
-        <TextInput
-          placeholder="John Smith"
-          label="Text input (not inverted)"
         />
       </ComponentBox>
     </DemoContainer>

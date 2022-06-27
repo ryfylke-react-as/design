@@ -12,7 +12,10 @@ export function CheckboxDemo() {
           border: "1px solid var(--c-ui-01)",
         }}
       >
-        <Checkbox label="Checkbox label" />
+        <Checkbox label="Checkbox" />
+      </ComponentBox>
+      <ComponentBox>
+        <Checkbox label="Checkbox (inverted)" inverted />
       </ComponentBox>
     </DemoContainer>
   );

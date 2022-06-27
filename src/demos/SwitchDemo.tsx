@@ -13,19 +13,15 @@ export function SwitchDemo() {
           border: "1px solid var(--c-ui-01)",
         }}
       >
-        <Switch label="Switch label" />
+        <Switch label="Switch" />
       </ComponentBox>
       <Header order={4}>With icons</Header>
-      <ComponentBox
-        style={{
-          background: "var(--c-ui-bg)",
-          border: "1px solid var(--c-ui-01)",
-        }}
-      >
+      <ComponentBox>
         <Switch
-          label="Switch label"
+          label="Switch (inverted)"
           checkedIcon={<Add />}
           uncheckedIcon={<AlarmAddRounded />}
+          inverted
         />
       </ComponentBox>
     </DemoContainer>

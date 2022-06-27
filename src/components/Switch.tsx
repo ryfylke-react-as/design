@@ -18,6 +18,7 @@ interface SwitchProps
     "checked" | "onChange"
   > {
   checked?: boolean;
+  inverted?: boolean;
   onChange?: (checked: boolean) => void;
   label?: string;
   labelProps?: BaseHTMLAttributes<HTMLLabelElement>;
@@ -34,6 +35,7 @@ export function Switch({
   containerProps,
   checkedIcon,
   uncheckedIcon,
+  inverted,
   ...props
 }: SwitchProps) {
   const id = useID();
@@ -62,6 +64,7 @@ export function Switch({
         checked={checked}
         tabIndex={0}
         ref={labelRef}
+        inverted={inverted}
         onKeyDown={(e) => {
           if ([" ", "Enter"].includes(e.key)) {
             check();
@@ -91,13 +94,17 @@ const iconAnim = keyframes`
 
 const StyledSwitch = styled.label<{
   checked?: boolean;
+  inverted?: boolean;
 }>`
   --width: 35px;
   --toggleSize: 20px;
   width: var(--width);
   height: 18px;
   border-radius: 50px;
-  background: var(--c-ui-02);
+  background: ${(props) =>
+    props.inverted ? "var(--c-ui-bg)" : "var(--c-ui-02)"};
+  ${(props) =>
+    props.inverted && `border:1px solid var(--c-ui-02);`}
   position: relative;
   svg {
     position: absolute;

@@ -1,5 +1,5 @@
 import { ArrowDropDown, List } from "@material-ui/icons";
-import { ReactElement, ReactNode, useState } from "react";
+import { ReactElement, ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useControlledState } from "../hooks/useControlledState";
@@ -37,6 +37,8 @@ type ShellProps = {
   onSideMenuOpen?: (state: boolean) => void;
   expandedMenuItems?: string[];
   onExpandedMenuItemsChange?: (value: string[]) => void;
+  sideMenuOpen?: boolean;
+  onSideMenuOpenChange?: (value: boolean) => void;
 };
 
 export function Shell({
@@ -49,6 +51,8 @@ export function Shell({
   disableToggleSideMenu,
   expandedMenuItems: propExpandedMenuItems,
   onExpandedMenuItemsChange,
+  sideMenuOpen: propSideMenuOpen,
+  onSideMenuOpenChange,
 }: ShellProps) {
   const location = useLocation();
   const [expandedMenuItems, setExpandedMenuItems] =
@@ -58,8 +62,10 @@ export function Shell({
       onExpandedMenuItemsChange
     );
   const navigate = useNavigate();
-  const [sideMenuOpen, setSideMenuOpen] = useState(
-    defaultOpen ?? false
+  const [sideMenuOpen, setSideMenuOpen] = useControlledState(
+    defaultOpen ?? false,
+    propSideMenuOpen,
+    onSideMenuOpenChange
   );
 
   const toggleMenuItem = (id: string) => {

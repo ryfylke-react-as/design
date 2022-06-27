@@ -19,6 +19,7 @@ interface CheckboxProps
   label?: string;
   labelProps?: BaseHTMLAttributes<HTMLLabelElement>;
   containerProps?: BaseHTMLAttributes<HTMLDivElement>;
+  inverted?: boolean;
 }
 
 export function Checkbox({
@@ -27,6 +28,7 @@ export function Checkbox({
   label,
   labelProps,
   containerProps,
+  inverted,
   ...props
 }: CheckboxProps) {
   const id = useID();
@@ -45,6 +47,7 @@ export function Checkbox({
   return (
     <CheckboxContainer
       checked={checked}
+      inverted={inverted}
       {...spread(containerProps)}
     >
       <StyledInput
@@ -58,6 +61,7 @@ export function Checkbox({
       <StyledCheckbox
         htmlFor={id}
         checked={checked}
+        inverted={inverted}
         tabIndex={0}
         ref={labelRef}
         onKeyDown={(e) => {
@@ -93,12 +97,17 @@ const checkAnim = keyframes`
 
 const StyledCheckbox = styled.label<{
   checked?: boolean;
+  inverted?: boolean;
 }>`
   --size: 18px;
   width: var(--size);
   height: var(--size);
   background: ${(props) =>
-    props.checked ? "var(--c-focus-01)" : "var(--c-ui-01)"};
+    props.checked
+      ? "var(--c-focus-01)"
+      : props.inverted
+      ? "var(--c-ui-bg)"
+      : "var(--c-ui-01)"};
   border: 1px solid
     ${(props) =>
       props.checked ? "var(--c-focus-01)" : "var(--c-ui-02)"};
@@ -107,7 +116,11 @@ const StyledCheckbox = styled.label<{
   cursor: pointer;
   &:hover {
     background: ${(props) =>
-      props.checked ? "var(--c-focus-01)" : "var(--c-ui-02)"};
+      props.checked
+        ? "var(--c-focus-01)"
+        : props.inverted
+        ? "var(--c-ui-01)"
+        : "var(--c-ui-02)"};
   }
   svg {
     fill: var(--c-text-04);
@@ -148,6 +161,7 @@ const StyledInput = styled.input`
 
 const CheckboxContainer = styled.div<{
   checked?: boolean;
+  inverted?: boolean;
 }>`
   position: relative;
   display: flex;
@@ -161,7 +175,11 @@ const CheckboxContainer = styled.div<{
   &:hover {
     ${StyledCheckbox} {
       background: ${(props) =>
-        props.checked ? "var(--c-focus-01)" : "var(--c-ui-02)"};
+        props.checked
+          ? "var(--c-focus-01)"
+          : props.inverted
+          ? "var(--c-ui-01)"
+          : "var(--c-ui-02)"};
     }
   }
   ${applyFocusWithinStyles}

@@ -7,7 +7,7 @@ export function useControlledState<T>(
 ): [T, (val: T) => void] {
   const [stateValue, stateOnChange] = useState<T>(initialValue);
 
-  if (value && onChange) {
+  if (value !== undefined && onChange !== undefined) {
     return [value, onChange];
   }
 
