@@ -1,5 +1,6 @@
-import { List } from "@material-ui/icons";
-import { ReactNode, useState } from "react";
+import { ArrowDropDown, List } from "@material-ui/icons";
+import { ReactElement, ReactNode, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { applyFontKind } from "../styled-utils";
 import { Button } from "./Button";
@@ -8,6 +9,7 @@ import { Header } from "./Header";
 type NavigationItem = {
   to: string;
   text: string;
+  id: string;
   icon?: ReactNode;
   children?: NavigationItem[];
 };
@@ -26,6 +28,7 @@ type ShellProps = {
   };
   userMenu?: ReactNode[];
   children: ReactNode;
+  defaultOpen?: boolean;
 };
 
 export function Shell({
@@ -33,8 +36,50 @@ export function Shell({
   sideMenu,
   userMenu,
   children,
+  defaultOpen,
 }: ShellProps) {
-  const [sideMenuOpen, setSideMenuOpen] = useState(false);
+  const location = useLocation();
+  const [expandedMenuItems, setExpandedMenuItems] = useState<
+    string[]
+  >([]);
+  const navigate = useNavigate();
+  const [sideMenuOpen, setSideMenuOpen] = useState(
+    defaultOpen ?? false
+  );
+
+  const toggleMenuItem = (id: string) => {
+    setExpandedMenuItems(
+      expandedMenuItems.includes(id)
+        ? expandedMenuItems.filter((cid) => cid !== id)
+        : [...expandedMenuItems, id]
+    );
+  };
+
+  const navMapper = (
+    item: NavigationItem,
+    level: number
+  ): ReactElement => (
+    <>
+      <NavMenuItem
+        onClick={() => {
+          if (item.children) {
+            toggleMenuItem(item.id);
+          } else {
+            navigate(item.to);
+          }
+        }}
+        expanded={expandedMenuItems.includes(item.id)}
+        indent={level}
+        active={location.pathname === item.to}
+      >
+        {item.text} {item.children ? <ArrowDropDown /> : ""}
+      </NavMenuItem>
+      {item.children && expandedMenuItems.includes(item.id)
+        ? item.children.map((item) => navMapper(item, level + 1))
+        : ""}
+    </>
+  );
+
   return (
     <Container>
       {topMenu ? (
@@ -75,7 +120,9 @@ export function Shell({
           <>
             <SideMenuFill open={sideMenuOpen} />
             <SideMenuContainer open={sideMenuOpen}>
-              {sideMenu.navigation.map((item) => "")}
+              {sideMenu.navigation.map((item) =>
+                navMapper(item, 0)
+              )}
             </SideMenuContainer>
           </>
         ) : (
@@ -86,6 +133,39 @@ export function Shell({
     </Container>
   );
 }
+
+const NavMenuItem = styled.button<{
+  expanded?: boolean;
+  active?: boolean;
+  indent?: number;
+}>`
+  border: none;
+  text-align: left;
+  ${applyFontKind("label")}
+  color:var(--c-text-01);
+  background: ${(props) =>
+    props.active ? "var(--c-ui-02)" : "transparent"};
+  padding: var(--s-03);
+  padding-left: ${(props) =>
+    `calc(var(--s-06) + calc(var(--s-03) * ${
+      props?.indent ?? 0
+    }))`};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  svg {
+    --size: 1.25rem;
+    width: var(--size);
+    height: var(--size);
+    transition: transform 0.15s var(--ease-01);
+    transform: ${(props) =>
+      props.expanded ? "rotate(180deg)" : "rotate(0deg)"};
+  }
+  &:hover {
+    background: var(--c-ui-02);
+  }
+`;
 
 const Container = styled.div`
   display: flex;
@@ -139,6 +219,8 @@ const SideMenuContainer = styled.div<{
   left: 0;
   top: 42px;
   transform-origin: left;
+  display: flex;
+  flex-direction: column;
 `;
 
 const SideMenuFill = styled.div<{

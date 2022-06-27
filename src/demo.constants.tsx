@@ -33,11 +33,7 @@ export const buttonKinds: Array<{
   {
     kind: "primary",
     text: "Primary",
-    onClick: () =>
-      toast({
-        text: "Clicked primary button",
-        kind: "success",
-      }),
+    onClick: () => toast("Clicked primary button"),
   },
   {
     kind: "success",
@@ -60,16 +56,19 @@ export const buttonKinds: Array<{
   {
     kind: "ghost",
     text: "Ghost",
+    onClick: () => toast("Clicked ghost button"),
   },
   {
     kind: "ghost",
     text: "Ghost (with icon)",
+    onClick: () => toast("Clicked ghost button"),
     icon: <Save />,
   },
   {
     ripple: true,
     kind: "ghost",
     text: "Ghost (With ripple)",
+    onClick: () => toast("Clicked ghost button"),
   },
   {
     kind: "ghost",
@@ -77,8 +76,7 @@ export const buttonKinds: Array<{
     icon: <SaveAlt />,
     onClick: () =>
       toast({
-        text: "Saved!",
-        kind: "success",
+        text: "Clicked icon-only button",
         icon: <Check />,
       }),
   },

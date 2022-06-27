@@ -6,6 +6,7 @@ import "./vanilla/fonts.css";
 import "./vanilla/reset.css";
 import { DarkmodeProvider } from "./components/DarkmodeProvider";
 import { ToastProvider } from "./components/ToastProvider";
+import { BrowserRouter } from "react-router-dom";
 // import "./vanilla/tokens.css";
 
 const root = ReactDOM.createRoot(
@@ -14,10 +15,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <DarkmodeProvider>
-      <ToastProvider location="topright" zIndex={500} />
-      <App />
-    </DarkmodeProvider>
+    <BrowserRouter>
+      <DarkmodeProvider>
+        <ToastProvider location="bottomright" zIndex={500} />
+        <App />
+      </DarkmodeProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

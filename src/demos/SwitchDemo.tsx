@@ -5,7 +5,7 @@ import { DemoContainer, ComponentBox } from "../demo.styles";
 export function SwitchDemo() {
   return (
     <DemoContainer>
-      <Header order={2}>Switch</Header>
+      <Header order={1}>Switch</Header>
       <ComponentBox
         style={{
           background: "var(--c-ui-bg)",

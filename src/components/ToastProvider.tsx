@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
+import { TOAST_EVENT } from "../constants";
 import { useListener } from "../hooks/useListener";
 import { applyFontKind } from "../styled-utils";
 import {
@@ -41,6 +42,11 @@ export function ToastProvider({
   location = "bottomright",
   zIndex = 1,
 }: ToastProviderProps) {
+  const toastCancelers = useRef<Record<string, boolean>>({});
+  const toastTimers = useRef<
+    Record<string, ReturnType<typeof setTimeout>>
+  >({});
+  const mountedRef = useRef(true);
   const [toastList, setToastList] = useState<ToastListItem[]>(
     []
   );
@@ -48,36 +54,54 @@ export function ToastProvider({
   const pushToast = (toast: BaseToast | ActionToast) => {
     const id = uid();
     setToastList((p) => [...p, { ...toast, id }]);
-    setTimeout(() => {
-      clearToast(id);
-    }, toast.duration ?? defaultToastOpts.duration);
-  };
-
-  const clearToast = (id: string) => {
-    setToastList((prev) =>
-      prev.filter((toast) => toast.id !== id)
+    toastCancelers.current[id] = false;
+    const timeoutFunc = () => {
+      if (!toastCancelers.current[id]) {
+        clearToast(id);
+      }
+    };
+    toastTimers.current[id] = setTimeout(
+      timeoutFunc,
+      toast.duration ?? defaultToastOpts.duration
     );
   };
 
-  useListener("ryfre-toast", (event: CustomEvent<Toast>) => {
+  const clearToast = (id: string) => {
+    if (mountedRef.current) {
+      setToastList((prev) =>
+        prev.filter((toast) => toast.id !== id)
+      );
+    }
+  };
+
+  useListener(TOAST_EVENT, (event: CustomEvent<Toast>) => {
     const toast = event.detail;
-    if (typeof toast == "string") {
-      pushToast({
-        ...defaultToastOpts,
-        text: toast,
-      });
-    } else {
-      pushToast({
-        ...toast,
-        duration: toast?.duration ?? defaultToastOpts.duration,
-        kind: toast?.kind ?? defaultToastOpts.kind,
-      });
+    if (mountedRef.current) {
+      if (typeof toast == "string") {
+        pushToast({
+          ...defaultToastOpts,
+          text: toast,
+        });
+      } else {
+        pushToast({
+          ...toast,
+          duration: toast?.duration ?? defaultToastOpts.duration,
+          kind: toast?.kind ?? defaultToastOpts.kind,
+        });
+      }
     }
   });
 
   const list = ["topleft", "topright"].includes(location)
     ? toastList
     : [...toastList].reverse();
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  });
 
   return (
     <ToastContainer location={location} zIndex={zIndex}>
@@ -86,6 +110,22 @@ export function ToastProvider({
           toast={toast}
           onClear={() => clearToast(toast.id)}
           key={toast.id}
+          onMouseEnter={() => {
+            toastCancelers.current[toast.id] = true;
+            clearTimeout(toastTimers.current[toast.id]);
+          }}
+          onMouseLeave={() => {
+            toastCancelers.current[toast.id] = false;
+            const timeoutFunc = () => {
+              if (!toastCancelers.current[toast.id]) {
+                clearToast(toast.id);
+              }
+            };
+            toastTimers.current[toast.id] = setTimeout(
+              timeoutFunc,
+              toast.duration ?? defaultToastOpts.duration
+            );
+          }}
         />
       ))}
     </ToastContainer>
@@ -93,7 +133,7 @@ export function ToastProvider({
 }
 
 export const toast = (toast: Toast) => {
-  const toastEvent = new CustomEvent("ryfre-toast", {
+  const toastEvent = new CustomEvent(TOAST_EVENT, {
     detail: toast,
   });
   document.body.dispatchEvent(toastEvent);
@@ -102,14 +142,23 @@ export const toast = (toast: Toast) => {
 type ToastItemProps = {
   toast: ToastListItem;
   onClear: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 };
 
-function ToastItem({ toast, onClear }: ToastItemProps) {
+function ToastItem({
+  toast,
+  onClear,
+  onMouseEnter,
+  onMouseLeave,
+}: ToastItemProps) {
   return (
     <ToastItemContainer
       kind={toast.kind as "info"}
       onClick={onClear}
       title="Clear toast"
+      onMouseLeave={onMouseLeave}
+      onMouseEnter={onMouseEnter}
     >
       {toast.icon ?? ""} {toast.text}
     </ToastItemContainer>
@@ -150,13 +199,33 @@ const ToastItemContainer = styled.button<ToastItemContainerProps>`
   perspective: 20px;
   width: 250px;
   align-items: center;
+  position: relative;
+  transition: transform 0.2s var(--ease-01);
+  z-index: 2;
   svg {
     --size: 0.75em;
     width: var(--size);
     height: var(--size);
   }
   &:hover {
-    opacity: 0.9;
+    transform: translateX(-5px);
+  }
+  &::after {
+    transition: transform 0.2s var(--ease-01);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: var(--roundness-01);
+    background: ${({ kind }) => KIND_TO_BG[kind]};
+    opacity: 0.8;
+    position: absolute;
+    content: "";
+    transform: translate(4px, 4px);
+    z-index: -1;
+  }
+  &:hover::after {
+    transform: translate(9px, 4px);
   }
   ${applyFontKind("label")}
   color: ${({ kind }) => KIND_TO_COLOR[kind]};
@@ -187,5 +256,5 @@ const ToastContainer = styled.div<{
   z-index: ${(props) => props.zIndex.toString()};
   display: flex;
   flex-direction: column;
-  gap: var(--s-02);
+  gap: var(--s-03);
 `;

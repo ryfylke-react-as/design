@@ -14,7 +14,7 @@ type DarkmodeProviderProps = {
 const lsDM = localStorage.getItem(DARKMODE_LOCALSTORAGE_TOKEN);
 const parsedLSDM = lsDM ? JSON.parse(lsDM) : null;
 const defaultDarkmodeValue =
-  parsedLSDM && typeof parsedLSDM === "boolean"
+  typeof parsedLSDM === "boolean"
     ? parsedLSDM
     : window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches;

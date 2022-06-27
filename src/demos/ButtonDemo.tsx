@@ -6,7 +6,7 @@ import { DemoContainer, ComponentBox } from "../demo.styles";
 export function ButtonDemo() {
   return (
     <DemoContainer>
-      <Header order={2}>Button</Header>
+      <Header order={1}>Button</Header>
       <Header order={4}>Kinds:</Header>
       <ComponentBox style={{}}>
         {buttonKinds.map((item) => (

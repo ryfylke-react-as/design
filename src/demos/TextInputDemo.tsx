@@ -11,7 +11,7 @@ export function TextInputDemo() {
     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailVal);
   return (
     <DemoContainer>
-      <Header order={2}>TextInput</Header>
+      <Header order={1}>TextInput</Header>
       <Text
         as="p"
         kind="p"

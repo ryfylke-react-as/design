@@ -1,27 +1,95 @@
 import styled from "styled-components";
-import { Header } from "./components/Header";
-import { Text } from "./components/Text";
 import { GlobalStyles } from "./styled-utils";
-import { TypographyDemo } from "./demos/TypographyDemo";
-import { ColorsDemo } from "./demos/ColorsDemo";
-import { SpacingDemo } from "./demos/SpacingDemo";
 import { ButtonDemo } from "./demos/ButtonDemo";
 import { TextInputDemo } from "./demos/TextInputDemo";
 import { SelectDemo } from "./demos/SelectDemo";
 import { DemoContainer } from "./demo.styles";
 import { CheckboxDemo } from "./demos/CheckboxDemo";
 import { SwitchDemo } from "./demos/SwitchDemo";
-import { LayoutDemo } from "./demos/LayoutDemo";
 import { Shell } from "./components/Shell";
 import { Switch } from "./components/Switch";
 import { useDM } from "./hooks/useDM";
+import { Route, Routes } from "react-router-dom";
+import { IndexPage } from "./pages";
+import { TypographyPage } from "./pages/typography";
+import { SpacingPage } from "./pages/spacing";
+import { ColorPage } from "./pages/color";
+import { LayoutPage } from "./pages/layout";
 
 function App() {
   const { isDM, setDM } = useDM();
 
   return (
     <Shell
-      sideMenu={{ navigation: [] }}
+      defaultOpen
+      sideMenu={{
+        navigation: [
+          {
+            text: "Introduction",
+            to: "/",
+            id: "home",
+          },
+          {
+            text: "Guidelines",
+            children: [
+              {
+                text: "Typography",
+                to: "/typography",
+                id: "typography",
+              },
+              {
+                text: "Spacing",
+                to: "/spacing",
+                id: "spacing",
+              },
+              {
+                text: "Color",
+                to: "/color",
+                id: "color",
+              },
+              {
+                text: "Layout",
+                to: "/layout",
+                id: "layout",
+              },
+            ],
+            to: "#",
+            id: "guidelines",
+          },
+          {
+            text: "Components",
+            children: [
+              {
+                text: "Button",
+                to: "/components/button",
+                id: "button",
+              },
+              {
+                text: "Text Input",
+                to: "/components/textinput",
+                id: "textinput",
+              },
+              {
+                text: "Select",
+                to: "/components/select",
+                id: "select",
+              },
+              {
+                text: "Checkbox",
+                to: "/components/checkbox",
+                id: "checkbox",
+              },
+              {
+                text: "Switch",
+                to: "/components/switch",
+                id: "switch",
+              },
+            ],
+            to: "#",
+            id: "components",
+          },
+        ],
+      }}
       topMenu={{
         title: "Ryfrea Components",
         actions: [
@@ -34,89 +102,38 @@ function App() {
       }}
     >
       <Container>
-        <GlobalStyles />
-        <Header order={1} id="top">
-          <span style={{ color: "var(--c-focus-01)" }}>
-            Ryfrea
-          </span>
-          Components
-        </Header>
-        <Text>
-          A collection of design-tokens (spacing, colors,
-          typography) and React components.
-        </Text>
-        <hr />
         <List>
-          <Header order={1} as="h2">
-            Typography
-          </Header>
-          <div>
-            <Text kind="p">
-              We use the "Ubuntu" and "Ubuntu Mono" font
-              families.{" "}
-              <Text kind="code" as="span">
-                text-01
-              </Text>{" "}
-              should be reserved for headers and callouts,{" "}
-              <Text kind="code" as="span">
-                text-02
-              </Text>{" "}
-              should be used mostly on body text. This is to
-              prevent eye straining, and direct focus. Base font
-              size is{" "}
-              <Text kind="code" as="span">
-                16px
-              </Text>
-            </Text>
-          </div>
-          <TypographyDemo />
-          <hr />
-          <Header order={1} as="h2">
-            Spacing
-          </Header>{" "}
-          <div>
-            <Text kind="p">
-              Used for margins & paddings. You should try to only
-              ever use these values when it comes to spacing in
-              your application.
-            </Text>
-          </div>
-          <SpacingDemo />
-          <hr />
-          <Header order={1} as="h2">
-            Color
-          </Header>
-          <div>
-            <Text kind="p">Work in progress.</Text>
-          </div>
-          <ColorsDemo isDm={isDM} />
-          <hr />
-          <Header order={1} as="h2">
-            Layout
-          </Header>
-          <div>
-            <Text kind="p">
-              Use a combination of our spacing tokens and
-              ui-colors to achieve hierarchy in nested layouts.
-            </Text>
-          </div>
-          <LayoutDemo />
-          <hr />
-          <Header order={1} as="h2">
-            Components
-          </Header>
-          <div>
-            <Text kind="p">
-              We offer an accessible component library for React
-              - that uses the Ryfrea design language under the
-              hood.
-            </Text>
-          </div>
-          <ButtonDemo />
-          <TextInputDemo />
-          <SelectDemo />
-          <CheckboxDemo />
-          <SwitchDemo />
+          <GlobalStyles />
+          <Routes>
+            <Route path="/" element={<IndexPage />} />
+            <Route
+              path="/typography"
+              element={<TypographyPage />}
+            />
+            <Route path="/spacing" element={<SpacingPage />} />
+            <Route path="/color" element={<ColorPage />} />
+            <Route path="/layout" element={<LayoutPage />} />
+            <Route
+              path="/components/button"
+              element={<ButtonDemo />}
+            />
+            <Route
+              path="/components/textinput"
+              element={<TextInputDemo />}
+            />
+            <Route
+              path="/components/select"
+              element={<SelectDemo />}
+            />
+            <Route
+              path="/components/checkbox"
+              element={<CheckboxDemo />}
+            />
+            <Route
+              path="/components/switch"
+              element={<SwitchDemo />}
+            />
+          </Routes>
         </List>
       </Container>
     </Shell>
@@ -148,6 +165,9 @@ const List = styled.div`
   gap: var(--s-05);
   ${DemoContainer} > h2 {
     margin: var(--s-05) 0;
+  }
+  h1 {
+    margin-bottom: var(--s-05);
   }
 `;
 

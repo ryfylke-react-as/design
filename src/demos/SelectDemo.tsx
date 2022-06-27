@@ -17,7 +17,7 @@ export function SelectDemo() {
     : "Latency too high! (180ms+)";
   return (
     <DemoContainer>
-      <Header order={2}>Select</Header>
+      <Header order={1}>Select</Header>
       <ComponentBox>
         <FormGroup invalid={selectInvalid}>
           <Select
