@@ -110,7 +110,7 @@ const KIND_TO_HOVER_BG: Record<ButtonKind, string> = {
   regular: "var(--c-ui-04)",
   danger: "var(--c-danger-02)",
   ghost: "var(--c-ui-04)",
-  primary: "var(--c-ui-04)",
+  primary: "var(--c-primary-02)",
   success: "var(--c-success-02)",
 };
 
@@ -118,7 +118,7 @@ const KIND_TO_ACTIVE_BG: Record<ButtonKind, string> = {
   regular: "#000",
   danger: "var(--c-danger-03)",
   ghost: "#000",
-  primary: "#000",
+  primary: "var(--c-primary-03)",
   success: "var(--c-success-03)",
 };
 

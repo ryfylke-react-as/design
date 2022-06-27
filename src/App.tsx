@@ -22,6 +22,7 @@ function App() {
   return (
     <Shell
       defaultOpen
+      disableToggleSideMenu
       sideMenu={{
         navigation: [
           {
@@ -84,6 +85,18 @@ function App() {
                 to: "/components/switch",
                 id: "switch",
               },
+              {
+                text: "Test",
+                to: "#",
+                children: [
+                  {
+                    text: "Hest",
+                    to: "#",
+                    id: "hest",
+                  },
+                ],
+                id: "test",
+              },
             ],
             to: "#",
             id: "components",
@@ -144,8 +157,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin: 0 auto;
-  padding: var(--s-08) var(--s-05);
+  padding: var(--s-05);
   gap: var(--s-01);
   max-width: 900px;
   color: var(--c-text-02);

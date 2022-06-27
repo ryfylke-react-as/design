@@ -29,6 +29,8 @@ type ShellProps = {
   userMenu?: ReactNode[];
   children: ReactNode;
   defaultOpen?: boolean;
+  disableToggleSideMenu?: boolean;
+  onSideMenuOpen?: (state: boolean) => void;
 };
 
 export function Shell({
@@ -37,6 +39,8 @@ export function Shell({
   userMenu,
   children,
   defaultOpen,
+  onSideMenuOpen,
+  disableToggleSideMenu,
 }: ShellProps) {
   const location = useLocation();
   const [expandedMenuItems, setExpandedMenuItems] = useState<
@@ -86,7 +90,7 @@ export function Shell({
         <>
           <TopMenuFiller />
           <TopMenuContainer>
-            {sideMenu ? (
+            {sideMenu && !disableToggleSideMenu ? (
               <Button
                 icon={<List />}
                 size="sm"
@@ -95,7 +99,10 @@ export function Shell({
                 style={{
                   color: "var(--c-text-04)",
                 }}
-                onClick={() => setSideMenuOpen(!sideMenuOpen)}
+                onClick={() => {
+                  setSideMenuOpen(!sideMenuOpen);
+                  onSideMenuOpen?.(!sideMenuOpen);
+                }}
               />
             ) : (
               ""
@@ -147,13 +154,34 @@ const NavMenuItem = styled.button<{
     props.active ? "var(--c-ui-02)" : "transparent"};
   padding: var(--s-03);
   padding-left: ${(props) =>
-    `calc(var(--s-06) + calc(var(--s-03) * ${
+    `calc(var(--s-06) + calc(var(--s-04) * ${
       props?.indent ?? 0
     }))`};
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  position: relative;
+  border-bottom: 1px solid transparent;
+  color: ${(props) =>
+    props.active ? "var(--c-focus-01)" : "var(--c-text-01)"};
+  ${(props) =>
+    (props?.indent ?? 0) > 0 &&
+    `
+    &::before {
+      content:"";
+      display:block;
+      width:1px;
+      background:${
+        props.active ? "var(--c-focus-01)" : "var(--c-ui-02)"
+      };
+      height:100%;
+      position:absolute;
+      left:calc(var(--s-06));
+      top:0;
+      bottom:0;
+    }
+  `}
   svg {
     --size: 1.25rem;
     width: var(--size);
@@ -164,6 +192,10 @@ const NavMenuItem = styled.button<{
   }
   &:hover {
     background: var(--c-ui-02);
+    &::before {
+      background: ${(props) =>
+        props.active ? "var(--c-focus-01)" : "var(--c-ui-03)"};
+    }
   }
 `;
 

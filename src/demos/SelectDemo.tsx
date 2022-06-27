@@ -39,7 +39,6 @@ export function SelectDemo() {
               });
             }}
             size="field"
-            kind="primary"
           >
             Connect
           </Button>

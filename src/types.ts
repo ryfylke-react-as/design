@@ -50,6 +50,8 @@ export type ColorToken =
   | "text-04"
   | "text-05"
   | "primary-01"
+  | "primary-02"
+  | "primary-03"
   | "success-01"
   | "success-02"
   | "success-03"
