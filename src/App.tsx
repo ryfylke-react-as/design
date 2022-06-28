@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { GlobalStyles } from "./styled-utils";
 import { ButtonDemo } from "./demos/ButtonDemo";
 import { TextInputDemo } from "./demos/TextInputDemo";
@@ -17,9 +17,13 @@ import { ColorPage } from "./pages/color";
 import { LayoutPage } from "./pages/layout";
 import { WbSunny, NightsStay } from "@material-ui/icons";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 function App() {
   const { isDM, setDM } = useDM();
+  const isTooSmall = useMediaQuery({
+    query: "(max-width: 800px)",
+  });
   const [sideMenuOpen, setSideMenuOpen] = useState(true);
   const [expandedMenuItems, setExpandedMenuItems] = useState<
     string[]
@@ -37,7 +41,18 @@ function App() {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
+  }, [location]);
+
+  useEffect(() => {
+    if (isTooSmall && sideMenuOpen) {
+      setSideMenuOpen(false);
+    }
+    if (!isTooSmall && !sideMenuOpen) {
+      setSideMenuOpen(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isTooSmall]);
+
   return (
     <Shell
       defaultOpen
@@ -46,6 +61,7 @@ function App() {
       onExpandedMenuItemsChange={setExpandedMenuItems}
       expandedMenuItems={expandedMenuItems}
       sideMenu={{
+        floating: isTooSmall,
         navigation: [
           {
             text: "Introduction",
@@ -114,7 +130,7 @@ function App() {
         ],
       }}
       topMenu={{
-        title: "Ryfrea Components",
+        title: <a href="/">Ryfrea Components</a>,
         actions: [
           <Switch
             checked={isDM}
@@ -126,7 +142,7 @@ function App() {
         ],
       }}
     >
-      <Container>
+      <Container key={location.pathname}>
         <List>
           <GlobalStyles />
           <Routes>
@@ -165,10 +181,18 @@ function App() {
   );
 }
 
+const containerAnim = keyframes`
+  from {
+    opacity:0;
+    transform:translateX(-5px);
+  }
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  animation: ${containerAnim} 0.2s var(--ease-01);
   padding: var(--s-05);
   gap: var(--s-01);
   max-width: 1100px;

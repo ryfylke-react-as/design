@@ -1,5 +1,11 @@
 import { ArrowDropDown, List } from "@material-ui/icons";
-import { ReactElement, ReactNode } from "react";
+import {
+  ReactElement,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useControlledState } from "../hooks/useControlledState";
@@ -29,6 +35,7 @@ type ShellProps = {
   };
   sideMenu?: {
     navigation: NavigationItem[];
+    floating?: boolean;
   };
   userMenu?: ReactNode[];
   children: ReactNode;
@@ -55,6 +62,7 @@ export function Shell({
   onSideMenuOpenChange,
 }: ShellProps) {
   const location = useLocation();
+  const sideMenuRef = useRef<HTMLDivElement>(null);
   const [expandedMenuItems, setExpandedMenuItems] =
     useControlledState<string[]>(
       [],
@@ -95,11 +103,54 @@ export function Shell({
       >
         {item.text} {item.children ? <ArrowDropDown /> : ""}
       </NavMenuItem>
-      {item.children && expandedMenuItems.includes(item.id)
-        ? item.children.map((item) => navMapper(item, level + 1))
-        : ""}
+      {item.children && expandedMenuItems.includes(item.id) ? (
+        <DropdownAnimContainer>
+          {item.children.map((item) =>
+            navMapper(item, level + 1)
+          )}
+        </DropdownAnimContainer>
+      ) : (
+        ""
+      )}
     </>
   );
+
+  const clickOutsideListener = useCallback(
+    (e: MouseEvent) => {
+      const el = e.target as HTMLElement;
+      if (
+        !sideMenuRef.current?.contains?.(el) &&
+        sideMenuOpen &&
+        !el?.classList?.contains?.("ryfrea--nav-button")
+      ) {
+        setSideMenuOpen(false);
+      }
+    },
+    [sideMenuOpen, setSideMenuOpen]
+  );
+
+  useEffect(() => {
+    if (sideMenu?.floating && sideMenuOpen) {
+      document.body.addEventListener(
+        "click",
+        clickOutsideListener
+      );
+      console.log("Added");
+    } else {
+      console.log("Removed");
+      document.body.removeEventListener(
+        "click",
+        clickOutsideListener
+      );
+    }
+    return () => {
+      console.log("Removed");
+      document.body.removeEventListener(
+        "click",
+        clickOutsideListener
+      );
+    };
+  }, [sideMenu?.floating, clickOutsideListener, sideMenuOpen]);
 
   return (
     <Container>
@@ -109,7 +160,7 @@ export function Shell({
           <TopMenuContainer>
             {sideMenu && !disableToggleSideMenu ? (
               <Button
-                icon={<List />}
+                icon={<List className="ryfrea--nav-button" />}
                 size="sm"
                 kind="ghost"
                 hideFocus
@@ -120,6 +171,7 @@ export function Shell({
                   setSideMenuOpen(!sideMenuOpen);
                   onSideMenuOpen?.(!sideMenuOpen);
                 }}
+                className="ryfrea--nav-button"
               />
             ) : (
               ""
@@ -142,8 +194,13 @@ export function Shell({
       <MainSplit>
         {sideMenu ? (
           <>
-            <SideMenuFill open={sideMenuOpen} />
-            <SideMenuContainer open={sideMenuOpen}>
+            {!sideMenu?.floating && (
+              <SideMenuFill open={sideMenuOpen} />
+            )}
+            <SideMenuContainer
+              open={sideMenuOpen}
+              ref={sideMenuRef}
+            >
               {sideMenu.navigation.map((item) =>
                 navMapper(item, 0)
               )}
@@ -157,6 +214,12 @@ export function Shell({
     </Container>
   );
 }
+
+const DropdownAnimContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  transform-origin: top;
+`;
 
 const NavMenuItem = styled.button<{
   expanded?: boolean;
@@ -250,6 +313,10 @@ const TopMenuContainer = styled.div`
     ${applyFontKind("button")}
     padding: var(--s-02);
     color: var(--c-text-04);
+    a {
+      color: var(--c-text-04);
+      text-decoration: none;
+    }
   }
 `;
 
