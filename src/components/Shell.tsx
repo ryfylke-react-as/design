@@ -32,6 +32,7 @@ type ShellProps = {
     onSearchChange?: (que: string) => void;
     onSearch?: (que: string) => void;
     actions?: ReactNode[];
+    background?: string;
   };
   sideMenu?: {
     navigation: NavigationItem[];
@@ -157,7 +158,7 @@ export function Shell({
       {topMenu ? (
         <>
           <TopMenuFiller />
-          <TopMenuContainer>
+          <TopMenuContainer background={topMenu?.background}>
             {sideMenu && !disableToggleSideMenu ? (
               <Button
                 icon={<List className="ryfrea--nav-button" />}
@@ -290,9 +291,11 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const TopMenuContainer = styled.div`
+const TopMenuContainer = styled.div<{
+  background?: string;
+}>`
   display: flex;
-  background: var(--c-ui-04);
+  background: ${(props) => props.background ?? "var(--c-ui-04)"};
   position: fixed;
   z-index: 99;
   top: 0;

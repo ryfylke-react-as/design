@@ -88,7 +88,7 @@ export function Switch({
 const iconAnim = keyframes`
   from {
     opacity:0;
-    transform:rotate(180deg);
+    transform:rotate(90deg);
   }
 `;
 

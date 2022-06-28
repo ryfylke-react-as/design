@@ -131,6 +131,7 @@ function App() {
       }}
       topMenu={{
         title: <a href="/">Ryfrea Components</a>,
+        background: isDM ? "#64385e" : "#6937fe",
         actions: [
           <Switch
             checked={isDM}
