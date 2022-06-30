@@ -1,3 +1,4 @@
+import { CodePreview } from "../components/demo/CodePreview";
 import { ColorGrid, DemoContainer } from "../demo.styles";
 import tokens from "../tokens";
 import { ColorToken } from "../types";
@@ -43,6 +44,25 @@ export function ColorsDemo({
       <ColorGrid>{dangerColors.map(colorMapper)}</ColorGrid>
       <ColorGrid>{primaryColors.map(colorMapper)}</ColorGrid>
       <ColorGrid>{focusColors.map(colorMapper)}</ColorGrid>
+      <CodePreview
+        code={`body {\n${Object.keys(tokens.colors.lm)
+          .map(
+            (colorName) =>
+              `  --c-${colorName}: ${
+                tokens.colors.lm[colorName as ColorToken]
+              };\n`
+          )
+          .join("")}}\n\nbody.dm {\n${Object.keys(
+          tokens.colors.dm
+        )
+          .map(
+            (colorName) =>
+              `  --c-${colorName}: ${
+                tokens.colors.lm[colorName as ColorToken]
+              };\n`
+          )
+          .join("")}}`}
+      />
     </DemoContainer>
   );
 }

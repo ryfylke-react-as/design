@@ -68,7 +68,9 @@ export function Button({
       size={size}
       type={rest?.type ?? "button"}
       ref={buttonRef}
-      onMouseMove={onMouseMove}
+      onMouseMove={
+        disableMouseTrack ? rest?.onMouseMove : onMouseMove
+      }
       disableMouseTrack={disableMouseTrack}
       hideFocus={hideFocus}
       {...rest}
