@@ -41,7 +41,8 @@ img {
 body,
 input,
 select,
-option {
+option,
+textarea {
   font-family: "Ubuntu", sans-serif;
 }
 

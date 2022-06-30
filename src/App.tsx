@@ -16,11 +16,18 @@ import { SpacingPage } from "./pages/spacing";
 import { ColorPage } from "./pages/color";
 import { LayoutPage } from "./pages/layout";
 import { WbSunny, NightsStay } from "@material-ui/icons";
-import { useEffect, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import { TextareaDemo } from "./demos/TextareaDemo";
+import tokens from "./tokens";
 
 function App() {
   const { isDM, setDM } = useDM();
+  const [isRound, setRound] = useState(
+    localStorage.getItem("ryfrea--isplayful") === "false"
+      ? false
+      : true
+  );
   const isTooSmall = useMediaQuery({
     query: "(max-width: 800px)",
   });
@@ -42,6 +49,13 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "ryfrea--isplayful",
+      isRound.toString()
+    );
+  }, [isRound]);
 
   useEffect(() => {
     if (isTooSmall && sideMenuOpen) {
@@ -109,6 +123,11 @@ function App() {
                 id: "textinput",
               },
               {
+                text: "Textarea",
+                to: "/components/textarea",
+                id: "textarea",
+              },
+              {
                 text: "Select",
                 to: "/components/select",
                 id: "select",
@@ -143,11 +162,28 @@ function App() {
         ],
       }}
     >
-      <Container key={location.pathname}>
+      <Container
+        key={location.pathname}
+        style={
+          {
+            "--roundness-01": isRound
+              ? tokens.roundness[0]
+              : "0px",
+          } as CSSProperties
+        }
+      >
         <List>
           <GlobalStyles />
           <Routes>
-            <Route path="/" element={<IndexPage />} />
+            <Route
+              path="/"
+              element={
+                <IndexPage
+                  isRound={isRound}
+                  setRound={setRound}
+                />
+              }
+            />
             <Route
               path="/typography"
               element={<TypographyPage />}
@@ -162,6 +198,10 @@ function App() {
             <Route
               path="/components/textinput"
               element={<TextInputDemo />}
+            />
+            <Route
+              path="/components/textarea"
+              element={<TextareaDemo />}
             />
             <Route
               path="/components/select"
