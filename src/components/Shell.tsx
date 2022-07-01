@@ -139,16 +139,13 @@ export function Shell({
         "click",
         clickOutsideListener
       );
-      console.log("Added");
     } else {
-      console.log("Removed");
       document.body.removeEventListener(
         "click",
         clickOutsideListener
       );
     }
     return () => {
-      console.log("Removed");
       document.body.removeEventListener(
         "click",
         clickOutsideListener

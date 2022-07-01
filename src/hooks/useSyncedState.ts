@@ -72,7 +72,6 @@ export function useSyncedState<T>(
         param === null ||
         opts.param_control.transform_get(param) !== value
       ) {
-        console.log("not equal");
         const newParams = new URLSearchParams(location.search);
         newParams.set(
           opts.param_control.key,
@@ -101,7 +100,6 @@ export function useSyncedState<T>(
       if (param !== null) {
         const newValue = opts.param_control.transform_get(param);
         if (newValue !== value) {
-          console.log("Gonna set");
           setValue(newValue);
         }
       }
