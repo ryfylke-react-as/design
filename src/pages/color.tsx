@@ -12,7 +12,7 @@ export function ColorPage() {
         Color
       </Header>
       <div>
-        <Text kind="p">Work in progress.</Text>
+        <Text kind="body">Work in progress.</Text>
       </div>
       <ColorsDemo isDm={isDM} />
       <NavigateButton to="/layout">Layout</NavigateButton>

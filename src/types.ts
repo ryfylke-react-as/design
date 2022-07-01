@@ -4,8 +4,9 @@ export type FontKind =
   | "h1"
   | "h2"
   | "h3"
-  | "sub"
-  | "p"
+  | "subtitle"
+  | "body"
+  | "small"
   | "label"
   | "code"
   | "button";

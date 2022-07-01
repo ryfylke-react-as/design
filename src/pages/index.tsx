@@ -21,10 +21,16 @@ export function IndexPage({ isRound, setRound }: Props) {
         A collection of design-tokens (spacing, colors,
         typography) and React components.
       </Text>
+      <Header order={4}>Variant</Header>
       <Switch
-        label={isRound ? "Playful" : "Sharp"}
+        label="Playful"
         checked={isRound}
-        onChange={setRound}
+        onChange={() => setRound(true)}
+      />
+      <Switch
+        label="Sharp"
+        checked={!isRound}
+        onChange={() => setRound(false)}
       />
       <NavigateButton to="/typography">
         Typography

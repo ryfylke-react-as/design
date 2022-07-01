@@ -9,6 +9,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useControlledState } from "../hooks/useControlledState";
+import { useSyncedState } from "../hooks/useSyncedState";
 import {
   applyFocusStyles,
   applyFontKind,
@@ -46,7 +47,7 @@ type ShellProps = {
   expandedMenuItems?: string[];
   onExpandedMenuItemsChange?: (value: string[]) => void;
   sideMenuOpen?: boolean;
-  onSideMenuOpenChange?: (value: boolean) => void;
+  onSideMenuOpenChange?: (value: boolean | undefined) => void;
 };
 
 export function Shell({
@@ -71,11 +72,13 @@ export function Shell({
       onExpandedMenuItemsChange
     );
   const navigate = useNavigate();
-  const [sideMenuOpen, setSideMenuOpen] = useControlledState(
-    defaultOpen ?? false,
-    propSideMenuOpen,
-    onSideMenuOpenChange
-  );
+  const [sideMenuOpen, setSideMenuOpen] = useSyncedState({
+    initial_value: defaultOpen ?? false,
+    controls: {
+      value: propSideMenuOpen,
+      setValue: onSideMenuOpenChange,
+    },
+  });
 
   const toggleMenuItem = (id: string) => {
     setExpandedMenuItems(
@@ -229,7 +232,7 @@ const NavMenuItem = styled.button<{
 }>`
   border: none;
   text-align: left;
-  ${applyFontKind("label")}
+  ${applyFontKind("small")}
   color: var(--c-text-02);
   background: ${(props) =>
     props.active ? "var(--c-ui-02)" : "transparent"};

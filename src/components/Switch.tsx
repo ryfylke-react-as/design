@@ -50,7 +50,10 @@ export function Switch({
   };
 
   return (
-    <SwitchContainer {...spread(containerProps)}>
+    <SwitchContainer
+      checked={checked}
+      {...spread(containerProps)}
+    >
       <StyledInput
         checked={checked}
         onChange={check}
@@ -145,6 +148,14 @@ const StyledSwitch = styled.label<{
   &:focus {
     outline-offset: 2px;
   }
+  &:active {
+    &::after {
+      transform: ${(props) =>
+        props.checked
+          ? "translate(calc(var(--width) - 100%), -50%) scale(1.1)"
+          : "translate(0, -50%) scale(1.1)"};
+    }
+  }
 `;
 
 const StyledInput = styled.input`
@@ -162,14 +173,22 @@ const StyledInput = styled.input`
   left: 0.7rem;
 `;
 
-const SwitchContainer = styled.div`
+const SwitchContainer = styled.div<{
+  checked?: boolean;
+}>`
   position: relative;
   display: flex;
   gap: var(--s-03);
+  align-items: center;
   label {
     cursor: pointer;
     user-select: none;
-    ${applyFontKind("label")}
+    ${applyFontKind("small")}
     color:var(--c-text-02);
   }
+  &:active ${StyledSwitch}::after {
+      transform: ${(props) =>
+        props.checked
+          ? "translate(calc(var(--width) - 100%), -50%) scale(1.1)"
+          : "translate(0, -50%) scale(1.1)"};
 `;

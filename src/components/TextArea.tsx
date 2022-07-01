@@ -58,6 +58,7 @@ type StyledContainerProps = {
 
 const StyledContainer = styled.div<StyledContainerProps>`
   position: relative;
+  max-width: 100%;
   &::after {
     content: "";
     position: absolute;
@@ -104,7 +105,7 @@ const StyledTextArea = styled.textarea<{
   invalid?: boolean;
   resizable?: boolean;
 }>`
-  ${applyFontKind("label")}
+  ${applyFontKind("small")}
   color:var(--c-text-02);
   background: ${(props) =>
     props.inverted ? "var(--c-ui-bg)" : "var(--c-ui-01)"};
@@ -112,6 +113,7 @@ const StyledTextArea = styled.textarea<{
   border-radius: var(--roundness-01);
   border: none;
   box-shadow: 0px 1px 0px var(--c-ui-02);
+  max-width: 100%;
   &:disabled {
     background: ${(props) =>
       props.inverted

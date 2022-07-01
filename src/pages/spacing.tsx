@@ -10,7 +10,7 @@ export function SpacingPage() {
         Spacing
       </Header>{" "}
       <div>
-        <Text kind="p">
+        <Text kind="body">
           Used for margins & paddings. You should try to only
           ever use these values when it comes to spacing in your
           application.

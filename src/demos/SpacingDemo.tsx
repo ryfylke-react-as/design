@@ -45,26 +45,6 @@ export function SpacingDemo(): JSX.Element {
               </div>
             ))}
           </div>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "row-reverse",
-              justifyContent: "flex-end",
-              gap: "var(--s-02)",
-              height: 408.5,
-            }}
-          >
-            {Object.keys(tokens.spacing).map((level) => (
-              <div
-                style={{
-                  width: tokens.spacing[+level],
-                  background: "var(--c-ui-03)",
-                  height: 408.5,
-                }}
-              ></div>
-            ))}
-          </div>
         </div>
       </ComponentBox>
       <Text>Base font size (1rem) = 16px.</Text>

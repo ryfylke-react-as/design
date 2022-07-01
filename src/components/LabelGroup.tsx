@@ -54,11 +54,13 @@ export const StyledLabel = styled.label<LabelProps>`
   flex-direction: column;
   gap: var(--s-02);
   width: min-content;
+  max-width: 100%;
   &:focus-within {
     color: var(--c-focus-01);
   }
   > div {
     width: min-content;
+    max-width: 100%;
   }
   ${(props) =>
     props.invalid &&

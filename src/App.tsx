@@ -20,18 +20,27 @@ import { CSSProperties, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { TextareaDemo } from "./demos/TextareaDemo";
 import tokens from "./tokens";
+import { useSyncedState } from "./hooks/useSyncedState";
 
 function App() {
   const { isDM, setDM } = useDM();
-  const [isRound, setRound] = useState(
-    localStorage.getItem("ryfrea--isplayful") === "false"
-      ? false
-      : true
-  );
+  const [isRound, setRound] = useSyncedState({
+    initial_value: true,
+    localStorage: {
+      key: "ryfrea--isplayful",
+      transform_get(value) {
+        return value === "true";
+      },
+      transform_set(value) {
+        return value ? value.toString() : "false";
+      },
+    },
+  });
   const isTooSmall = useMediaQuery({
     query: "(max-width: 800px)",
   });
-  const [sideMenuOpen, setSideMenuOpen] = useState(true);
+  const [sideMenuOpen, setSideMenuOpen] =
+    useState<boolean | undefined>(true);
   const [expandedMenuItems, setExpandedMenuItems] = useState<
     string[]
   >([]);
@@ -47,15 +56,9 @@ function App() {
         setSideMenuOpen(true);
       }
     }
+    window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
-
-  useEffect(() => {
-    localStorage.setItem(
-      "ryfrea--isplayful",
-      isRound.toString()
-    );
-  }, [isRound]);
 
   useEffect(() => {
     if (isTooSmall && sideMenuOpen) {
@@ -150,7 +153,6 @@ function App() {
       }}
       topMenu={{
         title: <a href="/">Ryfrea Components</a>,
-        background: isDM ? "#64385e" : "#6937fe",
         actions: [
           <Switch
             checked={isDM}
@@ -179,7 +181,7 @@ function App() {
               path="/"
               element={
                 <IndexPage
-                  isRound={isRound}
+                  isRound={isRound ?? false}
                   setRound={setRound}
                 />
               }

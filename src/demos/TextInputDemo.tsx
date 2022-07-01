@@ -14,7 +14,7 @@ export function TextInputDemo() {
       <Header order={1}>TextInput</Header>
       <Text
         as="p"
-        kind="p"
+        kind="body"
         style={{ marginBottom: "var(--s-03)" }}
       >
         Use "inverted" version when on top of {"`ui-01`"}

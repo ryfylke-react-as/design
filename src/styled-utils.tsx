@@ -115,7 +115,7 @@ export function applyFontKind(
         line-height: auto;
         color: var(--c-text-01);
       `;
-    case "sub":
+    case "subtitle":
       return css`
         font-size: 19.2px;
         font-weight: bold;
@@ -123,7 +123,7 @@ export function applyFontKind(
         line-height: auto;
         color: var(--c-text-01);
       `;
-    case "p":
+    case "body":
       return css`
         font-size: 16px;
         line-height: 1.5em;
@@ -133,6 +133,14 @@ export function applyFontKind(
         color: var(--c-text-01);
       `;
     case "label":
+      return css`
+        font-size: 12px;
+        line-height: 1.25em;
+        letter-spacing: -0.28px;
+        font-weight: normal;
+        color: var(--c-text-01);
+      `;
+    case "small":
       return css`
         font-size: 14px;
         line-height: 1.25em;

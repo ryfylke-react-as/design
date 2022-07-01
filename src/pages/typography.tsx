@@ -10,7 +10,7 @@ export function TypographyPage() {
         Typography
       </Header>
       <div>
-        <Text kind="p">
+        <Text kind="body">
           We use the "Ubuntu" and "Ubuntu Mono" font families.{" "}
           <Text kind="code" as="span">
             text-01

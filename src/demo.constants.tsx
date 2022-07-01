@@ -11,9 +11,10 @@ export const typographyKinds: Array<{
   { as: "h1", kind: "h1", text: "Header 1" },
   { as: "h2", kind: "h2", text: "Header 2" },
   { as: "h3", kind: "h3", text: "Header 3" },
-  { as: "strong", kind: "sub", text: "Subtitle" },
-  { as: "p", kind: "p", text: "Paragraph" },
+  { as: "strong", kind: "subtitle", text: "Subtitle" },
+  { as: "p", kind: "body", text: "Body" },
   { as: "p", kind: "label", text: "Label" },
+  { as: "p", kind: "small", text: "Small" },
   { as: "p", kind: "code", text: "CODE { }" },
   { as: "p", kind: "button", text: "Button" },
 ];

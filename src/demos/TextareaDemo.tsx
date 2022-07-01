@@ -12,7 +12,7 @@ export function TextareaDemo() {
       <Header order={1}>Textarea</Header>
       <Text
         as="p"
-        kind="p"
+        kind="body"
         style={{ marginBottom: "var(--s-03)" }}
       >
         Use "inverted" version when on top of {"`ui-01`"}
@@ -33,6 +33,7 @@ export function TextareaDemo() {
           invalid={!isValid ? "20 characters minimum" : ""}
           style={{
             width: 500,
+            maxWidth: "100%",
           }}
         >
           {value}
@@ -42,6 +43,7 @@ export function TextareaDemo() {
           placeholder="Disabled, resizable = false"
           style={{
             width: 500,
+            maxWidth: "100%",
           }}
           disabled
           resizable={false}
@@ -53,6 +55,7 @@ export function TextareaDemo() {
           placeholder="Inverted"
           style={{
             width: 500,
+            maxWidth: "100%",
           }}
           inverted
         />

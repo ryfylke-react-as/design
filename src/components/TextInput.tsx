@@ -87,5 +87,5 @@ const StyledInput = styled.input<StyledProps>`
     color: var(--c-text-03);
   }
   ${applyFocusStyles(false)}
-  ${applyFontKind("p")}
+  ${applyFontKind("small")}
 `;

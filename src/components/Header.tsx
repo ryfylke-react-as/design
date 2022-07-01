@@ -29,7 +29,7 @@ export const H3 = styled.h3`
 `;
 
 export const Subtitle = styled.h4`
-  ${applyFontKind("sub")}
+  ${applyFontKind("subtitle")}
 `;
 
 const ORDER_TO_ELEMENT: Record<

@@ -10,7 +10,7 @@ export function LayoutPage() {
         Layout
       </Header>
       <div>
-        <Text kind="p">
+        <Text kind="body">
           Use a combination of our spacing tokens and ui-colors
           to achieve hierarchy in nested layouts.
         </Text>

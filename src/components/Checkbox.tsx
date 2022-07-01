@@ -166,10 +166,11 @@ const CheckboxContainer = styled.div<{
   position: relative;
   display: flex;
   gap: var(--s-03);
+  align-items: center;
   label {
     cursor: pointer;
     user-select: none;
-    ${applyFontKind("label")}
+    ${applyFontKind("small")}
     color:var(--c-text-02);
   }
   &:hover {
@@ -180,6 +181,16 @@ const CheckboxContainer = styled.div<{
           : props.inverted
           ? "var(--c-ui-01)"
           : "var(--c-ui-02)"};
+    }
+  }
+  &:active {
+    ${StyledCheckbox} {
+      background: ${(props) =>
+        props.checked
+          ? "var(--c-focus-01)"
+          : props.inverted
+          ? "var(--c-ui-02)"
+          : "var(--c-ui-01)"};
     }
   }
   ${applyFocusWithinStyles}

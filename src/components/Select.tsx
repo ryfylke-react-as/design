@@ -312,7 +312,7 @@ const SelectButton = styled.button<SelectButtonProps>`
   padding: var(--s-03) var(--s-05);
   height: 36px;
   cursor: pointer;
-  ${applyFontKind("label")}
+  ${applyFontKind("small")}
   ${applyFocusStyles(false)}
   border-radius:var(--roundness-01);
   user-select: text;
@@ -332,7 +332,7 @@ const SelectButton = styled.button<SelectButtonProps>`
 `;
 
 const Placeholder = styled.span`
-  color: var(--c-text-02);
+  color: var(--c-text-03);
 `;
 
 const optionsContainerAnim = keyframes`
@@ -378,7 +378,7 @@ const OptionsContainer = styled.div<OptionsContainerProps>`
       cursor: pointer;
       text-align: left;
       padding: var(--s-03) var(--s-05);
-      ${applyFontKind("label")}
+      ${applyFontKind("small")}
       ${applyFocusStyles(false)}
       &:focus {
         outline-offset: -3px;
