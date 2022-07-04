@@ -1,4 +1,5 @@
-import { ArrowDropDown, List } from "@material-ui/icons";
+import React from "react";
+import { ArrowDropDown, List } from "@styled-icons/material";
 import {
   ReactElement,
   ReactNode,
@@ -53,7 +54,6 @@ type ShellProps = {
 export function Shell({
   topMenu,
   sideMenu,
-  userMenu,
   children,
   defaultOpen,
   onSideMenuOpen,

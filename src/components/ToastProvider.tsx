@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { TOAST_EVENT } from "../constants";
 import { useListener } from "../hooks/useListener";
@@ -209,23 +209,6 @@ const ToastItemContainer = styled.button<ToastItemContainerProps>`
   }
   &:hover {
     transform: translateX(-5px);
-  }
-  &::after {
-    transition: transform 0.2s var(--ease-01);
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: var(--roundness-01);
-    background: ${({ kind }) => KIND_TO_BG[kind]};
-    opacity: 0.8;
-    position: absolute;
-    content: "";
-    transform: translate(4px, 4px);
-    z-index: -1;
-  }
-  &:hover::after {
-    transform: translate(9px, 4px);
   }
   ${applyFontKind("label")}
   color: ${({ kind }) => KIND_TO_COLOR[kind]};

@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   ReactNode,
   useEffect,
@@ -11,17 +11,25 @@ type DarkmodeProviderProps = {
   children: ReactNode;
 };
 
-const lsDM = localStorage.getItem(DARKMODE_LOCALSTORAGE_TOKEN);
+const lsDM =
+  typeof window !== "undefined"
+    ? localStorage.getItem(DARKMODE_LOCALSTORAGE_TOKEN)
+    : null;
 const parsedLSDM = lsDM ? JSON.parse(lsDM) : null;
 const defaultDarkmodeValue =
   typeof parsedLSDM === "boolean"
     ? parsedLSDM
+    : typeof window === "undefined"
+    ? false
     : window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-export const DarkmodeContext = createContext({
+export const DarkmodeContext = createContext<{
+  isDM: boolean;
+  setDM: (value: boolean) => void;
+}>({
   isDM: defaultDarkmodeValue,
-  setDM: (val: boolean) => {},
+  setDM: () => {},
 });
 
 export function DarkmodeProvider({
@@ -30,10 +38,10 @@ export function DarkmodeProvider({
   const [isDM, setDM] = useState(defaultDarkmodeValue);
 
   useEffect(() => {
-    if (isDM) {
+    if (isDM && typeof window !== "undefined") {
       localStorage.setItem(DARKMODE_LOCALSTORAGE_TOKEN, "true");
       document.body.classList.add("dm");
-    } else {
+    } else if (typeof window !== "undefined") {
       localStorage.setItem(DARKMODE_LOCALSTORAGE_TOKEN, "false");
       document.body.classList.remove("dm");
     }

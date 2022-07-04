@@ -1,4 +1,8 @@
-import { BaseHTMLAttributes, useRef, useState } from "react";
+import React, {
+  BaseHTMLAttributes,
+  useRef,
+  useState,
+} from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useID } from "../hooks/useID";
 import {

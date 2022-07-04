@@ -1,4 +1,4 @@
-import { ArrowDropDown } from "@material-ui/icons";
+import { ArrowDropDown } from "@styled-icons/material";
 import React, {
   ReactNode,
   BaseHTMLAttributes,

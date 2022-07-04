@@ -1,4 +1,4 @@
-import { ElementType, InputHTMLAttributes } from "react";
+import React, { ElementType, InputHTMLAttributes } from "react";
 import styled, { StyledComponent } from "styled-components";
 import { applyFontKind } from "../styled-utils";
 import { FontKind } from "../types";
@@ -14,23 +14,23 @@ interface TextProps
   as?: ElementType;
 }
 
-export const Paragraph = styled.span`
+export const ParagraphText = styled.span`
   ${applyFontKind("body")}
 `;
 
-export const Label = styled.span`
+export const LabelText = styled.span`
   ${applyFontKind("label")}
 `;
 
-export const Code = styled.span`
+export const CodeText = styled.span`
   ${applyFontKind("code")}
 `;
 
-export const Button = styled.span`
+export const ButtonText = styled.span`
   ${applyFontKind("button")}
 `;
 
-export const Small = styled.span`
+export const SmallText = styled.span`
   ${applyFontKind("small")}
 `;
 
@@ -38,11 +38,11 @@ const KIND_TO_ELEMENT: Record<
   TextKind,
   StyledComponent<any, any>
 > = {
-  body: Paragraph,
-  label: Label,
-  small: Small,
-  code: Code,
-  button: Button,
+  body: ParagraphText,
+  label: LabelText,
+  small: SmallText,
+  code: CodeText,
+  button: ButtonText,
 };
 
 export function Text({ kind = "body", ...props }: TextProps) {

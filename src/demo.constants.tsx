@@ -1,4 +1,4 @@
-import { Check, Save, SaveAlt } from "@material-ui/icons";
+import { Check, Save, SaveAlt } from "@styled-icons/material";
 import { ElementType, ReactNode } from "react";
 import { toast } from "./components/ToastProvider";
 import { FontKind, ButtonKind, ButtonSize } from "./types";

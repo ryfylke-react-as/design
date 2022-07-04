@@ -1,4 +1,4 @@
-import { ArrowRightAlt } from "@material-ui/icons";
+import { ArrowRightAlt } from "@styled-icons/material";
 import { useNavigate } from "react-router-dom";
 import { Button, ButtonProps } from "../Button";
 

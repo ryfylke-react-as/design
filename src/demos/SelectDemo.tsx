@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check } from "@material-ui/icons";
+import { Check } from "@styled-icons/material";
 import { Header } from "../components/Header";
 import { FormGroup } from "../components/FormGroup";
 import { Button } from "../components/Button";

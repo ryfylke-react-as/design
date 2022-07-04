@@ -1,4 +1,4 @@
-import { Add, AccountBalanceSharp } from "@material-ui/icons";
+import { Add, Remove } from "@styled-icons/material";
 import { Header } from "../components/Header";
 import { Switch } from "../components/Switch";
 import { DemoContainer, ComponentBox } from "../demo.styles";
@@ -28,7 +28,7 @@ export function SwitchDemo() {
         <Switch
           label="Switch (with icons)"
           checkedIcon={<Add />}
-          uncheckedIcon={<AccountBalanceSharp />}
+          uncheckedIcon={<Remove />}
         />
       </ComponentBox>
     </DemoContainer>

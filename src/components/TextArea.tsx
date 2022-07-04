@@ -1,4 +1,4 @@
-import { DragIndicator } from "@material-ui/icons";
+import { DragIndicator } from "@styled-icons/material";
 import React, { BaseHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
 import {

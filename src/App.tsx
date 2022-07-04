@@ -15,7 +15,7 @@ import { TypographyPage } from "./pages/typography";
 import { SpacingPage } from "./pages/spacing";
 import { ColorPage } from "./pages/color";
 import { LayoutPage } from "./pages/layout";
-import { WbSunny, NightsStay } from "@material-ui/icons";
+import { WbSunny, NightsStay } from "@styled-icons/material";
 import { CSSProperties, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { TextareaDemo } from "./demos/TextareaDemo";

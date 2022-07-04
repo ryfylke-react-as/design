@@ -1,3 +1,4 @@
+import React from "react";
 import { NavigateButton } from "../components/demo/NavigateButton";
 import { Header } from "../components/Header";
 import { Text } from "../components/Text";
