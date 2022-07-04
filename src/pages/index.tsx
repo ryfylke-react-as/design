@@ -1,3 +1,4 @@
+import { CodePreview } from "../components/demo/CodePreview";
 import { NavigateButton } from "../components/demo/NavigateButton";
 import { Header } from "../components/Header";
 import { Switch } from "../components/Switch";
@@ -21,7 +22,15 @@ export function IndexPage({ isRound, setRound }: Props) {
         A collection of design-tokens (spacing, colors,
         typography) and React components.
       </Text>
-      <Header order={4}>Variant</Header>
+      <Header order={2}>Installation</Header>
+      <CodePreview code={`yarn add @ryfylke-react/ui`} />
+      or...
+      <CodePreview code={`npm i @ryfylke-react/ui`} />
+      <Header order={2}>Variants</Header>
+      <Text>
+        Sharp will set the variable <code>roundness-01</code> to{" "}
+        <code>0px</code>.
+      </Text>
       <Switch
         label="Playful"
         checked={isRound}
